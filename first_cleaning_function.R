@@ -16,7 +16,7 @@ set.seed(23456)
 rki_sample <- rki_main[sample(.N, .N * 1)]
 
 # unique age-classes 0-4, 5-14, 15-34, 35-59, 60-79, 80+, unbekannt
-# Altersgruppe2: Always "Nicht übermittelt"
+# Altersgruppe2: Always "Nicht ?bermittelt"
 unique(rki_sample[, c("Altersgruppe", "Altersgruppe2")])
 
 # vector for changing bundeslaender-labels later
@@ -104,3 +104,27 @@ prakt_aggr_data <- merge(clean_divi_aggr, clean_casted_rki, by.x = "rep_date", b
 
 saveRDS(prakt_clean_data, "data/prakt_clean_data")
 saveRDS(prakt_aggr_data, "data/main_data")
+
+
+
+
+# continue_with_cleaning_main ---------------------------------------------
+
+main_data <- readRDS("data/main_data")
+# better colnames
+colnames(main_data)[1:9] <- paste(colnames(main_data)[1:9], "divi", sep = "_")
+seven_day_inz <- function(x, inhabitants = 83240000) {
+  assert_numeric(x)
+  inz <- numeric(0)
+  x_looping <- c(NA, NA, NA, x, NA, NA, NA)
+  vapply(seq_along(x) + 3, function(current_day) {
+    seven_day_seq <- seq(current_day - 3, current_day + 3)
+    sum(x_looping[seven_day_seq], na.rm = TRUE) * 100000/inhabitants
+  }, numeric(1))
+}
+
+
+
+
+
+
