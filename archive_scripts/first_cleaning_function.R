@@ -1,3 +1,5 @@
+# just works with data to big for github
+
 library(data.table)
 library(checkmate)
 
@@ -90,8 +92,7 @@ colnames(divi_main) <- c("rep_date", "id_substate", "number_locations", "number_
                          "cases_covid", "cases_covid_invasive", "beds_free", "beds_occupied", 
                          "beds_occupied_just_adults", "beds_free_just_adults")
 clean_divi <- divi_main[rep_date < "2021-01-31"]
-cnames_divi <- colnames(clean_divi)
-prakt_clean_data <- merge(clean_divi, clean_rki, by = "rep_date", all = TRUE)
+prakt_clean_data <- clean_divi[clean_rki, on = .(rep_date, id_substate)]
 setcolorder(prakt_clean_data, c("rep_date", "object_id", "state", "id_substate", "age_grouped",
                                 "gender", "number_cases", "number_case_death", "number_recover",
                                 "new_case_death", "is_onset_illnes", "ref_date", "number_locations",
@@ -99,11 +100,11 @@ setcolorder(prakt_clean_data, c("rep_date", "object_id", "state", "id_substate",
                                 "beds_occupied", "beds_free_just_adults", "beds_occupied_just_adults"))
 
 
-clean_divi_aggr <- clean_divi[, lapply(.SD, sum), .SDcols = cnames_divi[-c(1, 2)], by = rep_date]
+clean_divi_aggr <- clean_divi[, lapply(.SD, sum), .SDcols = colnames(clean_divi)[-c(1, 2)], by = rep_date]
 prakt_aggr_data <- merge(clean_divi_aggr, clean_casted_rki, by.x = "rep_date", by.y = "ref_date", all = TRUE)
-colnames(main_data)[1:9] <- paste(colnames(prakt_aggr_data)[1:9], "divi", sep = "_")
+colnames(prakt_aggr_data)[1:9] <- paste(colnames(prakt_aggr_data)[1:9], "divi", sep = "_")
 saveRDS(prakt_clean_data, "data/prakt_clean_data")
-saveRDS(main_data, "data/main_data")
+saveRDS(prakt_aggr_data, "data/main_data")
 
 
 
