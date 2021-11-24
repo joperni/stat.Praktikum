@@ -1,5 +1,6 @@
 library(data.table)
 library(tidyverse)
+library(checkmate)
 main_data <- readRDS("data/main_data")
 source("help_functions/seven_day_inzidenz.R")
 setDT(main_data)
