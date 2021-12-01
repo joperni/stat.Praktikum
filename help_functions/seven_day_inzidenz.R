@@ -2,6 +2,7 @@
 # input: x: numeric vector
 #        inhabitants: inhabitants in the current territory (default Germany)
 # output: numeric vector with length == length(x)
+library(checkmate)
 seven_day_inz <- function(x, inhabitants = 83240000) {
   assert_numeric(x)
   # make sure we dont iterate outside the limits of x

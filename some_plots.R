@@ -15,10 +15,10 @@ plot_overview <- main_data %>%
   geom_line(aes(y = seven_day_inz(total_death_cases), color = "Corona-Todesfälle")) +
   labs(title = "7-tageinszidenzen im Coronazusammenhang",
        x = "Zeit", y = "genormte Zahl")#+
-  # geom_line(aes(y = cases_covid_invasive)) +
-  # geom_line(aes(y = cases_covid_invasive)) +
-  # geom_line(aes(y = cases_covid_invasive)) +
-  
+# geom_line(aes(y = cases_covid_invasive)) +
+# geom_line(aes(y = cases_covid_invasive)) +
+# geom_line(aes(y = cases_covid_invasive)) +
+
 plot_rates <- main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
   geom_line(aes(y = seven_day_inz(total_death_cases) /seven_day_inz(total_cases), color = "deaths/cases")) +
