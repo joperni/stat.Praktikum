@@ -1,7 +1,6 @@
 library(checkmate)
 library(data.table)
 library(tidyverse)
-library(data.table)
 
 datensatz <- readRDS("data/prakt_clean_data")
 data.table(main_data)

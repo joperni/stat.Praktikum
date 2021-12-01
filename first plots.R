@@ -3,65 +3,25 @@ library(tidyverse)
 library(checkmate)
 main_data <- readRDS("data/main_data")
 source("help_functions/seven_day_inzidenz.R")
+source("examples_of_code/example_aggregating.R")
 setDT(main_data)
 cnames <- colnames(main_data)
 inhabitants <- 83240000
-#https://service.destatis.de/bevoelkerungspyramide/#!y=2020&a=60,80&g als Quelle für Altersgruppen
 
-#Inzidenzen
-#Altersgruppe 0-4
-main_data[, cases_0bis4 := sum(.SD),
-          .SDcols = cnames[grepl("A00-A04", cnames) & grepl("number_cases", cnames)], by = rep_date_divi]
-#Altersgruppe 5-14
-main_data[, cases_5bis14 := sum(.SD),
-          .SDcols = cnames[grepl("A05-A14", cnames) & grepl("number_cases", cnames)], by = rep_date_divi]
-#Altersgruppe 15-34
-main_data[, cases_15bis34 := sum(.SD),
-          .SDcols = cnames[grepl("A15-A34", cnames) & grepl("number_cases", cnames)], by = rep_date_divi]
-#Altersgruppe 35-59
-main_data[, cases_35bis59 := sum(.SD),
-          .SDcols = cnames[grepl("A35-A59", cnames) & grepl("number_cases", cnames)], by = rep_date_divi]
-#Altersgruppe 60-79
-main_data[, cases_60bis79 := sum(.SD),
-          .SDcols = cnames[grepl("A60-A79", cnames) & grepl("number_cases", cnames)], by = rep_date_divi]
-#Altersgruppe 80+
-main_data[, cases_über80 := sum(.SD),
-          .SDcols = cnames[grepl("A80+", cnames) & grepl("number_cases", cnames)], by = rep_date_divi]
-
-#Todesfälle
-#Altersgruppe 0-4
-main_data[, deaths_0bis4 := sum(.SD),
-          .SDcols = cnames[grepl("A00-A04", cnames) & grepl("number_case_death", cnames)], by = rep_date_divi]
-#Altersgruppe 5-14
-main_data[, deaths_5bis14 := sum(.SD),
-          .SDcols = cnames[grepl("A05-A14", cnames) & grepl("number_case_death", cnames)], by = rep_date_divi]
-#Altersgruppe 15-34
-main_data[, deaths_15bis34 := sum(.SD),
-          .SDcols = cnames[grepl("A15-A34", cnames) & grepl("number_case_death", cnames)], by = rep_date_divi]
-#Altersgruppe 35-59
-main_data[, deaths_35bis59 := sum(.SD),
-          .SDcols = cnames[grepl("A35-A59", cnames) & grepl("number_case_death", cnames)], by = rep_date_divi]
-#Altersgruppe 60-79
-main_data[, deaths_60bis79 := sum(.SD),
-          .SDcols = cnames[grepl("A60-A79", cnames) & grepl("number_case_death", cnames)], by = rep_date_divi]
-#Altersgruppe 80+
-main_data[, deaths_über80 := sum(.SD),
-          .SDcols = cnames[grepl("A80+", cnames) & grepl("number_case_death", cnames)], by = rep_date_divi]
 
 # 7-Tage-Inzidenz (einfach)
 main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz(total_cases, inhabitants))) +
+  geom_line(aes(y = seven_day_inz)) +
   labs(title = "7-Tage-Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
 # 7-Tage-Inzidenz (nach Altersgruppen) 
 main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz(cases_0bis4, inhabitants = 4000000)), color = "red") +
-  geom_line(aes(y = seven_day_inz(cases_5bis14, inhabitants = 7500000)), color = "blue") +
-  geom_line(aes(y = seven_day_inz(cases_15bis34, inhabitants = 19000000)), color = "green") +
-  geom_line(aes(y = seven_day_inz(cases_35bis59, inhabitants = 28800000)), color = "violet") +
-  geom_line(aes(y = seven_day_inz(cases_60bis79, inhabitants = 18200000)), color = "orange") +
-  geom_line(aes(y = seven_day_inz(cases_über80, inhabitants = 5900000)), color = "yellow") +
+  geom_line(aes(y = seven_day_inz_A00_A14), color = "blue") +
+  geom_line(aes(y = seven_day_inz_A15_A34), color = "green") +
+  geom_line(aes(y = seven_day_inz_A35_A59), color = "violet") +
+  geom_line(aes(y = seven_day_inz_A60_A79), color = "orange") +
+  geom_line(aes(y = seven_day_inz_A80), color = "yellow") +
   labs(title = "7-Tage-Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
 
 # Intensivbettenbelegung
@@ -73,7 +33,7 @@ main_data %>%
 # Intensivbettenbelegung als 7-Tage-Inzidenz (macht als Wert wenig Sinn in meinen Augen)
 main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz(cases_covid_divi, inhabitants))) +
+  geom_line(aes(y = seven_day_inz(cases_covid_divi))) +
   labs(title = "Intensivbettenbelegung", x = "Zeit", y = "belegte Betten als 7-Tage-Inzidenz")
 
 # Todesfälle (einfach)
@@ -85,31 +45,98 @@ main_data %>%
 # Todesfälle (nach Altersgruppen)
 main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = deaths_0bis4), color = "red") +
-  geom_line(aes(y = deaths_5bis14), color = "blue") +
-  geom_line(aes(y = deaths_15bis34), color = "green") +
-  geom_line(aes(y = deaths_35bis59), color = "violet") +
-  geom_line(aes(y = deaths_60bis79), color = "orange") +
-  geom_line(aes(y = deaths_über80), color = "yellow") +
+  geom_line(aes(y = A00_A14_death_cases), color = "blue") +
+  geom_line(aes(y = A15_A34_death_cases), color = "green") +
+  geom_line(aes(y = A35_A59_death_cases), color = "violet") +
+  geom_line(aes(y = A60_A79_death_cases), color = "orange") +
+  geom_line(aes(y = A80_death_cases), color = "yellow") +
   labs(title = "Todesfälle", x = "Zeit", y = "Todesfälle")
 
 # Todesfälle (einfach) als 7-Tage-Inzidenz (vllt. ohne Multiplizieren mit 100000/inhabitants)
 main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz(total_death_cases, inhabitants))) +
+  geom_line(aes(y = seven_day_death_inz)) +
   labs(title = "7-Tages-Inzidenz der Todesfälle", x = "Zeit", y = "Todesfälle")
 main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz(total_death_cases, inhabitants)*83240000/100000)) +
+  geom_line(aes(y = seven_day_death_inz*83240000/100000)) +
   labs(title = "7-Tages-Inzidenz der Todesfälle", x = "Zeit", y = "Todesfälle")
 
 # Todesfälle (nach Altersgruppen) als 7-Tage-Inzidenz (vllt. ohne Multiplizieren mit 100000/inhabitants)
 main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz(deaths_0bis4, inhabitants = 4000000)), color = "red") +
-  geom_line(aes(y = seven_day_inz(deaths_5bis14, inhabitants = 7500000)), color = "blue") +
-  geom_line(aes(y = seven_day_inz(deaths_15bis34, inhabitants = 19000000)), color = "green") +
-  geom_line(aes(y = seven_day_inz(deaths_35bis59, inhabitants = 28800000)), color = "violet") +
-  geom_line(aes(y = seven_day_inz(deaths_60bis79, inhabitants = 18200000)), color = "orange") +
-  geom_line(aes(y = seven_day_inz(deaths_über80, inhabitants = 5900000)), color = "yellow") +
+  geom_line(aes(y = seven_day_death_inz_A00_A14), color = "blue") +
+  geom_line(aes(y = seven_day_death_inz_A15_A34), color = "green") +
+  geom_line(aes(y = seven_day_death_inz_A35_A59), color = "violet") +
+  geom_line(aes(y = seven_day_death_inz_A60_A79), color = "orange") +
+  geom_line(aes(y = seven_day_death_inz_A80), color = "yellow") +
   labs(title = "7-Tages-Inzidenz der Todesfälle", x = "Zeit", y = "Todesfälle")
+
+# Vergleich der korrigierten und echten Inzidenz
+source("Praktikum.R")
+korr_inz_tot <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz)/CFR_jul_sep_total
+korr_inz_A00_A14 <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A00_A14)/CFR_jul_sep_A00_A14 #keine Toten -> keine Inzidenz
+korr_inz_A15_A34 <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A15_A34)/CFR_jul_sep_A15_A34
+korr_inz_A35_A59 <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A35_A59)/CFR_jul_sep_A35_A59
+korr_inz_A60_A79 <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A60_A79)/CFR_jul_sep_A60_A79
+korr_inz_A80 <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A80)/CFR_jul_sep_A80
+
+#Datensatz: Zeitraum Oktober bis Dezember
+data_okt_dez <- main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]
+test1 <- as.data.table(c(korr_inz_tot), na.rm = T)
+setnames(test1, c("V1"), c("korr_inz_tot"))
+test2 <- as.data.table(c(korr_inz_A00_A14), na.rm = T)
+setnames(test2, c("V1"), c("korr_inz_A00_A14"))
+test3 <- as.data.table(c(korr_inz_A15_A34), na.rm = T)
+setnames(test3, c("V1"), c("korr_inz_A15_A34"))
+test4 <- as.data.table(c(korr_inz_A35_A59), na.rm = T)
+setnames(test4, c("V1"), c("korr_inz_A35_A59"))
+test5 <- as.data.table(c(korr_inz_A60_A79), na.rm = T)
+setnames(test5, c("V1"), c("korr_inz_A60_A79"))
+test6 <- as.data.table(c(korr_inz_A80), na.rm = T)
+setnames(test6, c("V1"), c("korr_inz_A80"))
+test <- cbind(test1, test2, test3, test4, test5, test6)
+data_okt_dez <- cbind(data_okt_dez, test)
+
+#Plots
+data_okt_dez %>% 
+  ggplot(aes(x = rep_date_divi)) +
+  geom_line(aes(y = seven_day_inz_A15_A34), color = "green1") +
+  geom_line(aes(y = seven_day_inz_A35_A59), color = "violet") +
+  geom_line(aes(y = seven_day_inz_A60_A79), color = "orange1") +
+  geom_line(aes(y = seven_day_inz_A80), color = "yellow1") +
+  geom_line(aes(y = korr_inz_A15_A34), color = "green2") +
+  geom_line(aes(y = korr_inz_A35_A59), color = "red") +
+  geom_line(aes(y = korr_inz_A60_A79), color = "orange2") +
+  geom_line(aes(y = korr_inz_A80), color = "yellow2") +
+  labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
+#Altersgruppe 15-34
+data_okt_dez %>% 
+  ggplot(aes(x = rep_date_divi)) +
+  geom_line(aes(y = seven_day_inz_A15_A34), color = "green") +
+  geom_line(aes(y = korr_inz_A15_A34), color = "red") +
+  labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
+#Altersgruppe 35-59
+data_okt_dez %>% 
+  ggplot(aes(x = rep_date_divi)) +
+  geom_line(aes(y = seven_day_inz_A35_A59), color = "green") +
+  geom_line(aes(y = korr_inz_A35_A59), color = "red") +
+  labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
+#Altersgruppe 60-79
+data_okt_dez %>% 
+  ggplot(aes(x = rep_date_divi)) +
+  geom_line(aes(y = seven_day_inz_A60_A79), color = "green") +
+  geom_line(aes(y = korr_inz_A60_A79), color = "red") +
+  labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
+#Altersgruppe 80+
+data_okt_dez %>% 
+  ggplot(aes(x = rep_date_divi)) +
+  geom_line(aes(y = seven_day_inz_A80), color = "green") +
+  geom_line(aes(y = korr_inz_A80), color = "red") +
+  labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
+#Overall
+data_okt_dez %>% 
+  ggplot(aes(x = rep_date_divi)) +
+  geom_line(aes(y = seven_day_inz), color = "green") +
+  geom_line(aes(y = korr_inz_tot), color = "red") +
+  labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
