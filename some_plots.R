@@ -15,19 +15,10 @@ plot_overview <- main_data %>%
   geom_line(aes(y = seven_day_inz(total_death_cases), color = "Corona-Todesfälle")) +
   labs(title = "7-tageinszidenzen im Coronazusammenhang",
        x = "Zeit", y = "genormte Zahl")#+
-<<<<<<< HEAD
 # geom_line(aes(y = cases_covid_invasive)) +
 # geom_line(aes(y = cases_covid_invasive)) +
 # geom_line(aes(y = cases_covid_invasive)) +
 
-
-=======
-  # geom_line(aes(y = cases_covid_invasive)) +
-  # geom_line(aes(y = cases_covid_invasive)) +
-  # geom_line(aes(y = cases_covid_invasive)) +
-
-  
->>>>>>> 592b1c1a5ec6a05471a0cccfd57977045fb3294a
 plot_rates <- main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
   geom_line(aes(y = seven_day_inz(total_death_cases) /seven_day_inz(total_cases), color = "deaths/cases")) +
@@ -37,8 +28,4 @@ plot_rates <- main_data %>%
   geom_line(aes(y = seven_day_inz(cases_covid_divi) /seven_day_inz(beds_occupied_divi), color = "hosp_cases/beds_occ"))
 
 cor_plot <- ggcorrplot(cor(main_data["2020-04-25" < rep_date_divi][, c(2:8, 94:95)]))
-<<<<<<< HEAD
 p_values_cors <- cor_pmat(main_data["2020-04-25" < rep_date_divi][, c(2:8, 94:95)])
-=======
-p_values_cors <- cor_pmat(main_data["2020-04-25" < rep_date_divi][, c(2:8, 94:95)])
->>>>>>> 592b1c1a5ec6a05471a0cccfd57977045fb3294a

@@ -73,12 +73,4 @@ main_data$seven_day_death_inz_A60_A79 <- seven_day_inz(main_data$A60_A79_death_c
 
 main_data$seven_day_inz_A80 <- seven_day_inz(main_data$A80_cases, 5936434)
 main_data$seven_day_death_inz_A80 <- seven_day_inz(main_data$A80_death_cases, 5936434)
-<<<<<<< HEAD
-=======
 
-
-
-
-
-
->>>>>>> 592b1c1a5ec6a05471a0cccfd57977045fb3294a
