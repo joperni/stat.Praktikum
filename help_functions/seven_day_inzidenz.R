@@ -2,7 +2,8 @@
 # input: x: numeric vector
 #        inhabitants: inhabitants in the current territory (default Germany)
 # output: numeric vector with length == length(x)
-seven_day_inz <- function(x, inhabitants) {
+library(checkmate)
+seven_day_inz <- function(x, inhabitants = 83240000) {
   assert_numeric(x)
   # make sure we dont iterate outside the limits of x
   x_looping <- c(rep(NA, 6), x)
