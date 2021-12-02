@@ -25,20 +25,20 @@ data <- copy(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-
 # Gamma because smoothed (through 7-day Inzidenz) cases, arent "Zähldaten" &
 # log_normalverteilung doesnt fit very well (see playground_breakpoints.R)
 # making a list of models for all age groups
-list_gamma_sdi_modells <- lapply(paste(sdi_cases_colnames, " ~ rep_date_divi"), 
+list_gamma_sdi_models <- lapply(paste(sdi_cases_colnames, " ~ rep_date_divi"), 
                              function(formula) fit_gamma <- glm(data = data, formula, family = Gamma(link = "log")))
 
 # fit the segmented model on all models with no specified breakpoints
-list_seg_sdi_gamma <- lapply(list_gamma_modells, seg_function)
+list_seg_sdi_gamma <- lapply(list_gamma_sdi_models, seg_function)
 
 # fit the selgmented models on all models with the BIC criteria
-list_selg_sdi_gamma <- lapply(list_gamma_modells, selg_function)
+list_selg_sdi_gamma <- lapply(list_gamma_sdi_models, selg_function)
 
 # fit the segmented models on all models with the sequentiell BIC criteria from selgmented
-list_bic_seq_sdi <- Map(seq_bic_modell, list_gamma_modells, list_selg_gamma)
+list_bic_seq_sdi <- Map(seq_bic_modell, list_gamma_sdi_models, list_selg_sdi_gamma)
 
 # plot for all models
-plots_sdi <- Map(function_plot, list_seg_gamma, list_selg_gamma, list_bic_seq, sdi_cases_colnames)
+plots_sdi <- Map(function_plot, list_seg_sdi_gamma, list_selg_sdi_gamma, list_bic_seq_sdi, sdi_cases_colnames)
 #
 #
 
@@ -116,7 +116,7 @@ list_seg_death_gamma <- lapply(list_gamma_death_modells, seg_function)
 list_selg_death_gamma <- lapply(list_gamma_death_modells, selg_function)
 
 # fit the segmented models on all models with the sequentiell BIC criteria from selgmented
-list_bic_seq_death <- Map(seq_bic_modell, list_gamma_death_modells, list_selg_gamma)
+list_bic_seq_death <- Map(seq_bic_modell, list_gamma_death_modells, list_selg_death_gamma)
 
 # plot for all models
 plots_death <- Map(function_plot, list_seg_death_gamma, list_selg_death_gamma, list_bic_seq_death, sdi_deaths_colnames)
