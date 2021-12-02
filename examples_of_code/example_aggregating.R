@@ -1,6 +1,7 @@
 library(data.table)
 main_data <- readRDS("data/main_data")
 setDT(main_data)
+source("help_functions/seven_day_inzidenz.R")
 cnames <- colnames(main_data)
 
 main_data[, female_cases := sum(.SD),
@@ -57,6 +58,8 @@ main_data[, A00_A14_death_cases := sum(.SD),
 
 main_data$seven_day_inz <- seven_day_inz(main_data$total_cases)
 main_data$seven_day_death_inz <- seven_day_inz(main_data$total_death_cases)
+main_data$seven_day_hosp_inz <- seven_day_inz(main_data$beds_occupied_divi)
+
 
 main_data$seven_day_inz_A00_A14 <- seven_day_inz(main_data$A00_A14_cases, 11477737)
 main_data$seven_day_death_inz_A00_A14 <- seven_day_inz(main_data$A00_A14_death_cases, 11477737)
