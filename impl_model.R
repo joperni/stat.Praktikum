@@ -96,5 +96,12 @@ hist(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"]$sev
 gamma_hosp_model <- glm(data = data, seven_day_hosp_inz ~ rep_date_divi, family = Gamma(link = "log"))
 seg_host_gamma <- seg_function(gamma_hosp_model)
 selg_host_gamma <- selg_function(gamma_hosp_model)
-bic_seq_hosp <- seq_bic_modell(gamma_hosp_model, selg_host_gamma)
-plot <- function_plot(seg_host_gamma, selg_host_gamma, bic_seq_hosp, "Hospitalisierungsrate")
+bic_seq_hosp_gamma <- seq_bic_modell(gamma_hosp_model, selg_host_gamma)
+plot_hosp_gamma <- function_plot(seg_host_gamma, selg_host_gamma, bic_seq_hosp_gamma, "Hospitalisierungsrate")
+
+
+lm_hosp_model <- glm(data = data, seven_day_hosp_inz ~ rep_date_divi)
+seg_host_lm <- seg_function(lm_hosp_model)
+selg_host_lm <- selg_function(lm_hosp_model)
+bic_seq_hosp_lm <- seq_bic_modell(lm_hosp_model, selg_host_lm)
+plot_hosp_lm <- function_plot(seg_host_lm, selg_host_lm, bic_seq_hosp_lm, "Hospitalisierungsrate")
