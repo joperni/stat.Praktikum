@@ -20,8 +20,8 @@ seq_bic_modell <- function(modell, modell_selg) {
   # roving NAs
   logical_seq[is.na(logical_seq)] <- FALSE
   # picks first break point that is the last one which is smaller than before
-  n_breakpoints <- ifelse(all(logical_seq), 12, which(!logical_seq)[1] - 1)
-  segmented(modell, npsi = n_breakpoints, control = seg.control(fix.npsi = FALSE, n.boot = 0, tol = 1e-7,
+  n_breakpoints <- ifelse(all(logical_seq), 9, which(!logical_seq)[1])
+  segmented(modell, npsi = n_breakpoints, control = seg.control(fix.npsi = FALSE, n.boot = 0, tol = 1e-9,
                                                                 it.max = 200, K = 9, display = TRUE))
 }
 
