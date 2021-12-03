@@ -7,7 +7,8 @@ source("examples_of_code/example_aggregating.R")
 setDT(main_data)
 cnames <- colnames(main_data)
 inhabitants <- 83240000
-
+col_alter <- adjustcolor(col = c("blue", "green", "violet", "orange", "yellow"),
+                         alpha.f = 0.3)
 
 # 7-Tage-Inzidenz (einfach)
 main_data %>% 
@@ -15,14 +16,22 @@ main_data %>%
   geom_line(aes(y = seven_day_inz)) +
   labs(title = "7-Tage-Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
 # 7-Tage-Inzidenz (nach Altersgruppen) 
-main_data %>% 
+test_plot <- main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz_A00_A14), color = "blue") +
-  geom_line(aes(y = seven_day_inz_A15_A34), color = "green") +
-  geom_line(aes(y = seven_day_inz_A35_A59), color = "violet") +
-  geom_line(aes(y = seven_day_inz_A60_A79), color = "orange") +
-  geom_line(aes(y = seven_day_inz_A80), color = "yellow") +
-  labs(title = "7-Tage-Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
+  geom_line(aes(y = seven_day_inz_A00_A14, color = "black")) +
+  geom_line(aes(y = seven_day_inz_A15_A34, color = "yellow"), color = "yellow") +
+  geom_line(aes(y = seven_day_inz_A35_A59, color = "red"), color = "red") +
+  geom_line(aes(y = seven_day_inz_A60_A79, color = "violet"), color = "violet") +
+  geom_line(aes(y = seven_day_inz_A80, color = "red"), color = "red") +
+  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 400)) +
+  scale_color_manual(values = c(seven_day_inz_A00_A14 = "green", seven_day_inz_A15_A34 = "yellow", seven_day_inz_A35_A59 = "red",
+                                seven_day_inz_A60_A79 = "violet", seven_day_inz_A80 = "black")) +
+  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
+        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+test_plot
+
+ggsave("Plots/7-Tage-Inzidenz nach Alter.png", plot = test_plot, width = 20, height = 10, units = c("cm"))
 
 # Intensivbettenbelegung
 main_data %>% 
