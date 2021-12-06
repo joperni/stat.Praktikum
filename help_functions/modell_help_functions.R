@@ -8,7 +8,7 @@ inference_glm_seg <- function(modell) {
 
 seg_function <- function(modell) {
   segmented(modell, psi = NA, control = seg.control(fix.npsi = FALSE, n.boot = 0, tol = 1e-7,
-                                                    it.max = 200, K = 9, display = FALSE))}
+                                                    it.max = 400, K = 9, display = FALSE))}
 
 # probably is 6 better against overfitting
 selg_function <- function(modell) selgmented(modell, type = "bic", Kmax = 9, msg = TRUE)
@@ -20,9 +20,9 @@ seq_bic_modell <- function(modell, modell_selg) {
   # roving NAs
   logical_seq[is.na(logical_seq)] <- FALSE
   # picks first break point that is the last one which is smaller than before
-  n_breakpoints <- ifelse(all(logical_seq), 9, which(!logical_seq)[1])
+  n_breakpoints <- ifelse(all(logical_seq), 9, which(!logical_seq)[1] - 1)
   segmented(modell, npsi = n_breakpoints, control = seg.control(fix.npsi = FALSE, n.boot = 0, tol = 1e-9,
-                                                                it.max = 200, K = 9, display = TRUE))
+                                                                it.max = 400, K = 9, display = TRUE))
 }
 
 function_plot <- function(modell_1, modell_2, modell_3, title) {
