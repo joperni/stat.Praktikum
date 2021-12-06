@@ -7,7 +7,7 @@ source("examples_of_code/example_aggregating.R")
 setDT(main_data)
 cnames <- colnames(main_data)
 inhabitants <- 83240000
-col_alter <- adjustcolor(col = c("blue", "green", "violet", "orange", "yellow"),
+col_alter <- adjustcolor(col = c("black", "orange", "blue", "violet", "red"),
                          alpha.f = 0.3)
 main_data_divi <- main_data[rep_date_divi >= "2020-04-24"]
 
@@ -22,12 +22,12 @@ seven_day_alter <- main_data %>%
   geom_line(aes(y = seven_day_inz_A00_A14, color = "black")) +
   geom_line(aes(y = seven_day_inz_A15_A34), color = "orange") +
   geom_line(aes(y = seven_day_inz_A35_A59), color = "blue") +
-  geom_line(aes(y = seven_day_inz_A60_A79), color = "green") +
+  geom_line(aes(y = seven_day_inz_A60_A79), color = "violet") +
   geom_line(aes(y = seven_day_inz_A80), color = "red") +
   labs(x = "Zeit", y = "7-Tage-Inzidenz") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 400)) +
   scale_color_manual(values = c("0-14 Jahre" = "black", "15-34 Jahre" = "orange", "35-59 Jahre" = "blue",
-                                "60-79 Jahre" = "green", "ü80 Jahre" = "red")) +
+                                "60-79 Jahre" = "violet", "ü80 Jahre" = "red")) +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
 seven_day_alter
@@ -59,11 +59,11 @@ main_data %>%
 # Todesfälle (nach Altersgruppen)
 main_data %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = A00_A14_death_cases), color = "blue") +
-  geom_line(aes(y = A15_A34_death_cases), color = "green") +
-  geom_line(aes(y = A35_A59_death_cases), color = "violet") +
-  geom_line(aes(y = A60_A79_death_cases), color = "orange") +
-  geom_line(aes(y = A80_death_cases), color = "yellow") +
+  geom_line(aes(y = A00_A14_death_cases), color = "black") +
+  geom_line(aes(y = A15_A34_death_cases), color = "orange") +
+  geom_line(aes(y = A35_A59_death_cases), color = "blue") +
+  geom_line(aes(y = A60_A79_death_cases), color = "violet") +
+  geom_line(aes(y = A80_death_cases), color = "red") +
   labs(title = "Todesfälle", x = "Zeit", y = "Todesfälle")
 
 # Todesfälle (einfach) als 7-Tage-Inzidenz (vllt. ohne Multiplizieren mit 100000/inhabitants)
@@ -82,12 +82,12 @@ seven_death_alter <- main_data %>%
   geom_line(aes(y = seven_day_death_inz_A00_A14, color = "black")) +
   geom_line(aes(y = seven_day_death_inz_A15_A34), color = "orange") +
   geom_line(aes(y = seven_day_death_inz_A35_A59), color = "blue") +
-  geom_line(aes(y = seven_day_death_inz_A60_A79), color = "green") +
+  geom_line(aes(y = seven_day_death_inz_A60_A79), color = "violet") +
   geom_line(aes(y = seven_day_death_inz_A80), color = "red") +
   labs(x = "Zeit", y = "Todesfälle") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 85)) +
   scale_color_manual(values = c("0-14 Jahre" = "black", "15-34 Jahre" = "orange", "35-59 Jahre" = "blue",
-                                "60-79 Jahre" = "green", "ü80 Jahre" = "red")) +
+                                "60-79 Jahre" = "violet", "ü80 Jahre" = "red")) +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
 seven_death_alter
