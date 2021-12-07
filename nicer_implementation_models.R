@@ -57,7 +57,7 @@ ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, heig
 
 # for deaths now
 dt_deaths_fitted_vals <- dt_models[c(13, 15:18), lapply(model_bic_seq, function(model) model$fitted.values)]
-colnames(dt_deaths_fitted_vals) <- c(sdi_deaths_colnames)[c(1, 2:6)]
+colnames(dt_deaths_fitted_vals) <- c(sdi_deaths_colnames)[c(1, 3:6)]
 dt_deaths_fitted_vals[, time := data$rep_date_divi]
 fitted_vals_melt_deaths <- melt(dt_deaths_fitted_vals, id.vars = "time", value.name = "sdi")
 
