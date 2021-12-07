@@ -40,8 +40,8 @@ dt_models[, model_bic := lapply(base_model, selg_function)][
 
 # help data table for the plot. It contains the fitted values for each gamma model
 dt_cases_fitted_vals <- 
-  dt_models[1:6, lapply(model_bic_seq, function(model) model$fitted.values)]
-colnames(dt_cases_fitted_vals) <- c(sdi_cases_colnames)
+  dt_models[c(1, 3:6), lapply(model_bic_seq, function(model) model$fitted.values)]
+colnames(dt_cases_fitted_vals) <- c(sdi_cases_colnames)[c(1, 3:6)]
 dt_cases_fitted_vals[, time := data$rep_date_divi]
 fitted_vals_melt_cases <- melt(dt_cases_fitted_vals, id.vars = "time", value.name = "sdi")
 
@@ -56,8 +56,8 @@ cases_breakpoints <- fitted_vals_melt_cases %>%
 ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
 # for deaths now
-dt_deaths_fitted_vals <- dt_models[13:18, lapply(model_bic_seq, function(model) model$fitted.values)]
-colnames(dt_deaths_fitted_vals) <- c(sdi_deaths_colnames)
+dt_deaths_fitted_vals <- dt_models[c(13, 15:18), lapply(model_bic_seq, function(model) model$fitted.values)]
+colnames(dt_deaths_fitted_vals) <- c(sdi_deaths_colnames)[c(1, 2:6)]
 dt_deaths_fitted_vals[, time := data$rep_date_divi]
 fitted_vals_melt_deaths <- melt(dt_deaths_fitted_vals, id.vars = "time", value.name = "sdi")
 
