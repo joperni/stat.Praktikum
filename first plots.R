@@ -1,6 +1,7 @@
 library(data.table)
 library(tidyverse)
 library(checkmate)
+library(lubridate)
 main_data <- readRDS("data/main_data")
 source("help_functions/seven_day_inzidenz.R")
 source("examples_of_code/example_aggregating.R")

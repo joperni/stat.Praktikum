@@ -89,4 +89,3 @@ hosp_breakpoints <- dt_hosp_fitted_vals %>%
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
 ggsave("Plots/breakpoints_hosp.png", plot = hosp_breakpoints, width = 20, height = 10, units = c("cm"))
 
-
