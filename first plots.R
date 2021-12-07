@@ -47,14 +47,13 @@ main_data_divi %>%
   scale_y_continuous(labels = scales::comma,limits = c(0, 6000)) +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
-ggsave("Plots/intensivbettenbelegung.png", plot = betten, width = 20, height = 10, units = c("cm"))
 
 # Intensivbettenbelegung als 7-Tage-Inzidenz (macht als Wert wenig Sinn in meinen Augen)
 betten <- main_data_divi %>% 
   ggplot(aes(x = rep_date_divi)) +
   geom_line(aes(y = seven_day_hosp_inz)) +
   labs(x = "Zeit", y = "belegte Betten als 7-Tage-Inzidenz") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 30)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 50)) +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
 betten
