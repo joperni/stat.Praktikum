@@ -58,21 +58,17 @@ main_data[, A00_A14_death_cases := sum(.SD),
 
 main_data$seven_day_inz <- seven_day_inz(main_data$total_cases)
 main_data$seven_day_death_inz <- seven_day_inz(main_data$total_death_cases)
-main_data$seven_day_hosp_inz <- seven_day_inz(main_data$beds_occupied_divi)
+main_data$seven_day_hosp_inz <- seven_day_inz(main_data$cases_covid_invasive_divi)
 
 
 main_data$seven_day_inz_A00_A14 <- seven_day_inz(main_data$A00_A14_cases, 11477737)
-main_data$seven_day_death_inz_A00_A14 <- seven_day_inz(main_data$A00_A14_death_cases, 11477737)
-
 main_data$seven_day_inz_A15_A34 <- seven_day_inz(main_data$A15_A34_cases, 18921292)
-main_data$seven_day_death_inz_A15_A34 <- seven_day_inz(main_data$A15_A34_death_cases, 18921292)
-
 main_data$seven_day_inz_A35_A59 <- seven_day_inz(main_data$A35_A59_cases, 27600978)
-main_data$seven_day_death_inz_A35_A59 <- seven_day_inz(main_data$A35_A59_death_cases, 27600978)
-
 main_data$seven_day_inz_A60_A79 <- seven_day_inz(main_data$A60_A79_cases, 18153339)
-main_data$seven_day_death_inz_A60_A79 <- seven_day_inz(main_data$A60_A79_death_cases, 18153339)
-
 main_data$seven_day_inz_A80 <- seven_day_inz(main_data$A80_cases, 5936434)
-main_data$seven_day_death_inz_A80 <- seven_day_inz(main_data$A80_death_cases, 5936434)
 
+main_data$seven_day_death_inz_A00_A14 <- seven_day_inz(main_data$A00_A14_death_cases, 11477737)
+main_data$seven_day_death_inz_A15_A34 <- seven_day_inz(main_data$A15_A34_death_cases, 18921292)
+main_data$seven_day_death_inz_A35_A59 <- seven_day_inz(main_data$A35_A59_death_cases, 27600978)
+main_data$seven_day_death_inz_A60_A79 <- seven_day_inz(main_data$A60_A79_death_cases, 18153339)
+main_data$seven_day_death_inz_A80 <- seven_day_inz(main_data$A80_death_cases, 5936434)
