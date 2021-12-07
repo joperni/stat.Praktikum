@@ -41,4 +41,3 @@ dt_models[, model_bic := lapply(base_model, selg_function)][
 
 # help data table for the plot. It contains the fitted values for each gamma model
 
-
