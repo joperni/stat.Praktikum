@@ -12,13 +12,28 @@ library(cowplot)
 
 # Age_group_plot ----------------------------------------------------------
 
+# At first: Making data table with breakpoints, for all used models
+dt_breakpoints <- 
+  dt_models[c(1, 3:6, 13, 15:18, 25), model_bic_seq[[1]]$psi[, 2], by = formula]
+# for dcasting
 
+
+
+
+# plot for cases
+
+# Transforming data table for easier plotting 
+#
+# add fitted values to a data_frame
 dt_cases_fitted_vals <- 
   dt_models[c(1, 3:6), lapply(model_bic_seq, function(model) model$fitted.values)]
+# colnames
 colnames(dt_cases_fitted_vals) <- c(sdi_cases_colnames)[c(1, 3:6)]
+# add time column
 dt_cases_fitted_vals[, time := data$rep_date_divi]
 setnames(dt_cases_fitted_vals, c("seven_day_inz", "seven_day_inz_A15_A34", "seven_day_inz_A35_A59", "seven_day_inz_A60_A79",
                                  "seven_day_inz_A80"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
+# melting for easier plotting
 fitted_vals_melt_cases <- melt(dt_cases_fitted_vals, id.vars = "time", value.name = "sdi")
 
 cases_breakpoints <- fitted_vals_melt_cases %>%
