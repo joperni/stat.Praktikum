@@ -43,6 +43,8 @@ dt_cases_fitted_vals <-
   dt_models[c(1, 3:6), lapply(model_bic_seq, function(model) model$fitted.values)]
 colnames(dt_cases_fitted_vals) <- c(sdi_cases_colnames)[c(1, 3:6)]
 dt_cases_fitted_vals[, time := data$rep_date_divi]
+setnames(dt_cases_fitted_vals, c("seven_day_inz", "seven_day_inz_A15_A34", "seven_day_inz_A35_A59", "seven_day_inz_A60_A79",
+                             "seven_day_inz_A80"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
 fitted_vals_melt_cases <- melt(dt_cases_fitted_vals, id.vars = "time", value.name = "sdi")
 
 cases_breakpoints <- fitted_vals_melt_cases %>%
@@ -50,15 +52,18 @@ cases_breakpoints <- fitted_vals_melt_cases %>%
   geom_line() +
   labs(x = "Zeit", y = "7-Tage-Inzidenz") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 400)) +
-  scale_color_brewer(palette = "Paired") +
+  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+cases_breakpoints
 ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
 # for deaths now
 dt_deaths_fitted_vals <- dt_models[c(13, 15:18), lapply(model_bic_seq, function(model) model$fitted.values)]
 colnames(dt_deaths_fitted_vals) <- c(sdi_deaths_colnames)[c(1, 3:6)]
 dt_deaths_fitted_vals[, time := data$rep_date_divi]
+setnames(dt_deaths_fitted_vals, c("seven_day_death_inz", "seven_day_death_inz_A15_A34", "seven_day_death_inz_A35_A59", "seven_day_death_inz_A60_A79",
+                                "seven_day_death_inz_A80"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
 fitted_vals_melt_deaths <- melt(dt_deaths_fitted_vals, id.vars = "time", value.name = "sdi")
 
 deaths_breakpoints <- fitted_vals_melt_deaths %>%
@@ -66,7 +71,7 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
   geom_line() +
   labs(x = "Zeit", y = "7-Tage-Inzidenz Tode") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 80)) +
-  scale_color_brewer(palette = "Paired") +
+  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
 ggsave("Plots/breakpoints_deaths.png", plot = deaths_breakpoints, width = 20, height = 10, units = c("cm"))
