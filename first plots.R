@@ -8,14 +8,13 @@ source("examples_of_code/example_aggregating.R")
 setDT(main_data)
 cnames <- colnames(main_data)
 inhabitants <- 83240000
-col_alter <- adjustcolor(col = c("black", "orange", "blue", "violet", "red"),
-                         alpha.f = 0.3)
 main_data_divi <- main_data[rep_date_divi >= "2020-05-01"]
-
+farben <- c("Gesamt" = "#000000", "0-14 Jahre" = "#A6CEE3", "15-34 Jahre" = "#1F78B4",
+            "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "über 80 Jahre" = "#E31A1C")
 
 dt_seven_day_inz <- main_data[, c(1, 112, 115:119)]
 setnames(dt_seven_day_inz, c("seven_day_inz", "seven_day_inz_A00_A14", "seven_day_inz_A15_A34", "seven_day_inz_A35_A59", "seven_day_inz_A60_A79",
-                             "seven_day_inz_A80"), c("overall", "0-14 Jahre", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
+                             "seven_day_inz_A80"), c("Gesamt", "0-14 Jahre", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
 dt_seven_day_inz[, time := dt_seven_day_inz$rep_date_divi]
 dt_seven_day_inz <- dt_seven_day_inz[, -1]
 dt_seven_day_inz_melt <- melt(dt_seven_day_inz, id.vars = "time", value.name = "inz")
@@ -28,37 +27,43 @@ main_data %>%
   geom_line(aes(y = seven_day_inz)) +
   labs(title = "7-Tage-Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
 # 7-Tage-Inzidenz (nach Altersgruppen) 
-#mir gefällt die Farbpalette nicht
 seven_day_alter <- dt_seven_day_inz_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 400)) +
-  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  scale_color_manual(values = farben, name = "Altersgruppe") +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01")),
+               date_labels = "%d. %B %Y")
 seven_day_alter
 ggsave("Plots/7-Tage-Inzidenz nach Alter.png", plot = seven_day_alter, width = 20, height = 10, units = c("cm"))
 
 # Intensivbettenbelegung
-main_data_divi %>% 
+betten <- main_data_divi %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = cases_covid_divi)) +
-  labs(x = "Zeit", y = "belegte Betten") +
+  geom_line(aes(y = cases_covid_divi), color = "#000000") +
+  labs(x = "Zeit", y = "belegte Intensivbetten") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 6000)) +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-05-01", "2020-07-01", "2020-10-01", "2021-01-01")),
+               date_labels = "%d. %B %Y")
+betten
+ggsave("Plots/intensivbettenbelegung.png", plot = betten, width = 20, height = 10, units = c("cm"))
 
 # Intensivbettenbelegung als 7-Tage-Inzidenz (macht als Wert wenig Sinn in meinen Augen)
-betten <- main_data_divi %>% 
+main_data_divi %>% 
   ggplot(aes(x = rep_date_divi)) +
   geom_line(aes(y = seven_day_hosp_inz)) +
   labs(x = "Zeit", y = "belegte Betten als 7-Tage-Inzidenz") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 50)) +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
-betten
-ggsave("Plots/intensivbettenbelegung.png", plot = betten, width = 20, height = 10, units = c("cm"))
+        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
+  scale_x_date(breaks = as.Date(c("2020-05-01", "2020-07-01", "2020-10-01", "2021-01-01")),
+               date_labels = "%d. %B %Y")
+
 
 # Todesfälle (einfach)
 main_data %>% 
@@ -97,11 +102,13 @@ dt_seven_day_deaths_melt <- melt(dt_seven_day_deaths, id.vars = "time", value.na
 seven_death_alter <- dt_seven_day_deaths_melt %>%
   ggplot(aes(x = time, y = death, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "Todesfälle") +
+  labs(x = "Zeit", y = "7-Tages-Todesfälle pro 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 85)) +
-  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  scale_color_manual(values = farben, name = "Altersgruppe") +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01")),
+               date_labels = "%d. %B %Y")
 seven_death_alter
 ggsave("Plots/Todesfälle nach Alter.png", plot = seven_death_alter, width = 20, height = 10, units = c("cm"))
 
@@ -131,6 +138,8 @@ setnames(test6, c("V1"), c("korr_inz_A80"))
 test <- cbind(test1, test2, test3, test4, test5, test6)
 data_okt_dez <- cbind(data_okt_dez, test)
 
+farben2 <-  c("gemeldete" = "#000000", "korrigierte" = "#E31A1C")
+
 #Plots
 data_okt_dez %>% 
   ggplot(aes(x = rep_date_divi)) +
@@ -145,86 +154,96 @@ data_okt_dez %>%
   labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
 #Altersgruppe 15-34 -> nehmen!
 dt_korr_inz_15_34 <- data_okt_dez[, c(1, 116, 127)]
-setnames(dt_korr_inz_15_34, c("seven_day_inz_A15_A34", "korr_inz_A15_A34"), c("offiziell", "korrigiert"))
+setnames(dt_korr_inz_15_34, c("seven_day_inz_A15_A34", "korr_inz_A15_A34"), c("gemeldete", "korrigierte"))
 dt_korr_inz_15_34[, time := dt_korr_inz_15_34$rep_date_divi]
 dt_korr_inz_15_34 <- dt_korr_inz_15_34[, -1]
 dt_korr_inz_15_34_melt <- melt(dt_korr_inz_15_34, id.vars = "time", value.name = "inz")
 plot_korr_inz_15_34 <- dt_korr_inz_15_34_melt %>% 
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 500)) +
-  scale_color_brewer(palette = "Paired", name = "Art der Inzidenz") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  scale_color_manual(values = farben2, name = "Art der Inzidenz") +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
 plot_korr_inz_15_34
 ggsave("Plots/korrigierte Inzidenz 15-34.png", plot = plot_korr_inz_15_34, width = 20, height = 10, units = c("cm"))
 
 #Altersgruppe 35-59 -> nehmen!
 dt_korr_inz_35_59 <- data_okt_dez[, c(1, 117, 128)]
-setnames(dt_korr_inz_35_59, c("seven_day_inz_A35_A59", "korr_inz_A35_A59"), c("offiziell", "korrigiert"))
+setnames(dt_korr_inz_35_59, c("seven_day_inz_A35_A59", "korr_inz_A35_A59"), c("gemeldete", "korrigierte"))
 dt_korr_inz_35_59[, time := dt_korr_inz_35_59$rep_date_divi]
 dt_korr_inz_35_59 <- dt_korr_inz_35_59[, -1]
 dt_korr_inz_35_59_melt <- melt(dt_korr_inz_35_59, id.vars = "time", value.name = "inz")
 plot_korr_inz_35_59 <- dt_korr_inz_35_59_melt %>% 
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 600)) +
-  scale_color_brewer(palette = "Paired", name = "Art der Inzidenz") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
-plot_korr_inz_15_34
+  scale_color_manual(values = farben2, name = "Art der Inzidenz") +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
+plot_korr_inz_35_59
 ggsave("Plots/korrigierte Inzidenz 35-59.png", plot = plot_korr_inz_35_59, width = 20, height = 10, units = c("cm"))
 
 #Altersgruppe 60-79
 dt_korr_inz_60_79 <- data_okt_dez[, c(1, 118, 129)]
-setnames(dt_korr_inz_60_79, c("seven_day_inz_A60_A79", "korr_inz_A60_A79"), c("offiziell", "korrigiert"))
+setnames(dt_korr_inz_60_79, c("seven_day_inz_A60_A79", "korr_inz_A60_A79"), c("gemeldete", "korrigierte"))
 dt_korr_inz_60_79[, time := dt_korr_inz_60_79$rep_date_divi]
 dt_korr_inz_60_79 <- dt_korr_inz_60_79[, -1]
 dt_korr_inz_60_79_melt <- melt(dt_korr_inz_60_79, id.vars = "time", value.name = "inz")
 plot_korr_inz_60_79 <- dt_korr_inz_60_79_melt %>%
 ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 400)) +
-  scale_color_brewer(palette = "Paired", name = "Art der Inzidenz") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 500)) +
+  scale_color_manual(values = farben2, name = "Art der Inzidenz") +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
 plot_korr_inz_60_79
 ggsave("Plots/korrigierte Inzidenz 60-79.png", plot = plot_korr_inz_60_79, width = 20, height = 10, units = c("cm"))
 
 #Altersgruppe 80+
 dt_korr_inz_80 <- data_okt_dez[, c(1, 119, 130)]
-setnames(dt_korr_inz_80, c("seven_day_inz_A80", "korr_inz_A80"), c("offiziell", "korrigiert"))
+setnames(dt_korr_inz_80, c("seven_day_inz_A80", "korr_inz_A80"), c("gemeldete", "korrigierte"))
 dt_korr_inz_80[, time := dt_korr_inz_80$rep_date_divi]
 dt_korr_inz_80 <- dt_korr_inz_80[, -1]
 dt_korr_inz_80_melt <- melt(dt_korr_inz_80, id.vars = "time", value.name = "inz")
 plot_korr_inz_80 <- dt_korr_inz_80_melt %>% 
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 600)) +
-  scale_color_brewer(palette = "Paired", name = "Art der Inzidenz") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  scale_color_manual(values = farben2, name = "Art der Inzidenz") +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
 plot_korr_inz_80
 ggsave("Plots/korrigierte Inzidenz über 80.png", plot = plot_korr_inz_80, width = 20, height = 10, units = c("cm"))
 
 #Overall -> nehmen!
 dt_korr_inz <- data_okt_dez[, c(1, 112, 125)]
-setnames(dt_korr_inz, c("seven_day_inz", "korr_inz_tot"), c("offiziell", "korrigiert"))
+setnames(dt_korr_inz, c("seven_day_inz", "korr_inz_tot"), c("gemeldete", "korrigierte"))
 dt_korr_inz[, time := dt_korr_inz$rep_date_divi]
 dt_korr_inz <- dt_korr_inz[, -1]
 dt_korr_inz_melt <- melt(dt_korr_inz, id.vars = "time", value.name = "inz")
 plot_korr_inz <- dt_korr_inz_melt %>% 
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 1500)) +
-  scale_color_brewer(palette = "Paired", name = "Art der Inzidenz") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  scale_color_manual(values = farben2, name = "Art der Inzidenz") +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
 plot_korr_inz
 ggsave("Plots/korrigierte Inzidenz.png", plot = plot_korr_inz, width = 20, height = 10, units = c("cm"))
 
@@ -240,13 +259,19 @@ setnames(dt_unterschätzung, c("unterschätzung_total", "unterschätzung_A15_A34
 dt_unterschätzung[, time := dt_unterschätzung$rep_date_divi]
 dt_unterschätzung <- dt_unterschätzung[, -1]
 dt_unterschätzung_melt <- melt(dt_unterschätzung, id.vars = "time", value.name = "inz")
+
+farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
+             "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "über 80 Jahre" = "#E31A1C")
+
 plot_unterschätzung <- dt_unterschätzung_melt %>% 
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "Faktor der Unterschätzung") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 7)) +
-  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  scale_color_manual(values = farben3, name = "Altersgruppe") +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
 plot_unterschätzung
 ggsave("Plots/Unterschätzung Inzidenz.png", plot = plot_unterschätzung, width = 20, height = 10, units = c("cm"))

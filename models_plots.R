@@ -9,6 +9,8 @@ library(grid)
 library(dplyr)
 library(cowplot)
 
+farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
+             "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "über 80 Jahre" = "#E31A1C")
 
 # Age_group_plot ----------------------------------------------------------
 
@@ -39,14 +41,14 @@ fitted_vals_melt_cases <- melt(dt_cases_fitted_vals, id.vars = "time", value.nam
 cases_breakpoints <- fitted_vals_melt_cases %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 400)) +
-  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
+  scale_color_manual(values = farben3, name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %B")
-
+               date_labels = "%d. %B %Y")
+cases_breakpoints
 ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
 # for deaths now
@@ -60,14 +62,30 @@ fitted_vals_melt_deaths <- melt(dt_deaths_fitted_vals, id.vars = "time", value.n
 deaths_breakpoints <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz Tode") +
+  labs(x = "Zeit", y = "7-Tages-Todesfälle je 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 80)) +
-  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
+  scale_color_manual(values = farben3, name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
+deaths_breakpoints
 ggsave("Plots/breakpoints_deaths.png", plot = deaths_breakpoints, width = 20, height = 10, units = c("cm"))
 
-
+# for hospitalisierung
+dt_hosp_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[25, model_bic_seq[[1]]$fitted.values],
+                               timeseries = dt_models[25, model_bic_seq[[1]]$y])
+hosp_breakpoints <- dt_hosp_y_fitted %>% 
+  ggplot(aes(x = time, y = fitted), color = "#000000") +
+  geom_line() +
+  labs(x = "Zeit", y = "belegte Intensivbetten") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 50)) +
+  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
+        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
+hosp_breakpoints
+ggsave("Plots/breakpoints_hosp.png", plot = hosp_breakpoints, width = 20, height = 10, units = c("cm"))
 
 # Grid plot ---------------------------------------------------------------
 
@@ -76,7 +94,7 @@ cases_for_grid <- fitted_vals_melt_cases %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
   geom_line() +
   scale_y_continuous(labels = scales::comma, limits = c(0, 400)) +
-  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
+  scale_color_manual(values = farben3, name = "Altersgruppe") +
   # deleting 
   theme(axis.title = element_blank(), axis.ticks.x = element_blank(),
         axis.text.x = element_blank())
@@ -85,19 +103,19 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
   geom_line() +
   scale_y_continuous(labels = scales::comma, limits = c(0, 80)) +
-  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
+  scale_color_manual(values = farben3, name = "Altersgruppe") +
   theme(axis.title = element_blank(), legend.position = "none", 
         axis.ticks.x = element_blank(),
         axis.text.x = element_blank())
 
 # for hosp
-dt_hosp_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[25, model_bic_seq[[1]]$fitted.values],
-                               timeseries = dt_models[25, model_bic_seq[[1]]$y])
-
 hosp_for_grids <- dt_hosp_y_fitted %>% 
-  ggplot(aes(x = time, y = fitted)) +
+  ggplot(aes(x = time, y = fitted), color = "#000000") +
   geom_line() +
+  labs(x = "Zeit") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 50)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y") +
   theme(axis.title.y = element_blank())
 
 # legend for the plot
@@ -116,7 +134,7 @@ p_grid <- plot_grid(cases_for_grid +
                     deaths_for_grid,
                     hosp_for_grids,
                     # labels need to be adjusted
-                    labels = c('Infizierung', "Todeszahlen", 'Hospitalisierung'),
+                    labels = c('Inzidenz', "Todeszahlen", 'Hospitalisierung'),
                     # one col for the three plots, to adjust them among each other
                     ncol = 1,
                     # adjusting the positions of the labels
@@ -129,42 +147,53 @@ ggsave("Plots/grid_plot_models.png", plot = grid_plot, width = 20, height = 10, 
 
 
 # model_plus_timeseries ---------------------------------------------------
+farben4 <- c("fitted" = "#000000", "timeseries" = "purple")
 # for cases
 dt_cases_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[1, model_bic_seq[[1]]$fitted.values],
                                   timeseries = dt_models[1, model_bic_seq[[1]]$y])
+dt_cases_y_fitted_melt <- melt(dt_cases_y_fitted, id.vars = "time", value.name = "values")
 
-cases_timeseries <- dt_cases_y_fitted %>% 
-  ggplot(aes(x = time, y = fitted)) +
-  geom_line(aes(y = timeseries), color = "purple") +
+cases_timeseries <- dt_cases_y_fitted_melt %>% 
+  ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
+  scale_color_manual(values = farben4, name = "Modell") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 250)) +
-  scale_color_brewer(palette = "Paired") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
+cases_timeseries
 ggsave("Plots/timeseries_model_cases.png", plot = cases_timeseries, width = 20, height = 10, units = c("cm"))
 
 # for deaths
 dt_deaths_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[13, model_bic_seq[[1]]$fitted.values],
                                   timeseries = dt_models[13, model_bic_seq[[1]]$y])
+dt_deaths_y_fitted_melt <- melt(dt_deaths_y_fitted, id.vars = "time", value.name = "values")
 
-deaths_timeseries <- dt_deaths_y_fitted %>% 
-  ggplot(aes(x = time, y = fitted)) +
-  geom_line(aes(y = timeseries), color = "purple") +
+deaths_timeseries <- dt_deaths_y_fitted_melt %>% 
+  ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "7-Tages-Todesfälle pro 100.000 Einw.") +
+  scale_color_manual(values = farben4, name = "Modell") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 10)) +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
+deaths_timeseries
 ggsave("Plots/timeseries_model_deaths.png", plot = deaths_timeseries, width = 20, height = 10, units = c("cm"))
 
-
-hosp_timeseries <- dt_hosp_y_fitted %>% 
-  ggplot(aes(x = time, y = fitted)) +
-  geom_line(aes(y = timeseries), color = "purple") +
+dt_hosp_y_fitted_melt <- melt(dt_hosp_y_fitted, id.vars = "time", value.name = "values")
+hosp_timeseries <- dt_hosp_y_fitted_melt %>% 
+  ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  labs(x = "Zeit", y = "belegte Intensivbetten") +
+  scale_color_manual(values = farben4, name = "Modell") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 50)) +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B %Y")
+hosp_timeseries
 ggsave("Plots/timeseries_model_hosp.png", plot = hosp_timeseries, width = 20, height = 10, units = c("cm"))
