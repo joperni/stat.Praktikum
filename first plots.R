@@ -174,21 +174,43 @@ plot_korr_inz_35_59 <- dt_korr_inz_35_59_melt %>%
   scale_color_brewer(palette = "Paired", name = "Art der Inzidenz") +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
-plot_korr_inz_35_59
+plot_korr_inz_15_34
 ggsave("Plots/korrigierte Inzidenz 35-59.png", plot = plot_korr_inz_35_59, width = 20, height = 10, units = c("cm"))
 
 #Altersgruppe 60-79
-data_okt_dez %>% 
-  ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz_A60_A79), color = "green") +
-  geom_line(aes(y = korr_inz_A60_A79), color = "red") +
-  labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
+dt_korr_inz_60_79 <- data_okt_dez[, c(1, 118, 129)]
+setnames(dt_korr_inz_60_79, c("seven_day_inz_A60_A79", "korr_inz_A60_A79"), c("offiziell", "korrigiert"))
+dt_korr_inz_60_79[, time := dt_korr_inz_60_79$rep_date_divi]
+dt_korr_inz_60_79 <- dt_korr_inz_60_79[, -1]
+dt_korr_inz_60_79_melt <- melt(dt_korr_inz_60_79, id.vars = "time", value.name = "inz")
+plot_korr_inz_60_79 <- dt_korr_inz_60_79_melt %>%
+ggplot(aes(x = time, y = inz, color = variable)) +
+  geom_line() +
+  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 400)) +
+  scale_color_brewer(palette = "Paired", name = "Art der Inzidenz") +
+  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
+        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+plot_korr_inz_60_79
+ggsave("Plots/korrigierte Inzidenz 60-79.png", plot = plot_korr_inz_60_79, width = 20, height = 10, units = c("cm"))
+
 #Altersgruppe 80+
-data_okt_dez %>% 
-  ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = seven_day_inz_A80), color = "green") +
-  geom_line(aes(y = korr_inz_A80), color = "red") +
-  labs(title = "korrigierte vs. offizielle Inzidenz", x = "Zeit", y = "7-Tage-Inzidenz")
+dt_korr_inz_80 <- data_okt_dez[, c(1, 119, 130)]
+setnames(dt_korr_inz_80, c("seven_day_inz_A80", "korr_inz_A80"), c("offiziell", "korrigiert"))
+dt_korr_inz_80[, time := dt_korr_inz_80$rep_date_divi]
+dt_korr_inz_80 <- dt_korr_inz_80[, -1]
+dt_korr_inz_80_melt <- melt(dt_korr_inz_80, id.vars = "time", value.name = "inz")
+plot_korr_inz_80 <- dt_korr_inz_80_melt %>% 
+  ggplot(aes(x = time, y = inz, color = variable)) +
+  geom_line() +
+  labs(x = "Zeit", y = "7-Tage-Inzidenz") +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 600)) +
+  scale_color_brewer(palette = "Paired", name = "Art der Inzidenz") +
+  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
+        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+plot_korr_inz_80
+ggsave("Plots/korrigierte Inzidenz über 80.png", plot = plot_korr_inz_80, width = 20, height = 10, units = c("cm"))
+
 #Overall -> nehmen!
 dt_korr_inz <- data_okt_dez[, c(1, 112, 125)]
 setnames(dt_korr_inz, c("seven_day_inz", "korr_inz_tot"), c("offiziell", "korrigiert"))
@@ -205,3 +227,26 @@ plot_korr_inz <- dt_korr_inz_melt %>%
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
 plot_korr_inz
 ggsave("Plots/korrigierte Inzidenz.png", plot = plot_korr_inz, width = 20, height = 10, units = c("cm"))
+
+#Unterschätzung durch die gemeldete Inzidenz
+data_okt_dez$unterschätzung_total <- data_okt_dez$korr_inz_tot/data_okt_dez$seven_day_inz
+data_okt_dez$unterschätzung_A15_A34 <- data_okt_dez$korr_inz_A15_A34/data_okt_dez$seven_day_inz_A15_A34
+data_okt_dez$unterschätzung_A35_A59 <- data_okt_dez$korr_inz_A35_A59/data_okt_dez$seven_day_inz_A35_A59
+data_okt_dez$unterschätzung_A60_A79 <- data_okt_dez$korr_inz_A60_A79/data_okt_dez$seven_day_inz_A60_A79
+data_okt_dez$unterschätzung_A80 <- data_okt_dez$korr_inz_A80/data_okt_dez$seven_day_inz_A80
+dt_unterschätzung <- data_okt_dez[, c(1, 131:135)]
+setnames(dt_unterschätzung, c("unterschätzung_total", "unterschätzung_A15_A34", "unterschätzung_A35_A59", "unterschätzung_A60_A79",
+                        "unterschätzung_A80"), c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
+dt_unterschätzung[, time := dt_unterschätzung$rep_date_divi]
+dt_unterschätzung <- dt_unterschätzung[, -1]
+dt_unterschätzung_melt <- melt(dt_unterschätzung, id.vars = "time", value.name = "inz")
+plot_unterschätzung <- dt_unterschätzung_melt %>% 
+  ggplot(aes(x = time, y = inz, color = variable)) +
+  geom_line() +
+  labs(x = "Zeit", y = "Faktor der Unterschätzung") +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 7)) +
+  scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
+  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
+        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+plot_unterschätzung
+ggsave("Plots/Unterschätzung Inzidenz.png", plot = plot_unterschätzung, width = 20, height = 10, units = c("cm"))
