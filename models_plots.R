@@ -43,7 +43,8 @@ cases_breakpoints <- fitted_vals_melt_cases %>%
   scale_y_continuous(labels = scales::comma, limits = c(0, 400)) +
   scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
+        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")))
 
 ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
@@ -88,7 +89,11 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
         axis.ticks.x = element_blank(),
         axis.text.x = element_blank())
 
-hosp_for_grids <- dt_hosp_fitted_vals %>% 
+# for hosp
+dt_hosp_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[25, model_bic_seq[[1]]$fitted.values],
+                               timeseries = dt_models[25, model_bic_seq[[1]]$y])
+
+hosp_for_grids <- dt_hosp_y_fitted %>% 
   ggplot(aes(x = time, y = fitted)) +
   geom_line() +
   scale_y_continuous(labels = scales::comma, limits = c(0, 50)) +
@@ -152,9 +157,6 @@ deaths_timeseries <- dt_deaths_y_fitted %>%
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15))
 ggsave("Plots/timeseries_model_deaths.png", plot = deaths_timeseries, width = 20, height = 10, units = c("cm"))
 
-# for hosp
-dt_hosp_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[25, model_bic_seq[[1]]$fitted.values],
-                                 timeseries = dt_models[25, model_bic_seq[[1]]$y])
 
 hosp_timeseries <- dt_hosp_y_fitted %>% 
   ggplot(aes(x = time, y = fitted)) +
