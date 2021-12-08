@@ -44,7 +44,8 @@ cases_breakpoints <- fitted_vals_melt_cases %>%
   scale_color_brewer(palette = "Paired", name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
-  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")))
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %B")
 
 ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
