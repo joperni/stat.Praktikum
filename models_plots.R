@@ -42,7 +42,7 @@ cases_breakpoints <- fitted_vals_melt_cases %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 400)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400)) +
   scale_color_manual(values = farben3, name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -63,7 +63,7 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "7-Tages-Todesfälle je 100.000 Einw.") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 80)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 80), breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80)) +
   scale_color_manual(values = farben3, name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -176,7 +176,7 @@ deaths_timeseries <- dt_deaths_y_fitted_melt %>%
   geom_line() +
   labs(x = "Zeit", y = "7-Tages-Todesfälle pro 100.000 Einw.") +
   scale_color_manual(values = farben4, name = "Modell") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 10)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 10), breaks = c(0, 2, 4, 6, 8, 10)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),

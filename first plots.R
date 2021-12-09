@@ -31,7 +31,7 @@ seven_day_alter <- dt_seven_day_inz_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 400)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400)) +
   scale_color_manual(values = farben, name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -45,7 +45,7 @@ betten <- main_data_divi %>%
   ggplot(aes(x = rep_date_divi)) +
   geom_line(aes(y = cases_covid_divi), color = "#000000") +
   labs(x = "Zeit", y = "belegte Intensivbetten") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 6000)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 6000), breaks = c(0, 1000, 2000, 3000, 4000, 5000, 6000)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-05-01", "2020-07-01", "2020-10-01", "2021-01-01")),
@@ -103,7 +103,7 @@ seven_death_alter <- dt_seven_day_deaths_melt %>%
   ggplot(aes(x = time, y = death, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "7-Tages-Todesfälle pro 100.000 Einw.") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 85)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 85), breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80)) +
   scale_color_manual(values = farben, name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -181,7 +181,7 @@ plot_korr_inz_35_59 <- dt_korr_inz_35_59_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 600)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
   scale_color_manual(values = farben2, name = "Art der Inzidenz") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -219,7 +219,7 @@ plot_korr_inz_80 <- dt_korr_inz_80_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 600)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
   scale_color_manual(values = farben2, name = "Art der Inzidenz") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -238,7 +238,7 @@ plot_korr_inz <- dt_korr_inz_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 1500)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 1400), breaks = c(0, 200, 400, 600, 800, 1000, 1200, 1400)) +
   scale_color_manual(values = farben2, name = "Art der Inzidenz") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -267,7 +267,7 @@ plot_unterschätzung <- dt_unterschätzung_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "Faktor der Unterschätzung") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 7)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 7), breaks = c(0, 1, 2, 3, 4, 5, 6, 7)) +
   scale_color_manual(values = farben3, name = "Altersgruppe") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
