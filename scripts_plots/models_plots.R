@@ -1,33 +1,9 @@
 source("nicer_implementation_models.R")
-library(grid)
 
 farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "über 80 Jahre" = "#E31A1C")
 
 # Age_group_plot ----------------------------------------------------------
-
-# At first: Making data table with breakpoints, for all used gamma models
-dt_breakpoints <- 
-  dt_models[!grepl("log", formula), .(rep_date_divi = as.Date(model_bic_seq[[1]]$psi[, 2], origin = "1970-01-01"),
-                                      model = model_bic_seq), by = formula]
-
-
-
-# plot for cases
-
-# Transforming data table for easier plotting 
-#
-# add fitted values to a data_frame
-dt_cases_fitted_vals <- 
-  dt_models[c(1, 3:6), lapply(model_bic_seq, function(model) model$fitted.values)]
-# colnames
-colnames(dt_cases_fitted_vals) <- c(sdi_cases_colnames)[c(1, 3:6)]
-# add time column
-dt_cases_fitted_vals[, time := data$rep_date_divi]
-setnames(dt_cases_fitted_vals, c("seven_day_inz", "seven_day_inz_A15_A34", "seven_day_inz_A35_A59", "seven_day_inz_A60_A79",
-                                 "seven_day_inz_A80"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
-# melting for easier plotting
-fitted_vals_melt_cases <- melt(dt_cases_fitted_vals, id.vars = "time", value.name = "sdi")
 
 cases_breakpoints <- fitted_vals_melt_cases %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
@@ -42,13 +18,7 @@ cases_breakpoints <- fitted_vals_melt_cases %>%
 cases_breakpoints
 ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
-# for deaths now
-dt_deaths_fitted_vals <- dt_models[c(13, 15:18), lapply(model_bic_seq, function(model) model$fitted.values)]
-colnames(dt_deaths_fitted_vals) <- c(sdi_deaths_colnames)[c(1, 3:6)]
-dt_deaths_fitted_vals[, time := data$rep_date_divi]
-setnames(dt_deaths_fitted_vals, c("seven_day_death_inz", "seven_day_death_inz_A15_A34", "seven_day_death_inz_A35_A59", "seven_day_death_inz_A60_A79",
-                                  "seven_day_death_inz_A80"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
-fitted_vals_melt_deaths <- melt(dt_deaths_fitted_vals, id.vars = "time", value.name = "sdi")
+
 
 deaths_breakpoints <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
@@ -63,9 +33,7 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
 deaths_breakpoints
 ggsave("Plots/breakpoints_deaths.png", plot = deaths_breakpoints, width = 20, height = 10, units = c("cm"))
 
-# for hospitalisierung
-dt_hosp_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[25, model_bic_seq[[1]]$fitted.values],
-                               timeseries = dt_models[25, model_bic_seq[[1]]$y])
+
 hosp_breakpoints <- dt_hosp_y_fitted %>% 
   ggplot(aes(x = time, y = fitted), color = "#000000") +
   geom_line() +
@@ -103,7 +71,7 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
 
 # for hosp
 hosp_for_grids <- dt_hosp_y_fitted %>% 
-  ggplot(aes(x = time, y = fitted), color = "#000000") +
+  ggplot(aes(x = time, y = geschaetztes), color = "#000000") +
   geom_line() +
   labs(x = "Zeit") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 6000)) +
@@ -143,11 +111,6 @@ ggsave("Plots/grid_plot_models.png", plot = grid_plot, width = 20, height = 10, 
 
 # model_plus_timeseries ---------------------------------------------------
 farben4 <- c("geschätzt" = "#000000", "gemeldet" = "purple")
-# for cases
-dt_cases_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[1, model_bic_seq[[1]]$fitted.values],
-                                  timeseries = dt_models[1, model_bic_seq[[1]]$y])
-setnames(dt_cases_y_fitted, c("fitted", "timeseries"), c("geschätzt", "gemeldet"))
-dt_cases_y_fitted_melt <- melt(dt_cases_y_fitted, id.vars = "time", value.name = "values")
 
 cases_timeseries <- dt_cases_y_fitted_melt %>% 
   ggplot(aes(x = time, y = values, color = variable)) +
@@ -164,12 +127,6 @@ cases_timeseries <- dt_cases_y_fitted_melt %>%
 cases_timeseries
 ggsave("Plots/timeseries_model_cases.png", plot = cases_timeseries, width = 20, height = 10, units = c("cm"))
 
-# for deaths
-dt_deaths_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[13, model_bic_seq[[1]]$fitted.values],
-                                  timeseries = dt_models[13, model_bic_seq[[1]]$y])
-setnames(dt_deaths_y_fitted, c("fitted", "timeseries"), c("geschätztes", "gemeldetes"))
-dt_deaths_y_fitted_melt <- melt(dt_deaths_y_fitted, id.vars = "time", value.name = "values")
-
 deaths_timeseries <- dt_deaths_y_fitted_melt %>% 
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
@@ -185,8 +142,6 @@ deaths_timeseries <- dt_deaths_y_fitted_melt %>%
 deaths_timeseries
 ggsave("Plots/timeseries_model_deaths.png", plot = deaths_timeseries, width = 20, height = 10, units = c("cm"))
 
-setnames(dt_hosp_y_fitted, c("fitted", "timeseries"), c("geschätztes", "gemeldetes"))
-dt_hosp_y_fitted_melt <- melt(dt_hosp_y_fitted, id.vars = "time", value.name = "values")
 hosp_timeseries <- dt_hosp_y_fitted_melt %>% 
   ggplot(aes(x = time, y = values/7, color = variable)) +
   geom_line() +
