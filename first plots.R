@@ -43,7 +43,7 @@ ggsave("Plots/7-Tage-Inzidenz nach Alter.png", plot = seven_day_alter, width = 2
 # Intensivbettenbelegung
 betten <- main_data_divi %>% 
   ggplot(aes(x = rep_date_divi)) +
-  geom_line(aes(y = cases_covid_divi), color = "#000000") +
+  geom_line(aes(y = seven_day_hosp_inz), color = "#000000") +
   labs(x = "Zeit", y = "belegte Intensivbetten") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 6000), breaks = c(0, 1000, 2000, 3000, 4000, 5000, 6000)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
