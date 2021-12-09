@@ -132,7 +132,7 @@ p_grid <- plot_grid(cases_for_grid +
                     # one col for the three plots, to adjust them among each other
                     ncol = 1,
                     # adjusting the positions of the labels
-                    label_x = .07, label_y = 1, hjust = 0,
+                    label_x = .09, label_y = 1, hjust = 0,
                     align = "v")
 
 # Arranges all together
