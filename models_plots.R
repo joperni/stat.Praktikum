@@ -1,13 +1,5 @@
 source("nicer_implementation_models.R")
-library(segmented)
-library(data.table)
-library(ggplot2)
-library(checkmate)
-library(gridExtra)
-library(RColorBrewer)
 library(grid)
-library(dplyr)
-library(cowplot)
 
 farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "über 80 Jahre" = "#E31A1C")
@@ -16,8 +8,8 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
 
 # At first: Making data table with breakpoints, for all used gamma models
 dt_breakpoints <- 
-  dt_models[!grepl("log", formula), .(x_breakpoints = model_bic_seq[[1]]$psi[, 2], model = model_bic_seq),
-            by = formula]
+  dt_models[!grepl("log", formula), .(rep_date_divi = as.Date(model_bic_seq[[1]]$psi[, 2], origin = "1970-01-01"),
+                                      model = model_bic_seq), by = formula]
 
 
 
