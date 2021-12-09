@@ -44,8 +44,8 @@ cases_breakpoints <- fitted_vals_melt_cases %>%
   labs(x = "Zeit", y = "7-Tages Neuinfektionen pro 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 400)) +
   scale_color_manual(values = farben3, name = "Altersgruppe") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %B %Y")
 cases_breakpoints
@@ -65,8 +65,8 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
   labs(x = "Zeit", y = "7-Tages-Todesfälle je 100.000 Einw.") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 80)) +
   scale_color_manual(values = farben3, name = "Altersgruppe") +
-  theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-        axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %B %Y")
 deaths_breakpoints
