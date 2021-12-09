@@ -18,7 +18,6 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
 dt_breakpoints <- 
   dt_models[!grepl("log", formula), .(x_breakpoints = model_bic_seq[[1]]$psi[, 2], model = model_bic_seq),
             by = formula]
-dt_breakpoints[, y_breakpoints := model_bic_seq[[1]]$fitted.vals()]
 
 
 
