@@ -42,8 +42,21 @@ dt_models[, model_bic := lapply(base_model, selg_function)][
 
 # At first: Making data table with breakpoints, for all used gamma models
 dt_breakpoints <- 
-  dt_models[!grepl("log", formula), .(rep_date_divi = as.Date(model_bic_seq[[1]]$psi[, 2], origin = "1970-01-01"),
+  dt_models[!grepl("log", formula), .(time = as.Date(model_bic_seq[[1]]$psi[, 2], origin = "1970-01-01"),
                                       model = model_bic_seq), by = formula]
+dt_breakpoints$sdi <- c(19, 43, 142, 151, 149, 0, 32, 192, 224, 179,
+                        22, 70, 117, 152, 172, 177, 169, 230, 90, 100,
+                        10, 100,
+                        # now deaths
+                        9, 11, 0, 0, 0, 0, 0, 0, 0, 0.1, 0.3, 0.2, 3, 16.5, 20, 28,
+                        # for hosp
+                        700, 2750, 3500, 4100)
+dt_breakpoints[, `:=`(formula = NULL, model = NULL)]
+dt_breakpoints$variable <- c(rep("overall", 5), rep("", 1), rep("15-34 Jahre", 4), rep("35-59 Jahre", 8),
+                             rep("60-79 Jahre", 2), rep("ueber 80 Jahre", 2),
+                             # deaths
+                             rep("overall", 2), rep("", 5), rep("15-34 Jahre", 2), rep("35-59 Jahre", 3),
+                             rep("60-79 Jahre", 1), rep("ueber 80 Jahre", 3), rep("overall", 4))
 
 # Transforming data table for easier plotting for cases
 #
