@@ -70,8 +70,11 @@ main_data$seven_day_death_inz_A60_A79 <- seven_day_inz(main_data$A60_A79_death_c
 main_data$seven_day_inz_A80 <- seven_day_inz(main_data$A80_cases, 5936434)
 main_data$seven_day_death_inz_A80 <- seven_day_inz(main_data$A80_death_cases, 5936434)
 
+main_data[, A15_A80_cases := sum(.SD),
+          .SDcols = cnames[(grepl("A15-A34", cnames)|grepl("A35-A59", cnames)|grepl("A60-A79", cnames)|grepl("A80+", cnames)) & grepl("number_cases", cnames)], by = rep_date_divi]
 
+main_data[, A15_A80_death_cases := sum(.SD),
+          .SDcols = cnames[(grepl("A15-A34", cnames)|grepl("A35-A59", cnames)|grepl("A60-A79", cnames)|grepl("A80+", cnames)) & grepl("number_case_death", cnames)], by = rep_date_divi]
 
-
-
-
+main_data$seven_day_inz_A15_A80 <- seven_day_inz(main_data$A15_A80_cases, 70612043)
+main_data$seven_day_death_inz_A15_A80 <- seven_day_inz(main_data$A15_A80_death_cases, 70612043)
