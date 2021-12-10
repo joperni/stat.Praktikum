@@ -1,4 +1,6 @@
 source("nicer_implementation_models.R")
+library(egg)
+library(ggpubr)
 
 farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "ueber 80 Jahre" = "#E31A1C")
@@ -101,8 +103,8 @@ p_grid <- plot_grid(cases_for_grid +
                     # one col for the three plots, to adjust them among each other
                     ncol = 1,
                     # adjusting the positions of the labels
-                    label_x = .09, label_y = 1, hjust = 0,
-                    align = "v")
+                    label_x = .07, label_y = 1, hjust = 0, scale = 1, 
+                    align = "hv")
 
 # Arranges all together
 grid_plot <- grid.arrange(arrangeGrob(p_grid, right = legend))
