@@ -53,7 +53,7 @@ dt_cases_fitted_vals <-
 # add time column
 dt_cases_fitted_vals[, time := data$rep_date_divi]
 setnames(dt_cases_fitted_vals, c("V1", "V2", "V3", "V4",
-                                 "V5"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
+                                 "V5"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
 # melting for easier plotting
 fitted_vals_melt_cases <- melt(dt_cases_fitted_vals, id.vars = "time", value.name = "sdi")
 
@@ -61,7 +61,7 @@ fitted_vals_melt_cases <- melt(dt_cases_fitted_vals, id.vars = "time", value.nam
 dt_deaths_fitted_vals <- dt_models[c(7, 9:12), lapply(model_bic_seq, function(model) model$fitted.values)]
 dt_deaths_fitted_vals[, time := data$rep_date_divi]
 setnames(dt_deaths_fitted_vals, c("V1", "V2", "V3", "V4",
-                                  "V5"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
+                                  "V5"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
 fitted_vals_melt_deaths <- melt(dt_deaths_fitted_vals, id.vars = "time", value.name = "sdi")
 # for hospitalisierung
 dt_hosp_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[13, model_bic_seq[[1]]$fitted.values],
