@@ -74,7 +74,7 @@ hosp_for_grids <- dt_hosp_y_fitted %>%
   ggplot(aes(x = time, y = geschaetztes), color = "#000000") +
   geom_line() +
   labs(x = "Zeit") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 6000)) +
+  scale_y_continuous(limits = c(0, 8000)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
   theme(axis.title.y = element_blank()) +
@@ -86,15 +86,16 @@ legend <- get_legend(
   cases_for_grid + theme(legend.box.margin = margin(0, 0, 0, 12))
 )
 
-# creates y Axis for the hole plot
-y_axis <- textGrob("Inzidenz", 
-                     gp = gpar(fontface="bold", fontsize = 15), rot = 90)
+# # creates y Axis for the hole plot
+# y_axis <- textGrob("Inzidenz", 
+#                      gp = gpar(fontface="bold", fontsize = 15), rot = 90)
 
 p_grid <- plot_grid(cases_for_grid +
                       # deleting legend manuall to add it later, for the grid plot
                       theme(legend.position = "none"),
                     deaths_for_grid,
                     hosp_for_grids,
+                    rel_heights = c(4, 4, 4),
                     # labels need to be adjusted
                     labels = c('Inzidenz', "Todesfälle", "Intesivbettenbelegung"),
                     # one col for the three plots, to adjust them among each other
@@ -104,7 +105,7 @@ p_grid <- plot_grid(cases_for_grid +
                     align = "v")
 
 # Arranges all together
-grid_plot <- grid.arrange(arrangeGrob(p_grid, left = y_axis, right = legend))
+grid_plot <- grid.arrange(arrangeGrob(p_grid, right = legend))
 
 ggsave("Plots/grid_plot_models.png", plot = grid_plot, width = 20, height = 10, units = c("cm"))
 
@@ -147,7 +148,7 @@ hosp_timeseries <- dt_hosp_y_fitted_melt %>%
   geom_line() +
   labs(x = "Zeit", y = "belegte Intensivbetten pro 100.000 Einw.") +
   scale_color_manual(values = farben4, name = "Modell") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 6000), breaks = c(0, 1, 2, 3, 4, 5, 6, 7)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 6000), breaks = c(0, 1000, 2000, 3000, 4000, 5000, 6000, 7000)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
