@@ -1,31 +1,14 @@
 library(checkmate)
 library(data.table)
 library(tidyverse)
-library(data.table)
 
-datensatz <- readRDS("data/prakt_clean_data")
+source("examples_of_code/example_aggregating.R")
+main_data <- readRDS("data/main_data")
 data.table(main_data)
 
 ##CFR
 #Komplett Deutschland
-sdi_total <- main_data$seven_day_inz #7-T-Inzidenz
-CFR_total <- sum(main_data$seven_day_death_inz)/sum(sdi_total) #CFR 
-CFR_total_pre_okt <- sum(main_data$seven_day_death_inz[-c(274:395)])/sum(sdi_total[-c(274:395)])
 
-sdi_jul_total <- main_data["2020-08-01" > rep_date_divi & rep_date_divi >= "2020-07-01"]$seven_day_inz
-sdi_aug_total <- main_data["2020-09-01" > rep_date_divi & rep_date_divi >= "2020-08-01"]$seven_day_inz
-sdi_sep_total <- main_data["2020-10-01" > rep_date_divi & rep_date_divi >= "2020-09-01"]$seven_day_inz
-
-sdi_jul_total_death <- main_data["2020-08-01" > rep_date_divi & rep_date_divi >= "2020-07-01"]$seven_day_death_inz
-sdi_aug_total_death <- main_data["2020-09-01" > rep_date_divi & rep_date_divi >= "2020-08-01"]$seven_day_death_inz
-sdi_sep_total_death <- main_data["2020-10-01" > rep_date_divi & rep_date_divi >= "2020-09-01"]$seven_day_death_inz
-
-CFR_jul_total <- sum(sdi_jul_total_death)/sum(sdi_jul_total)
-CFR_aug_total <- sum(sdi_aug_total_death)/sum(sdi_aug_total)
-CFR_sep_total <- sum(sdi_sep_total_death)/sum(sdi_sep_total)
-
-CFR_jul_sep_total <- sum(main_data["2020-10-01" > rep_date_divi & rep_date_divi >= "2020-07-01"]$seven_day_death_inz)/
-  sum(main_data["2020-10-01" > rep_date_divi & rep_date_divi >= "2020-07-01"]$seven_day_inz)
 
 #Altersgruppe 0-14 Jahre
 inhabitants_A00_A14 = 11477737
@@ -171,7 +154,7 @@ CFR_jul_sep_A00_A14 <- sum(main_data["2020-10-01" > rep_date_divi & rep_date_div
  kor_inz_A15_A80 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A15_A80)/CFR_jul_sep_A15_A80
   
  ##Zeite Schätzung der Gesamtinzidenz
- Gesamtbevölkerung_genau = 82089780
+ Gesamtbevoelkerung_genau = 82089780
  
  seven_day_inz_A00_A14_okt_dez <- main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_inz_A00_A14
  
