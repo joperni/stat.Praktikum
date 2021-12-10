@@ -44,13 +44,14 @@ dt_models[, model_bic := lapply(base_model, selg_function)][
 dt_breakpoints <- 
   dt_models[!grepl("log", formula), .(time = as.Date(model_bic_seq[[1]]$psi[, 2], origin = "1970-01-01"),
                                       model = model_bic_seq), by = formula]
-dt_breakpoints$sdi <- c(19, 43, 142, 151, 149, 0, 32, 192, 224, 179,
-                        22, 70, 117, 152, 172, 177, 169, 230, 90, 100,
-                        10, 100,
+dt_breakpoints$sdi <- c(19, 43, 118, 150, 149, 0, 35, 192, 222, 183,
+                        20, 73, 117, 151, 171, 177, 166, 233, 90, 100,
+                        9, 98,
                         # now deaths
-                        9, 11, 0, 0, 0, 0, 0, 0, 0, 0.1, 0.3, 0.2, 3, 16.5, 20, 28,
+                        2, 2.3, 0, 0, 0, 0, 0, 0, 0.05, 0.1,
+                        0.5, 0.2, 2.7, 16.5, 19.5, 78,
                         # for hosp
-                        700, 2750, 3500, 4100)
+                        700, 2670, 3500, 4100)
 dt_breakpoints[, `:=`(formula = NULL, model = NULL)]
 dt_breakpoints$variable <- c(rep("overall", 5), rep("", 1), rep("15-34 Jahre", 4), rep("35-59 Jahre", 8),
                              rep("60-79 Jahre", 2), rep("ueber 80 Jahre", 2),

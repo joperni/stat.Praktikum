@@ -7,8 +7,8 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
 
 # Age_group_plot ----------------------------------------------------------
 
-cases_breakpoints <- ggplot(NULL, aes(x = time, y = sdi, color = variable)) +
-  geom_line(data = fitted_vals_melt_cases) +
+cases_breakpoints <- ggplot(fitted_vals_melt_cases, aes(x = time, y = sdi, color = variable)) +
+  geom_line() +
   # geom_point(aes(x = as.Date(dt_breakpoints$x_bp[c(1:5, 11:22)], origin = "1970-01-01"),
   #                            y = dt_breakpoints$y_bp[c(1:5, 11:22)])) +
   labs(x = "Zeit", y = "7-Tages-Inzidenz") +
@@ -18,7 +18,7 @@ cases_breakpoints <- ggplot(NULL, aes(x = time, y = sdi, color = variable)) +
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_point(data = dt_breakpoints[c(1:5, 7:22)])
+  geom_point(data = dt_breakpoints[c(1:5, 7:22)], shape = 18, size = 2)
 cases_breakpoints
 ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
@@ -34,7 +34,7 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_point(data = dt_breakpoints[c(22:23, 30:38)])
+  geom_point(data = dt_breakpoints[c(23:24, 30:38)], shape = 18, size = 2)
 deaths_breakpoints
 ggsave("Plots/breakpoints_deaths.png", plot = deaths_breakpoints, width = 20, height = 10, units = c("cm"))
 
@@ -62,7 +62,8 @@ cases_for_grid <- fitted_vals_melt_cases %>%
   # deleting 
   theme(axis.title = element_blank(), axis.ticks.x = element_blank(),
         axis.text.x = element_blank()) +
-  labs(y = "7-Tages-Inzidenz je 100.000 Einw.")
+  labs(y = "7-Tages-Inzidenz je 100.000 Einw.") +
+  geom_point(data = dt_breakpoints[c(1:5, 7:22)], shape = 18, size = 2)
 
 deaths_for_grid <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
@@ -72,7 +73,8 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
   theme(axis.title = element_blank(), legend.position = "none", 
         axis.ticks.x = element_blank(),
         axis.text.x = element_blank()) +
-  labs(y = "7-Tages-Todesfälle je 100.000 Einw.")
+  labs(y = "7-Tages-Todesfälle je 100.000 Einw.") +
+  geom_point(data = dt_breakpoints[c(23:24, 30:38)], shape = 18, size = 2)
 
 # for hosp
 hosp_for_grids <- dt_hosp_y_fitted %>% 
@@ -83,7 +85,9 @@ hosp_for_grids <- dt_hosp_y_fitted %>%
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
   theme(axis.title.y = element_blank()) +
-  labs(y = "7-Tages-Hospitalisierungsfälle") 
+  labs(y = "7-Tages-Hospitalisierungsfälle") +
+  geom_point(data = dt_breakpoints[39:42, .(time, geschaetztes = sdi)], shape = 18, size = 2)
+  
 
 # legend for the plot
 legend <- get_legend(
