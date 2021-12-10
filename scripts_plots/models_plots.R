@@ -35,7 +35,7 @@ ggsave("Plots/breakpoints_deaths.png", plot = deaths_breakpoints, width = 20, he
 
 
 hosp_breakpoints <- dt_hosp_y_fitted %>% 
-  ggplot(aes(x = time, y = fitted), color = "#000000") +
+  ggplot(aes(x = time, y = geschaetztes), color = "#000000") +
   geom_line() +
   labs(x = "Zeit", y = "belegte Intensivbetten") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 6000)) +
@@ -122,7 +122,7 @@ cases_timeseries <- dt_cases_y_fitted_melt %>%
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_vline(xintercept = dt_breakpoints[formula == "seven_day_inz  ~ rep_date_divi", V1]
+  geom_vline(xintercept = dt_breakpoints[formula == "seven_day_inz  ~ rep_date_divi", rep_date_divi]
              , color = "black", linetype = "dotted", size = 1.0)
 cases_timeseries
 ggsave("Plots/timeseries_model_cases.png", plot = cases_timeseries, width = 20, height = 10, units = c("cm"))
@@ -137,22 +137,22 @@ deaths_timeseries <- dt_deaths_y_fitted_melt %>%
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_vline(xintercept = dt_breakpoints[formula == "seven_day_death_inz  + 0.0001 ~ rep_date_divi", V1],
+  geom_vline(xintercept = dt_breakpoints[formula == "seven_day_death_inz  + 0.0001 ~ rep_date_divi", rep_date_divi],
              color = "black", linetype = "dotted", size = 1.0)
 deaths_timeseries
 ggsave("Plots/timeseries_model_deaths.png", plot = deaths_timeseries, width = 20, height = 10, units = c("cm"))
 
 hosp_timeseries <- dt_hosp_y_fitted_melt %>% 
-  ggplot(aes(x = time, y = values/7, color = variable)) +
+  ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "belegte Intensivbetten pro 100.000 Einw.") +
   scale_color_manual(values = farben4, name = "Modell") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 7), breaks = c(0, 1, 2, 3, 4, 5, 6, 7)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 6000), breaks = c(0, 1, 2, 3, 4, 5, 6, 7)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_vline(xintercept = dt_breakpoints[formula == "seven_day_hosp_inz ~ rep_date_divi", V1]
+  geom_vline(xintercept = dt_breakpoints[formula == "seven_day_hosp_inz ~ rep_date_divi", rep_date_divi]
              , color = "black", linetype = "dotted", size = 1.0)
 hosp_timeseries
 ggsave("Plots/timeseries_model_hosp.png", plot = hosp_timeseries, width = 20, height = 10, units = c("cm"))
