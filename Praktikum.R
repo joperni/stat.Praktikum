@@ -2,8 +2,8 @@ library(checkmate)
 library(data.table)
 library(tidyverse)
 
-source("examples_of_code/example_aggregating.R")
 main_data <- readRDS("data/main_data")
+source("examples_of_code/example_aggregating.R")
 data.table(main_data)
 
 ##CFR
@@ -143,9 +143,7 @@ CFR_jul_sep_A00_A14 <- sum(main_data["2020-10-01" > rep_date_divi & rep_date_div
  CFR_jul_sep_A15_A80 <- sum(main_data["2020-10-01" > rep_date_divi & rep_date_divi >= "2020-07-01"]$seven_day_death_inz_A15_A80)/
     sum(main_data["2020-10-01" > rep_date_divi & rep_date_divi >= "2020-07-01"]$seven_day_inz_A15_A80)
  
-##Rückrechnung von CFR auf Inzidenz ab Oktober
- 
- kor_inz_total <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz)/CFR_jul_sep_total
+##Rueckrechnung von CFR auf Inzidenz ab Oktober
  kor_inz_A00_A14 <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A00_A14)/CFR_jul_sep_A00_A14
  kor_inz_A15_A34 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A15_A34)/CFR_jul_sep_A15_A34
  kor_inz_A35_A59 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A35_A59)/CFR_jul_sep_A35_A59
@@ -158,7 +156,7 @@ CFR_jul_sep_A00_A14 <- sum(main_data["2020-10-01" > rep_date_divi & rep_date_div
  
  seven_day_inz_A00_A14_okt_dez <- main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_inz_A00_A14
  
- kor_inz_total_zwei <- ((seven_day_inz_A00_A14_okt_dez*(11477737/82089780))+(kor_inz_A15_A34*(18921292/82089780))+
+ kor_inz_total <- ((seven_day_inz_A00_A14_okt_dez*(11477737/82089780))+(kor_inz_A15_A34*(18921292/82089780))+
                            (kor_inz_A35_A59*(27600978/82089780))+(kor_inz_A60_A79*(18153339/82089780))+(kor_inz_A80*(5936434/82089780)))
  
  #kor_inz_total_zwei_15_80 <- ((kor_inz_A15_A34*(18921292/70612043))+(kor_inz_A35_A59*(27600978/70612043))+
