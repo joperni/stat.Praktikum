@@ -14,11 +14,11 @@ cnames <- colnames(main_data)
 inhabitants <- 83240000
 main_data_divi <- main_data[rep_date_divi >= "2020-05-01"]
 farben <- c("Gesamt" = "#000000", "0-14 Jahre" = "#A6CEE3", "15-34 Jahre" = "#1F78B4",
-            "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "über 80 Jahre" = "#E31A1C")
+            "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "ueber 80 Jahre" = "#E31A1C")
 
 dt_seven_day_inz <- main_data[, c(1, 112, 115:119)]
 setnames(dt_seven_day_inz, c("seven_day_inz", "seven_day_inz_A00_A14", "seven_day_inz_A15_A34", "seven_day_inz_A35_A59", "seven_day_inz_A60_A79",
-                             "seven_day_inz_A80"), c("Gesamt", "0-14 Jahre", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "über 80 Jahre"))
+                             "seven_day_inz_A80"), c("Gesamt", "0-14 Jahre", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
 dt_seven_day_inz[, time := dt_seven_day_inz$rep_date_divi]
 dt_seven_day_inz <- dt_seven_day_inz[, -1]
 dt_seven_day_inz_melt <- melt(dt_seven_day_inz, id.vars = "time", value.name = "inz")
