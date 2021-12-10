@@ -92,9 +92,9 @@ dt_cases_y_fitted_melt <- melt(dt_cases_y_fitted, id.vars = "time", value.name =
 # for deaths
 dt_deaths_y_fitted <- data.table(time = data$rep_date_divi, fitted = dt_models[7, model_bic_seq[[1]]$fitted.values],
                                  timeseries = dt_models[7, model_bic_seq[[1]]$y])
-setnames(dt_deaths_y_fitted, c("fitted", "timeseries"), c("geschaetztes", "gemeldetes"))
+setnames(dt_deaths_y_fitted, c("fitted", "timeseries"), c("geschaetzt", "gemeldet"))
 dt_deaths_y_fitted_melt <- melt(dt_deaths_y_fitted, id.vars = "time", value.name = "values")
 
 # for hosp
-setnames(dt_hosp_y_fitted, c("fitted", "timeseries"), c("geschaetztes", "gemeldetes"))
+setnames(dt_hosp_y_fitted, c("fitted", "timeseries"), c("geschaetzt", "gemeldet"))
 dt_hosp_y_fitted_melt <- melt(dt_hosp_y_fitted, id.vars = "time", value.name = "values")

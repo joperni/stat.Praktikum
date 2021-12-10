@@ -140,7 +140,7 @@ deaths_timeseries <- dt_deaths_y_fitted_melt %>%
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "7-Tages-Todesfälle pro 100.000 Einw.") +
-  scale_color_manual(values = farben4, name = "Modell") +
+  scale_color_manual(values = farben4, name = "") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 10)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -155,7 +155,7 @@ hosp_timeseries <- dt_hosp_y_fitted_melt %>%
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
   labs(x = "Zeit", y = "belegte Intensivbetten pro 100.000 Einw.") +
-  scale_color_manual(values = farben4, name = "Modell") +
+  scale_color_manual(values = farben4, name = "") +
   scale_y_continuous(labels = scales::comma,limits = c(0, 6000), breaks = c(0, 1000, 2000, 3000, 4000, 5000, 6000, 7000)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
