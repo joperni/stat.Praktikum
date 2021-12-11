@@ -9,9 +9,7 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
 
 cases_breakpoints <- ggplot(fitted_vals_melt_cases, aes(x = time, y = sdi, color = variable)) +
   geom_line() +
-  # geom_point(aes(x = as.Date(dt_breakpoints$x_bp[c(1:5, 11:22)], origin = "1970-01-01"),
-  #                            y = dt_breakpoints$y_bp[c(1:5, 11:22)])) +
-  labs(x = "Zeit", y = "7-Tages-Inzidenz") +
+  labs(x = "", y = "7-Tages-Inzidenz") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = c(names(farben3)[1:4], "Über 79 Jahre")) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
@@ -27,7 +25,7 @@ ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, heig
 deaths_breakpoints <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tages-Todesfälle pro 100.000 Einw.") +
+  labs(x = "", y = "7-Tages-Todesfälle") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 80), breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = c(names(farben3)[1:4], "Über 79 Jahre")) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
@@ -123,7 +121,7 @@ farben4 <- c("geschätzt" = "#000000", "gemeldet" = "purple")
 cases_timeseries <- dt_cases_y_fitted_melt %>% 
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tages-Inzidenz") +
+  labs(x = "", y = "7-Tages-Inzidenz") +
   scale_color_manual(values = farben4, name = "") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 250)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
@@ -138,9 +136,9 @@ ggsave("Plots/timeseries_model_cases.png", plot = cases_timeseries, width = 20, 
 deaths_timeseries <- dt_deaths_y_fitted_melt %>% 
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "7-Tages-Todesfälle pro 100.000 Einw.") +
+  labs(x = "", y = "7-Tages-Todesfälle") +
   scale_color_manual(values = farben4, name = "") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 10)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 10), breaks = c(0, 2, 4, 6, 8, 10)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
@@ -153,9 +151,9 @@ ggsave("Plots/timeseries_model_deaths.png", plot = deaths_timeseries, width = 20
 hosp_timeseries <- dt_hosp_y_fitted_melt %>% 
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
-  labs(x = "Zeit", y = "belegte Intensivbetten pro 100.000 Einw.") +
+  labs(x = "", y = "belegte Intensivbetten") +
   scale_color_manual(values = farben4, name = "") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 6000), breaks = c(0, 1000, 2000, 3000, 4000, 5000, 6000, 7000)) +
+  scale_y_continuous(limits = c(0, 6000), breaks = c(0, 1000, 2000, 3000, 4000, 5000, 6000, 7000)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),

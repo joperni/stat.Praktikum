@@ -144,17 +144,17 @@ CFR_jul_sep_A00_A14 <- sum(main_data["2020-10-01" > rep_date_divi & rep_date_div
     sum(main_data["2020-10-01" > rep_date_divi & rep_date_divi >= "2020-07-01"]$seven_day_inz_A15_A80)
  
 ##Rueckrechnung von CFR auf Inzidenz ab Oktober
- kor_inz_A00_A14 <- (main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A00_A14)/CFR_jul_sep_A00_A14
- kor_inz_A15_A34 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A15_A34)/CFR_jul_sep_A15_A34
- kor_inz_A35_A59 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A35_A59)/CFR_jul_sep_A35_A59
- kor_inz_A60_A79 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A60_A79)/CFR_jul_sep_A60_A79
- kor_inz_A80 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A80)/CFR_jul_sep_A80
- kor_inz_A15_A80 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_death_inz_A15_A80)/CFR_jul_sep_A15_A80
+ kor_inz_A00_A14 <- (main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"]$seven_day_death_inz_A00_A14)/CFR_jul_sep_A00_A14
+ kor_inz_A15_A34 <-(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"]$seven_day_death_inz_A15_A34)/CFR_jul_sep_A15_A34
+ kor_inz_A35_A59 <-(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"]$seven_day_death_inz_A35_A59)/CFR_jul_sep_A35_A59
+ kor_inz_A60_A79 <-(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"]$seven_day_death_inz_A60_A79)/CFR_jul_sep_A60_A79
+ kor_inz_A80 <-(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"]$seven_day_death_inz_A80)/CFR_jul_sep_A80
+ kor_inz_A15_A80 <-(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"]$seven_day_death_inz_A15_A80)/CFR_jul_sep_A15_A80
   
  ##Zeite Schätzung der Gesamtinzidenz
  Gesamtbevoelkerung_genau = 82089780
  
- seven_day_inz_A00_A14_okt_dez <- main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_inz_A00_A14
+ seven_day_inz_A00_A14_okt_dez <- main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"]$seven_day_inz_A00_A14
  
  kor_inz_total <- ((seven_day_inz_A00_A14_okt_dez*(11477737/82089780))+(kor_inz_A15_A34*(18921292/82089780))+
                            (kor_inz_A35_A59*(27600978/82089780))+(kor_inz_A60_A79*(18153339/82089780))+(kor_inz_A80*(5936434/82089780)))
