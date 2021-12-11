@@ -32,7 +32,7 @@ plot_korr_inz_15_34 <- dt_korr_inz_15_34_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "", y = "7-Tages-Inzidenz") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 500)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
   scale_color_manual(values = farben2, name = "Art der Inzidenz") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -70,7 +70,7 @@ plot_korr_inz_60_79 <- dt_korr_inz_60_79_melt %>%
 ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "", y = "7-Tages-Inzidenz") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
   scale_color_manual(values = farben2, name = "Art der Inzidenz") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -108,7 +108,7 @@ plot_korr_inz <- dt_korr_inz_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "", y = "7-Tages-Inzidenz") +
-  scale_y_continuous(labels = scales::comma,limits = c(0, 500), breaks = c(0, 100, 200, 300, 400, 500)) +
+  scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
   scale_color_manual(values = farben2, name = "Art der Inzidenz") +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
