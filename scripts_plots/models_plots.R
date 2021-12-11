@@ -76,14 +76,14 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
 
 # for hosp
 hosp_for_grids <- dt_hosp_y_fitted %>% 
-  ggplot(aes(x = time, y = geschaetztes), color = "#000000") +
+  ggplot(aes(x = time, y = geschaetzt), color = "#000000") +
   geom_line() +
   scale_y_continuous(limits = c(0, 8000)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
   theme(axis.title.y = element_blank()) +
-  labs(y = "7-Tages-Hospitalisierungsfälle") +
-  geom_point(data = dt_breakpoints[39:42, .(time, geschaetztes = sdi)], shape = 18, size = 2)
+  labs(y = "7-Tages-Hospitalisierungsfälle", x = "") +
+  geom_point(data = dt_breakpoints[39:42, .(time, geschaetzt = sdi)], shape = 18, size = 2)
   
 
 # legend for the plot
