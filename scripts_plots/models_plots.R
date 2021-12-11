@@ -80,7 +80,6 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
 hosp_for_grids <- dt_hosp_y_fitted %>% 
   ggplot(aes(x = time, y = geschaetztes), color = "#000000") +
   geom_line() +
-  labs(x = "Zeit") +
   scale_y_continuous(limits = c(0, 8000)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
@@ -105,7 +104,7 @@ p_grid <- plot_grid(cases_for_grid +
                     deaths_for_grid,
                     hosp_for_grids,
                     # labels need to be adjusted
-                    labels = c('Inzidenz', "Todesfälle", "Intesivbettenbelegung"),
+                    labels = c('Inzidenz', "Todesfälle", "Intensivbettenbelegung"),
                     # one col for the three plots, to adjust them among each other
                     ncol = 1,
                     # adjusting the positions of the labels
