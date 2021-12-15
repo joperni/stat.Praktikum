@@ -31,7 +31,7 @@ dt_models <- data.table(formula = formulas[!grepl("log", formulas)])
 # dt_models[grepl("log", formula), base_model := lapply(formula,
 #                                                  function(x) glm(data = data, x))]
 dt_models[!grepl("log", formula), base_model := lapply(formula,
-                                                  function(x) glm(data = data, x,  family = Gamma(link = "log")))]
+                                                  function(x) glm(data = data, x, family = Gamma(link = "log")))]
 dt_models[, model_bic := lapply(base_model, selg_function)][
   , model_bic_seq := Map(seq_bic_modell, base_model, model_bic)][
     , plot_model := Map(function_plot, base_model, model_bic, model_bic_seq, formulas[!grepl("log", formulas)])]
@@ -44,6 +44,7 @@ dt_models[, model_bic := lapply(base_model, selg_function)][
 dt_breakpoints <- 
   dt_models[!grepl("log", formula), .(time = as.Date(model_bic_seq[[1]]$psi[, 2], origin = "1970-01-01"),
                                       model = model_bic_seq), by = formula]
+# reading from plot ^^
 dt_breakpoints$sdi <- c(19, 43, 118, 150, 149, 0, 35, 192, 222, 183,
                         20, 73, 117, 151, 171, 177, 166, 233, 90, 100,
                         9, 98,
