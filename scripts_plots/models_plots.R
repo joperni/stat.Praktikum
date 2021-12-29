@@ -7,7 +7,9 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
 
 # Age_group_plot ----------------------------------------------------------
 
-cases_breakpoints <- ggplot(fitted_vals_melt_cases, aes(x = time, y = sdi, color = variable)) +
+cases_breakpoints <- ggplot(fitted_vals_melt_cases,
+                            aes(x = as.Date(time, format = "%d. %b %Y", origin = lubridate::origin)
+                                , y = sdi, color = variable)) +
   geom_line() +
   labs(x = "", y = "7-Tages-Inzidenz") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400)) +
@@ -16,14 +18,15 @@ cases_breakpoints <- ggplot(fitted_vals_melt_cases, aes(x = time, y = sdi, color
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_point(data = dt_breakpoints[c(1:5, 7:22)], shape = 18, size = 2)
+  geom_point(data = dt_breakpoints["inz" == data, .(sdi, time, variable)], shape = 18, size = 2)
 cases_breakpoints
 ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
 
 
 deaths_breakpoints <- fitted_vals_melt_deaths %>%
-  ggplot(aes(x = time, y = sdi, color = variable)) +
+  ggplot(aes(x = as.Date(time, format = "%d. %b %Y", origin = lubridate::origin),
+             y = sdi, color = variable)) +
   geom_line() +
   labs(x = "", y = "7-Tages-Todesfälle") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 80), breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80)) +
@@ -32,7 +35,7 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_point(data = dt_breakpoints[c(23:24, 30:38)], shape = 18, size = 2)
+  geom_point(data = dt_breakpoints["deaths" == data, .(sdi, time, variable)], shape = 18, size = 2)
 deaths_breakpoints
 ggsave("Plots/breakpoints_deaths.png", plot = deaths_breakpoints, width = 20, height = 10, units = c("cm"))
 
