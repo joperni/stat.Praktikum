@@ -134,7 +134,9 @@ cases_timeseries <- dt_cases_y_fitted_melt %>%
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
   geom_vline(xintercept = dt_breakpoints["inz" == origin & variable == "Gesamt", time]
-             , color = "black", linetype = "dotted", size = 1.0)
+             , color = "black", linetype = "dotted", size = 1.0) +
+  geom_segment(data = dt_breakpoints["inz" == origin & variable == "Gesamt"],
+               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 cases_timeseries
 ggsave("Plots/timeseries_model_cases.png", plot = cases_timeseries, width = 20, height = 10, units = c("cm"))
 
@@ -149,7 +151,9 @@ deaths_timeseries <- dt_deaths_y_fitted_melt %>%
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
   geom_vline(xintercept = dt_breakpoints["deaths" == origin & variable == "Gesamt", time],
-             color = "black", linetype = "dotted", size = 1.0)
+             color = "black", linetype = "dotted", size = 1.0) +
+  geom_segment(data = dt_breakpoints["deaths" == origin & variable == "Gesamt"],
+               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 deaths_timeseries
 ggsave("Plots/timeseries_model_deaths.png", plot = deaths_timeseries, width = 20, height = 10, units = c("cm"))
 
@@ -164,6 +168,8 @@ hosp_timeseries <- dt_hosp_y_fitted_melt %>%
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
   geom_vline(xintercept = dt_breakpoints["beds" == origin & variable == "Gesamt", time],
-             color = "black", linetype = "dotted", size = 1.0)
+             color = "black", linetype = "dotted", size = 1.0) +
+  geom_segment(data = dt_breakpoints["beds" == origin & variable == "Gesamt"],
+               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 hosp_timeseries
 ggsave("Plots/timeseries_model_hosp.png", plot = hosp_timeseries, width = 20, height = 10, units = c("cm"))
