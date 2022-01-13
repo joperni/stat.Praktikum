@@ -12,6 +12,7 @@ source("help_functions/model_help_functions.R")
 setDT(main_data)
 # filter data
 data <- copy(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"])
+#data <- copy(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-10-01"])
 
 set.seed(1352674267)
 
