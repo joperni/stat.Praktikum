@@ -64,7 +64,7 @@ data_okt_dez$unterschaetzung_A80 <- data_okt_dez$korr_inz_A80/data_okt_dez$seven
 dt_unterschaetzung <- data_okt_dez[, c("rep_date_divi", "unterschaetzung_total", "unterschaetzung_A15_A34",
                                        "unterschaetzung_A35_A59", "unterschaetzung_A60_A79", "unterschaetzung_A80")]
 setnames(dt_unterschaetzung, c("unterschaetzung_total", "unterschaetzung_A15_A34", "unterschaetzung_A35_A59", "unterschaetzung_A60_A79",
-                              "unterschaetzung_A80"), c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
+                               "unterschaetzung_A80"), c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
 dt_unterschaetzung[, time := dt_unterschaetzung$rep_date_divi]
 dt_unterschaetzung <- dt_unterschaetzung[, -1]
 dt_unterschaetzung_melt <- melt(dt_unterschaetzung, id.vars = "time", value.name = "inz")

@@ -37,7 +37,7 @@ plot_korr_inz_15_34 <- dt_korr_inz_15_34_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") + theme_bw()
 plot_korr_inz_15_34
 ggsave("Plots/korrigierte Inzidenz 15-34.png", plot = plot_korr_inz_15_34, width = 20, height = 10, units = c("cm"))
 
@@ -56,7 +56,7 @@ plot_korr_inz_35_59 <- dt_korr_inz_35_59_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") + theme_bw()
 plot_korr_inz_35_59
 ggsave("Plots/korrigierte Inzidenz 35-59.png", plot = plot_korr_inz_35_59, width = 20, height = 10, units = c("cm"))
 
@@ -75,7 +75,7 @@ ggplot(aes(x = time, y = inz, color = variable)) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") + theme_bw()
 plot_korr_inz_60_79
 ggsave("Plots/korrigierte Inzidenz 60-79.png", plot = plot_korr_inz_60_79, width = 20, height = 10, units = c("cm"))
 
@@ -94,7 +94,7 @@ plot_korr_inz_80 <- dt_korr_inz_80_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") + theme_bw()
 plot_korr_inz_80
 ggsave("Plots/korrigierte Inzidenz über 80.png", plot = plot_korr_inz_80, width = 20, height = 10, units = c("cm"))
 
@@ -113,7 +113,7 @@ plot_korr_inz <- dt_korr_inz_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") + theme_bw()
 plot_korr_inz
 ggsave("Plots/korrigierte Inzidenz.png", plot = plot_korr_inz, width = 20, height = 10, units = c("cm"))
 
@@ -142,9 +142,10 @@ plot_unterschätzung <- dt_unterschätzung_melt %>%
   labs(x = "", y = "Faktor der Unterschätzung") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 3), breaks = c(0, 0.5, 1, 1.5, 2, 2.5, 3)) +
   scale_color_manual(values = farben3, name = "Altersgruppe") +
+  geom_hline(yintercept = 1, color = "#808080") + 
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") + theme_bw()
 plot_unterschätzung
 ggsave("Plots/Unterschätzung Inzidenz.png", plot = plot_unterschätzung, width = 20, height = 10, units = c("cm"))

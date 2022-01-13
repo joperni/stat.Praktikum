@@ -1,5 +1,5 @@
 source("data_transformation_for_plots.R")
-farben <- c("Gesamt" = "#000000", "0-14 Jahre" = "#B2DF8A","15-34 Jahre" = "#1F78B4",
+farben <- c("Gesamt" = "#010101", "0-14 Jahre" = "#B2DF8A","15-34 Jahre" = "#1F78B4",
              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "ueber 80 Jahre" = "#E31A1C")
 
 # 7-Tage-Inzidenz (einfach)
@@ -17,7 +17,7 @@ seven_day_alter <- dt_seven_day_inz_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") +  theme_bw()
 seven_day_alter
 ggsave("Plots/7-Tage-Inzidenz nach Alter.png", plot = seven_day_alter, width = 20, height = 10, units = c("cm"))
 # Intensivbettenbelegung
@@ -29,7 +29,7 @@ betten <- main_data_divi %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-05-01", "2020-07-01", "2020-10-01", "2021-01-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") + theme_bw()
 betten
 ggsave("Plots/intensivbettenbelegung.png", plot = betten, width = 20, height = 10, units = c("cm"))
 
@@ -80,6 +80,6 @@ seven_death_alter <- dt_seven_day_deaths_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d. %b %Y") + theme_bw()
 seven_death_alter
 ggsave("Plots/Todesfälle nach Alter.png", plot = seven_death_alter, width = 20, height = 10, units = c("cm"))
