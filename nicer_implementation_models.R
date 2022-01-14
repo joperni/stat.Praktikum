@@ -11,8 +11,8 @@ source("examples_of_code/example_aggregating.R")
 source("help_functions/model_help_functions.R")
 setDT(main_data)
 # filter data
-data <- copy(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"])
-#data <- copy(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-10-01"])
+# data <- copy(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-09-25"])
+data <- copy(main_data["2020-12-23" > rep_date_divi & rep_date_divi >= "2020-10-01"])
 
 set.seed(1352674267)
 
@@ -44,17 +44,32 @@ dt_models[, model_bic := lapply(base_model, selg_function)][
 # # help data table for the plots -----------------------------------------
 
 # At first: Making data table with breakpoints, for all used gamma models
+
+# how much should each label be repeatet
+rep_times_age <- c(0, cumsum(vapply(dt_models[, confint], nrow, numeric(1))))
+# char_vec with age groups
+age_groups <- c("Gesamt","15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre", "Gesamt",
+                "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre", "Gesamt")
+variables <- c("inz", "deaths", "beds")
+rep_times_var <- c(0, sum(rep_times_age[6]), sum(rep_times_age[11]), rep_times_age[12])
 dt_breakpoints <- as.data.table(Reduce(rbind, dt_models[, confint]))
-dt_breakpoints[, variable := c(rep("Gesamt", 5), rep("15-34 Jahre", 4), rep("35-59 Jahre", 8),
-                             rep("60-79 Jahre", 2), rep("ueber 80 Jahre", 2),
-                             # deaths
-                             rep("Gesamt", 2), rep("15-34 Jahre", 2), rep("35-59 Jahre", 3),
-                             rep("60-79 Jahre", 1), rep("ueber 80 Jahre", 3), rep("Gesamt", 4))][
-                               # add column with origin of the data
-                               , data := c(rep("inz", 21), rep("deaths", 11), rep("beds", 4))]
+# fastest way in dt
+# add an age column
+for (i in seq_along(age_groups)) {
+  set(dt_breakpoints,
+      seq(rep_times_age[i] + 1, rep_times_age[1 + i]), "age_variable", age_groups[i])
+}
+# add a column with indicates the variable we used for our model
+for (i in seq_along(variables)) {
+  set(dt_breakpoints,
+      seq(rep_times_var[i] + 1, rep_times_var[1 + i]), "variable", variables[i])
+}
+
 setnames(dt_breakpoints, c("time", "lowerCI", "upperCI", "sdi", "variable", "origin"))
 dt_breakpoints[, c("time", "lowerCI", "upperCI") := lapply(.SD, as.Date, format = "%d. %b %Y", origin = lubridate::origin),
                .SDcols = c("time", "lowerCI", "upperCI")]
+
+
 
 # Transforming data table for easier plotting for cases
 #
