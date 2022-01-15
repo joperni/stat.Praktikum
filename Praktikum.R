@@ -253,86 +253,188 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  data_okt_dez$kor_7_inz_A80 <- kor_7_inz_A80
  data_okt_dez$kor_7_inz_total <- kor_7_inz_total
  
- farben4 <- c("gemeldete" = "#000000", "korrigierte" = "#E31A1C", "lagkorrigiert" = "#E31A1C")
+
+
  dt_korr_7_inz_15_34 <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz_A15_A34", "kor_inz_A15_A34", "kor_7_inz_A15_A34")])
  setnames(dt_korr_7_inz_15_34, c("seven_day_inz_A15_A34", "kor_inz_A15_A34", "kor_7_inz_A15_A34"), c("gemeldete", "korrigierte", "lagkorrigiert"))
  
+# 15-34 Jährige
+ farben1534 <- c("#000000", "#1F78B4", "#1F78B4")
  dt_korr_7_inz_15_34[, time := dt_korr_7_inz_15_34$rep_date_divi]
  dt_korr_7_inz_15_34 <- dt_korr_7_inz_15_34[, -1]
  dt_korr_7_inz_15_34_melt <- melt(dt_korr_7_inz_15_34, id.vars = "time", value.name = "inz")
+ levels(dt_korr_7_inz_15_34_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
  plot_korr_7_inz_15_34 <- dt_korr_7_inz_15_34_melt %>% 
-   ggplot(aes(x = time, y = inz, color = variable, group=variable)) +
+   ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
    geom_line() +
    labs(x = "", y = "7-Tages-Inzidenz") +
    scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-   scale_color_manual(values = farben4, name = "Art der Inzidenz") +
+   scale_color_manual("Methode", values = farben1534) +
+   scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+   theme_bw() +
+   theme(panel.border = element_rect(colour = "black", size=1),
+         panel.grid = element_line(colour = "gray57", size = 0.2),
+         axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
+         axis.text   = element_text(colour = "black")) +
    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                 date_labels = "%d. %b %Y")
- plot_korr_7_inz_15_34
- ggsave("Plots/korrigierte Inzidenz mit Lag 15-34.png", plot = plot_korr_7_inz_15_34, width = 20, height = 10, units = c("cm"))
+ #plot_korr_7_inz_15_34
+ #ggsave("Plots/korrigierte Inzidenz mit Lag 15-34.png", plot = plot_korr_7_inz_15_34, width = 21, height = 10, units = c("cm"))
  
- 
+ # 35-59-Jährige
+ farben3559 <- c("#000000", "#33A02C", "#33A02C")
  dt_korr_7_inz_35_59 <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz_A35_A59", "kor_inz_A35_A59", "kor_7_inz_A35_A59")])
  setnames(dt_korr_7_inz_35_59, c("seven_day_inz_A35_A59", "kor_inz_A35_A59", "kor_7_inz_A35_A59"), c("gemeldete", "korrigierte", "lagkorrigiert"))
  
  dt_korr_7_inz_35_59[, time := dt_korr_7_inz_35_59$rep_date_divi]
  dt_korr_7_inz_35_59 <- dt_korr_7_inz_35_59[, -1]
  dt_korr_7_inz_35_59_melt <- melt(dt_korr_7_inz_35_59, id.vars = "time", value.name = "inz")
+ levels(dt_korr_7_inz_35_59_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
  plot_korr_7_inz_35_59 <- dt_korr_7_inz_35_59_melt %>% 
-   ggplot(aes(x = time, y = inz, color = variable)) +
-   geom_line() +
-   labs(x = "", y = "7-Tages-Inzidenz") +
-   scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-   scale_color_manual(values = farben4, name = "Art der Inzidenz") +
-   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
-   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                date_labels = "%d. %b %Y")
- plot_korr_7_inz_35_59
- ggsave("Plots/korrigierte Inzidenz mit Lag 35-59.png", plot = plot_korr_7_inz_35_59, width = 20, height = 10, units = c("cm"))
+    ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
+    geom_line() +
+    labs(x = "", y = "7-Tages-Inzidenz") +
+    scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
+    scale_color_manual("Methode", values = farben3559) +
+    scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+    theme_bw() +
+    theme(panel.border = element_rect(colour = "black", size=1),
+          panel.grid = element_line(colour = "gray57", size = 0.2),
+          axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
+          axis.text   = element_text(colour = "black")) +
+    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+                 date_labels = "%d. %b %Y")
+ #plot_korr_7_inz_35_59
+ #ggsave("Plots/korrigierte Inzidenz mit Lag 35-59.png", plot = plot_korr_7_inz_35_59, width = 20, height = 10, units = c("cm"))
  
- 
- 
+ #60-79-Jährige
+ farben6079<- c("#000000", "#FB9A99", "#FB9A99")
  dt_korr_7_inz_60_79 <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz_A60_A79", "kor_inz_A60_A79", "kor_7_inz_A60_A79")])
  setnames(dt_korr_7_inz_60_79, c("seven_day_inz_A60_A79", "kor_inz_A60_A79", "kor_7_inz_A60_A79"), c("gemeldete", "korrigierte", "lagkorrigiert"))
  
  dt_korr_7_inz_60_79[, time := dt_korr_7_inz_60_79$rep_date_divi]
  dt_korr_7_inz_60_79 <- dt_korr_7_inz_60_79[, -1]
  dt_korr_7_inz_60_79_melt <- melt(dt_korr_7_inz_60_79, id.vars = "time", value.name = "inz")
+ levels(dt_korr_7_inz_60_79_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
  plot_korr_7_inz_60_79 <- dt_korr_7_inz_60_79_melt %>% 
-   ggplot(aes(x = time, y = inz, color = variable)) +
-   geom_line() +
-   labs(x = "", y = "7-Tages-Inzidenz") +
-   scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-   scale_color_manual(values = farben4, name = "Art der Inzidenz") +
-   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
-   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                date_labels = "%d. %b %Y")
- plot_korr_7_inz_60_79
- ggsave("Plots/korrigierte Inzidenz mit Lag 60-79.png", plot = plot_korr_7_inz_60_79, width = 20, height = 10, units = c("cm"))
+    ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
+    geom_line() +
+    labs(x = "", y = "7-Tages-Inzidenz") +
+    scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
+    scale_color_manual("Methode", values = farben6079) +
+    scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+    theme_bw() +
+    theme(panel.border = element_rect(colour = "black", size=1),
+          panel.grid = element_line(colour = "gray57", size = 0.2),
+          axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
+          axis.text   = element_text(colour = "black")) +
+    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+                 date_labels = "%d. %b %Y")
+ #plot_korr_7_inz_60_79
+ #ggsave("Plots/korrigierte Inzidenz mit Lag 60-79.png", plot = plot_korr_7_inz_60_79, width = 20, height = 10, units = c("cm"))
  
- 
+ #Ü79-Jährige
+ farben80<- c("#000000", "#E31A1C", "#E31A1C")
  dt_korr_7_inz_80 <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz_A80", "kor_inz_A80", "kor_7_inz_A80")])
  setnames(dt_korr_7_inz_80, c("seven_day_inz_A80", "kor_inz_A80", "kor_7_inz_A80"), c("gemeldete", "korrigierte", "lagkorrigiert"))
  
  dt_korr_7_inz_80[, time := dt_korr_7_inz_80$rep_date_divi]
  dt_korr_7_inz_80 <- dt_korr_7_inz_80[, -1]
  dt_korr_7_inz_80_melt <- melt(dt_korr_7_inz_80, id.vars = "time", value.name = "inz")
+ levels(dt_korr_7_inz_80_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
  plot_korr_7_inz_80 <- dt_korr_7_inz_80_melt %>% 
-   ggplot(aes(x = time, y = inz, color = variable)) +
-   geom_line() +
-   labs(x = "", y = "7-Tages-Inzidenz") +
-   scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-   scale_color_manual(values = farben4, name = "Art der Inzidenz") +
-   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
-   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                date_labels = "%d. %b %Y")
- plot_korr_7_inz_80
- ggsave("Plots/korrigierte Inzidenz mit Lag über 80.png", plot = plot_korr_7_inz_80, width = 20, height = 10, units = c("cm"))
+    ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
+    geom_line() +
+    labs(x = "", y = "7-Tages-Inzidenz") +
+    scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
+    scale_color_manual("Methode", values = farben80) +
+    scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+    theme_bw() +
+    theme(panel.border = element_rect(colour = "black", size=1),
+          panel.grid = element_line(colour = "gray57", size = 0.2),
+          axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
+          axis.text   = element_text(colour = "black")) +
+    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+                 date_labels = "%d. %b %Y")
+ #plot_korr_7_inz_80
+ #ggsave("Plots/korrigierte Inzidenz mit Lag über 80.png", plot = plot_korr_7_inz_80, width = 20, height = 10, units = c("cm"))
+ 
+ #Gesamt-Jährige
+ farbenges<- c("#000000", "darkorange", "darkorange")
+ dt_korr_7_inz_g <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz", "kor_inz_total", "kor_7_inz_total")])
+ setnames(dt_korr_7_inz_g, c("seven_day_inz", "kor_inz_total", "kor_7_inz_total"), c("gemeldete", "korrigierte", "lagkorrigiert"))
+ 
+ dt_korr_7_inz_g[, time := dt_korr_7_inz_g$rep_date_divi]
+ dt_korr_7_inz_g <- dt_korr_7_inz_g[, -1]
+ dt_korr_7_inz_g_melt <- melt(dt_korr_7_inz_g, id.vars = "time", value.name = "inz")
+ levels(dt_korr_7_inz_g_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
+ plot_korr_7_inz_g <- dt_korr_7_inz_g_melt %>% 
+    ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
+    geom_line() +
+    labs(x = "", y = "7-Tages-Inzidenz") +
+    scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
+    scale_color_manual("Methode", values = farbenges) +
+    scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+    theme_bw() +
+    theme(panel.border = element_rect(colour = "black", size=1),
+          panel.grid = element_line(colour = "gray57", size = 0.2),
+          axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
+          axis.text   = element_text(colour = "black")) +
+    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+                 date_labels = "%d. %b %Y")
+ #plot_korr_7_inz_g
+ #ggsave("Plots/korrigierte Inzidenz.png", plot = plot_korr_7_inz_80, width = 20, height = 10, units = c("cm"))
+ 
+ 
+ 
+ 
+ ##plots aller Altersgruppen ohne Lag, Unterschätzung
+ data_okt_dez$unterschätzung_total <- data_okt_dez$kor_inz_tot/data_okt_dez$seven_day_inz
+ data_okt_dez$unterschätzung_A15_A34 <- data_okt_dez$kor_inz_A15_A34/data_okt_dez$seven_day_inz_A15_A34
+ data_okt_dez$unterschätzung_A35_A59 <- data_okt_dez$kor_inz_A35_A59/data_okt_dez$seven_day_inz_A35_A59
+ data_okt_dez$unterschätzung_A60_A79 <- data_okt_dez$kor_inz_A60_A79/data_okt_dez$seven_day_inz_A60_A79
+ data_okt_dez$unterschätzung_A80 <- data_okt_dez$kor_inz_A80/data_okt_dez$seven_day_inz_A80
+ dt_unterschätzung <- data_okt_dez[, c("rep_date_divi", "unterschätzung_total", "unterschätzung_A15_A34", "unterschätzung_A35_A59", "unterschätzung_A60_A79",
+                                       "unterschätzung_A80")]
+ setnames(dt_unterschätzung, c("unterschätzung_total", "unterschätzung_A15_A34", "unterschätzung_A35_A59", "unterschätzung_A60_A79",
+                               "unterschätzung_A80"), c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "Über 79 Jahre"))
+ dt_unterschätzung[, time := dt_unterschätzung$rep_date_divi]
+ dt_unterschätzung <- dt_unterschätzung[, -1]
+ dt_unterschätzung_melt <- melt(dt_unterschätzung, id.vars = "time", value.name = "inz")
+ 
+ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
+              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "Über 79 Jahre" = "#E31A1C")
+ 
+ plot_unterschätzung <- dt_unterschätzung_melt %>% 
+    ggplot(aes(x = time, y = inz, color = variable)) +
+    geom_line() +
+    labs(x = "", y = "Faktor der Unterschätzung") +
+    scale_y_continuous(labels = scales::label_number(accuracy = 0.5), limits = c(0, 3), breaks = c(0, 0.5, 1, 1.5, 2, 2.5, 3)) +
+    scale_color_manual(values = farben3, name = "Altersgruppe") +
+    geom_hline(yintercept = 1, color = "#808080") + 
+    theme_bw() +
+    theme(panel.border = element_rect(colour = "black", size=1),
+          panel.grid = element_line(colour = "gray57", size = 0.2),
+          axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
+          axis.text   = element_text(colour = "black")) +
+    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+                 date_labels = "%d. %b %Y")
+ #plot_unterschätzung
+ #ggsave("Plots/Unterschätzung Inzidenz.png", plot = plot_unterschätzung, width = 20, height = 10, units = c("cm"))
+ 
+ 
  
  
  ##plots aller Altersgruppen mit 7 Tage Lag, Unterschätzung
@@ -359,12 +461,34 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     ggplot(aes(x = time, y = inz, color = variable)) +
     geom_line() +
     labs(x = "", y = "Faktor der Unterschätzung") +
-    scale_y_continuous(labels = scales::comma, limits = c(0, 3), breaks = c(0, 0.5, 1, 1.5, 2, 2.5, 3)) +
+    scale_y_continuous(labels = scales::label_number(accuracy = 0.5), limits = c(0, 3), breaks = c(0, 0.5, 1, 1.5, 2, 2.5, 3)) +
     scale_color_manual(values = farben3, name = "Altersgruppe") +
     geom_hline(yintercept = 1, color = "#808080") + 
+    theme_bw() +
+    theme(panel.border = element_rect(colour = "black", size=1),
+          panel.grid = element_line(colour = "gray57", size = 0.2),
+          axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
+          axis.text   = element_text(colour = "black")) +
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d. %b %Y") + theme_bw()
- plot_unterschaetzung_7
- ggsave("Plots/Unterschätzung Inzidenz mit Lag.png", plot = plot_unterschaetzung_7, width = 20, height = 10, units = c("cm"))
+                 date_labels = "%d. %b %Y")
+ #plot_unterschaetzung_7
+ #ggsave("Plots/Unterschätzung Inzidenz mit Lag.png", plot = plot_unterschaetzung_7, width = 20, height = 10, units = c("cm"))
+ 
+ aligned <- align_plots(plot_korr_7_inz_15_34,
+                        plot_korr_7_inz_35_59,
+                        plot_korr_7_inz_60_79,
+                        plot_korr_7_inz_80,
+                        plot_korr_7_inz_g,
+                        plot_unterschätzung,
+                        plot_unterschaetzung_7,
+                        align = "hv",
+                        axis = "tblr")
+ ggsave("Plots/korrigierte Inzidenz mit Lag 15-34.png", plot = ggdraw(aligned[[1]]), width = 21, height = 10, units = c("cm"))
+ ggsave("Plots/korrigierte Inzidenz mit Lag 35-59.png", plot = ggdraw(aligned[[2]]), width = 21, height = 10, units = c("cm"))
+ ggsave("Plots/korrigierte Inzidenz mit Lag 60-79.png", plot = ggdraw(aligned[[3]]), width = 21, height = 10, units = c("cm"))
+ ggsave("Plots/korrigierte Inzidenz mit Lag über 80.png", plot = ggdraw(aligned[[4]]), width = 21, height = 10, units = c("cm"))
+ ggsave("Plots/korrigierte Inzidenz mit Lag gesamt.png", plot = ggdraw(aligned[[5]]), width = 21, height = 10, units = c("cm"))
+ ggsave("Plots/Unterschätzung Inzidenz.png", plot = ggdraw(aligned[[6]]), width = 21, height = 10, units = c("cm"))
+ ggsave("Plots/Unterschätzung Inzidenz mit Lag.png", plot = ggdraw(aligned[[7]]), width = 21, height = 10, units = c("cm"))
