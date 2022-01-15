@@ -12,7 +12,7 @@ ppseven_day_alter = dt_seven_day_inz_melt %>%
   ggplot(aes(x = time, y = inz, color = variable)) +
   geom_line() +
   labs(x = "", y = "7-Tages-Inzidenz") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 405), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400)) +
   scale_color_manual(values = farben, name = "Altersgruppe", labels = c(names(farben)[1:5], "Über 79 Jahre")) +
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
@@ -23,6 +23,15 @@ ppseven_day_alter = dt_seven_day_inz_melt %>%
         panel.grid = element_line(colour = "gray57", size = 0.2),
         axis.title.y = element_text(margin = margin(t = 0, r = 9, b = 0, l = 0)),
         axis.text   = element_text(colour = "black"))
+
+# 7TI für Startseite
+banner = ppseven_day_alter + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position="none", axis.line=element_blank(),axis.text.x=element_blank(),
+        axis.text.y=element_blank(),axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank())
+ggsave("Plots/Hintergrund.png", plot = banner, width = 21, height = 10, units = c("cm"))
 
 # Intensivbettenbelegung
 ppbetten = main_data_divi %>% 
@@ -66,6 +75,6 @@ aligned <- align_plots(ppseven_day_alter,
                        ppdeaths,
                        align = "hv",
                        axis = "tblr")
-ggsave("Plots/7-Tage-Inzidenz nach Alter.png", plot = ggdraw(aligned[[1]]), width = 20, height = 10, units = c("cm"))
-ggsave("Plots/intensivbettenbelegung.png", plot = ggdraw(aligned[[2]]), width = 20, height = 10, units = c("cm"))
-ggsave("Plots/Todesfälle nach Alter.png", plot = ggdraw(aligned[[3]]), width = 20, height = 10, units = c("cm"))
+ggsave("Plots/7-Tage-Inzidenz nach Alter.png", plot = ggdraw(aligned[[1]]), width = 21, height = 10, units = c("cm"))
+ggsave("Plots/intensivbettenbelegung.png", plot = ggdraw(aligned[[2]]), width = 21, height = 10, units = c("cm"))
+ggsave("Plots/Todesfälle nach Alter.png", plot = ggdraw(aligned[[3]]), width = 21, height = 10, units = c("cm"))
