@@ -14,7 +14,8 @@ seg_diagnose <- function(model) {
                    theo_quants = qgamma(ppoints(length(model$residuals)),
                                         # taking just the estimation of the shape, not the se
                                         shape = MASS::gamma.shape(model)[[1]]),
-                   leverage = hatvalues(model))
+                   leverage = hatvalues(model),
+                   cooks_d <- cooks.distance(model))
   
   # residuals vs predicted values
   res_pred_plot <- ggplot(df, aes(fitted, res)) +
@@ -38,7 +39,7 @@ seg_diagnose <- function(model) {
     ylab("wurzel(|standatisierte Residuen|)")
   
   # leverage vs standatized residuals
-  lev_res_plot <- ggplot(df, aes(leverage, res_standard)) +
+  lev_res_plot <- ggplot(df, aes(leverage, res_standard, color = cooks_d)) +
     geom_point() +
     xlab("leverage") +
     ylab("standatisierte Residuen")

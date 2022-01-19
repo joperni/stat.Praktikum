@@ -117,3 +117,11 @@ dt_deaths_y_fitted_melt <- melt(dt_deaths_y_fitted, id.vars = "time", value.name
 # for hosp
 setnames(dt_hosp_y_fitted, c("fitted", "timeseries"), c("geschaetzt", "gemeldet"))
 dt_hosp_y_fitted_melt <- melt(dt_hosp_y_fitted, id.vars = "time", value.name = "values")
+
+
+# growth_rates ------------------------------------------------------------
+
+growth_rate <- function(model) {
+  mod_coef <- model$coefficients
+  exp(cumsum(mod_coef[seq(2, length(model$coefficients) / 2 + 1)]))
+}
