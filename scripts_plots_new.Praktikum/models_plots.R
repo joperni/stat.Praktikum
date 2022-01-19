@@ -51,18 +51,23 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
 #ggsave("Plots/breakpoints_deaths.png", plot = deaths_breakpoints, width = 20, height = 10, units = c("cm"))
 
 # 
-# hosp_breakpoints <- dt_hosp_y_fitted %>%
-#   ggplot(aes(x = as.Date(time, format = "%d. %b %Y", origin = lubridate::origin),
-#              y = geschaetzt), color = "#000000") +
-#   geom_line() +
-#   labs(x = "Zeit", y = "belegte Intensivbetten") +
-#   scale_y_continuous(limits = c(0, 6000)) +
-#   theme(axis.text.x = element_text(size = 12), axis.title.x = element_text(size = 15),
-#         axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 15)) +
-#   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-#                date_labels = "%d. %B %Y")
-# hosp_breakpoints
-# ggsave("Plots/breakpoints_hosp.png", plot = hosp_breakpoints, width = 20, height = 10, units = c("cm"))
+log_deaths_breakpoints <- fitted_vals_melt_deaths %>%
+  ggplot(aes(x = time, y = log(sdi), color = variable)) +
+  geom_line() +
+  labs(x = "", y = "log-7-Tages-Todesfälle") +
+  scale_y_continuous(labels = scales::comma, limits = c(-6, 6), breaks = c(-6, -3, 0, 3, 6)) +
+  scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
+  theme_bw() +
+  theme(panel.border = element_rect(colour = "black", size=1),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        axis.title.y = element_text(margin = margin(t = 0, r = 23, b = 0, l = 0)),
+        axis.text   = element_text(colour = "black")) +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %b %Y") +
+  geom_point(data = dt_breakpoints["deaths" == origin, .(sdi, time, variable)], shape = 18, size = 3) +
+  geom_segment(data = dt_breakpoints["deaths" == origin], aes(x = lowerCI, y = log(sdi), xend = upperCI, yend = log(sdi)))
 
 # Grid plot ---------------------------------------------------------------
 
@@ -233,6 +238,7 @@ aligned <- align_plots(cases_timeseries,
                        deaths_timeseries,
                        cases_breakpoints,
                        deaths_breakpoints,
+                       log_deaths_breakpoints,
                        align = "hv",
                        axis = "tblr")
 ggsave("Plots/timeseries_model_cases.png", plot = ggdraw(aligned[[1]]), width = 21, height = 10, units = c("cm"))
@@ -240,3 +246,4 @@ ggsave("Plots/timeseries_model_hosp.png", plot = ggdraw(aligned[[2]]), width = 2
 ggsave("Plots/timeseries_model_deaths.png", plot = ggdraw(aligned[[3]]), width = 21, height = 10, units = c("cm"))
 ggsave("Plots/breakpoints_cases.png", plot = ggdraw(aligned[[4]]), width = 21, height = 10, units = c("cm"))
 ggsave("Plots/breakpoints_deaths.png", plot = ggdraw(aligned[[5]]), width = 21, height = 10, units = c("cm"))
+ggsave("Plots/log_breakpoints_deaths.png", plot = ggdraw(aligned[[6]]), width = 21, height = 10, units = c("cm"))
