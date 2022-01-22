@@ -49,3 +49,10 @@ seg_diagnose <- function(model) {
 #
 list_model_diagnose <- lapply(dt_models[, model_bic_seq], seg_diagnose)
 
+model_name <- c("inz_gesamt","inz_15-34", "inz_35-59e", "inz_60-79", "inz_80", "death_gesamt",
+                "death_15-34", "death_35-59e", "death_60-79", "death_80", "hosp_gesamt")
+
+# save plots as pngs
+Map(function(filename, plot) {
+  ggsave(filename, plot = plot, width = 21, height = 10, units = c("cm"))
+}, paste("Plots/diagnose_", model_name, ".png", sep = ""), list_model_diagnose)
