@@ -125,3 +125,18 @@ growth_rate <- function(model) {
   mod_coef <- model$coefficients
   exp(cumsum(mod_coef[seq(2, length(model$coefficients) / 2 + 1)]))
 }
+
+# list of exp(beta)s for each model
+exp_betas <- lapply(dt_models[, model_bic_seq], growth_rate)
+
+
+dt_exp_betas <- rbindlist(lapply(unique(dt_breakpoints[, origin]), function(x) {
+  # add one row before the first breakpoint
+  rbind(data.table(time = as.Date("2020-10-01"), origin = x),
+        dt_breakpoints[variable == "Gesamt" & origin == x, .(time, origin)],
+        data.table(time = as.Date("2020-12-23"), origin = x))
+}))
+
+dt_exp_betas[, exp_beta := c(exp_betas[[1]], last(exp_betas[[1]]),
+                             exp_betas[[6]], last(exp_betas[[6]]),
+                             exp_betas[[11]], last(exp_betas[[11]]))]

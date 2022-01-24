@@ -1,4 +1,5 @@
 source("nicer_implementation_models.R")
+source("help_functions/model_diagnose.R")
 
 farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "Über 79 Jahre" = "#E31A1C")
@@ -14,7 +15,7 @@ cases_breakpoints <- ggplot(fitted_vals_melt_cases,
   scale_y_continuous(labels = scales::comma, limits = c(0, 400), breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
   theme_bw() +
-  theme(panel.border = element_rect(colour = "black", size=1),
+  theme(panel.border = element_rect(colour = "black", size = 1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
         axis.title.y = element_text(margin = margin(t = 0, r = 18, b = 0, l = 0)),
         axis.text   = element_text(colour = "black")) +
@@ -55,7 +56,7 @@ log_deaths_breakpoints <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = log(sdi), color = variable)) +
   geom_line() +
   labs(x = "", y = "log-7-Tages-Todesfälle") +
-  scale_y_continuous(labels = scales::comma, limits = c(-6, 6), breaks = c(-6, -3, 0, 3, 6)) +
+  scale_y_continuous(limits = c(-6, 6), breaks = c(-6, -3, 0, 3, 6)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size=1),
@@ -231,6 +232,56 @@ hosp_timeseries <- dt_hosp_y_fitted_melt %>%
 #hosp_timeseries
 #ggsave("Plots/timeseries_model_hosp.png", plot = hosp_timeseries, width = 20, height = 10, units = c("cm"))
 
+colors_betas <- c("#009E73", "#F0E442", "#CC79A7")
+names(colors_betas) <- c("Inzidenz", "Todesfälle", "Intensivbettenbelegung")
+
+# change "origin" for plots
+new_origin <- c("Inzidenz", "Todesfälle", "Intensivbettenbelegung")
+names(new_origin) <- c("inz", "deaths", "beds")
+for (i in names(new_origin)) {
+  dt_exp_betas[origin == i, origin := new_origin[i]]
+}
+dt_exp_betas[, time_end := c(time[-1], NA)]
+beta_comparison <- dt_exp_betas %>% 
+  ggplot(aes(x = time, y = exp_beta, yend = exp_beta, xend = time_end, color = origin)) +
+  geom_step(direction = "hv") +
+  # geom_segment(aes(xend = )) +
+  # geom_vline(aes(xintercept = time), linetype = 2, color = "grey") +
+  # geom_hline(yintercept = 1, color = "#808080") +
+  # data filters out the starting and ending point
+  geom_point(data = dt_exp_betas["2020-12-22" > time], shape = 18, size = 3) +
+  labs(x = "", y = "exp(beta)") +
+  scale_color_manual(values = colors_betas, name = "", labels = names(colors_betas)) +
+  scale_y_continuous(limits = c(0.98, 1.11), breaks = seq(0.98, 1.10, 0.02)) +
+  theme_bw() +
+  theme(panel.border = element_rect(colour = "black", size = 1),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        axis.title.y = element_text(margin = margin(t = 0, r = 13, b = 0, l = 0)),
+        axis.text   = element_text(colour = "black")) +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d. %b %Y")
+
+
+# model diagnose plot. seg_diagnose is from the help_functions/model_diagnose.R file
+#
+list_model_diagnose <- lapply(dt_models[, model_bic_seq], seg_diagnose)
+
+model_name <- c("inz_gesamt","inz_15-34", "inz_35-59e", "inz_60-79", "inz_80", "death_gesamt",
+                "death_15-34", "death_35-59e", "death_60-79", "death_80", "hosp_gesamt")
+
+align_diagnose <- align_plots(plotlist = list_model_diagnose,
+                              align = "hv",
+                              axis = "tblr")
+
+# save diagnose plots as pngs
+Map(function(filename, plot) {
+  ggsave(filename, plot = ggdraw(plot), width = 21, height = 10, units = c("cm"))
+}, paste("Plots/diagnose_", model_name, ".png", sep = ""), align_diagnose)
+
+
+
 ### Gesamtgrid
 
 aligned <- align_plots(cases_timeseries,
@@ -239,6 +290,7 @@ aligned <- align_plots(cases_timeseries,
                        cases_breakpoints,
                        deaths_breakpoints,
                        log_deaths_breakpoints,
+                       beta_comparison,
                        align = "hv",
                        axis = "tblr")
 ggsave("Plots/timeseries_model_cases.png", plot = ggdraw(aligned[[1]]), width = 21, height = 10, units = c("cm"))
@@ -247,3 +299,4 @@ ggsave("Plots/timeseries_model_deaths.png", plot = ggdraw(aligned[[3]]), width =
 ggsave("Plots/breakpoints_cases.png", plot = ggdraw(aligned[[4]]), width = 21, height = 10, units = c("cm"))
 ggsave("Plots/breakpoints_deaths.png", plot = ggdraw(aligned[[5]]), width = 21, height = 10, units = c("cm"))
 ggsave("Plots/log_breakpoints_deaths.png", plot = ggdraw(aligned[[6]]), width = 21, height = 10, units = c("cm"))
+ggsave("Plots/beta_comparison.png", plot = ggdraw(aligned[[7]]), width = 21, height = 10, units = c("cm"))
