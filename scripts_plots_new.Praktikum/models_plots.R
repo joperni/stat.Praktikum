@@ -232,11 +232,11 @@ hosp_timeseries <- dt_hosp_y_fitted_melt %>%
 #hosp_timeseries
 #ggsave("Plots/timeseries_model_hosp.png", plot = hosp_timeseries, width = 20, height = 10, units = c("cm"))
 
-colors_betas <- c("#009E73", "#F0E442", "#CC79A7")
-names(colors_betas) <- c("Inzidenz", "Todesfälle", "Intensivbettenbelegung")
+colors_betas <- c("#009E73", "orange", "#CC79A7")
+names(colors_betas) <- c("7-Tages-Inzidenz", "7-Tages-Todesfälle", "Intensivbettenbelegung")
 
 # change "origin" for plots
-new_origin <- c("Inzidenz", "Todesfälle", "Intensivbettenbelegung")
+new_origin <- c("7-Tages-Inzidenz", "7-Tages-Todesfälle", "Intensivbettenbelegung")
 names(new_origin) <- c("inz", "deaths", "beds")
 for (i in names(new_origin)) {
   dt_exp_betas[origin == i, origin := new_origin[i]]
