@@ -55,7 +55,7 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
 log_deaths_breakpoints <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = log(sdi), color = variable)) +
   geom_line() +
-  labs(x = "", y = "log-7-Tages-Todesfälle") +
+  labs(x = "", y = "log(7-Tages-Todesfälle)") +
   scale_y_continuous(limits = c(-6, 6), breaks = c(-6, -3, 0, 3, 6)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
   theme_bw() +
@@ -157,7 +157,7 @@ p_grid <- plot_grid(cases_for_grid +
 # Arranges all together
 
 grid_plot <- grid.arrange(arrangeGrob(p_grid, right = legend))
-ggsave("Plots/grid_plot_models.png", plot = grid_plot, width = 21, height = 10, units = c("cm"))
+ggsave("Plots/grid_plot_models.png", plot = grid_plot, width = 22, height = 10, units = c("cm"))
 
 
 # model_plus_timeseries ---------------------------------------------------
@@ -277,7 +277,7 @@ align_diagnose <- align_plots(plotlist = list_model_diagnose,
 
 # save diagnose plots as pngs
 Map(function(filename, plot) {
-  ggsave(filename, plot = ggdraw(plot), width = 21, height = 10, units = c("cm"))
+  ggsave(filename, plot = ggdraw(plot), width = 22, height = 10, units = c("cm"))
 }, paste("Plots/diagnose_", model_name, ".png", sep = ""), align_diagnose)
 
 
@@ -293,10 +293,10 @@ aligned <- align_plots(cases_timeseries,
                        beta_comparison,
                        align = "hv",
                        axis = "tblr")
-ggsave("Plots/timeseries_model_cases.png", plot = ggdraw(aligned[[1]]), width = 21, height = 10, units = c("cm"))
-ggsave("Plots/timeseries_model_hosp.png", plot = ggdraw(aligned[[2]]), width = 21, height = 10, units = c("cm"))
-ggsave("Plots/timeseries_model_deaths.png", plot = ggdraw(aligned[[3]]), width = 21, height = 10, units = c("cm"))
-ggsave("Plots/breakpoints_cases.png", plot = ggdraw(aligned[[4]]), width = 21, height = 10, units = c("cm"))
-ggsave("Plots/breakpoints_deaths.png", plot = ggdraw(aligned[[5]]), width = 21, height = 10, units = c("cm"))
-ggsave("Plots/log_breakpoints_deaths.png", plot = ggdraw(aligned[[6]]), width = 21, height = 10, units = c("cm"))
-ggsave("Plots/beta_comparison.png", plot = ggdraw(aligned[[7]]), width = 21, height = 10, units = c("cm"))
+ggsave("Plots/timeseries_model_cases.png", plot = ggdraw(aligned[[1]]), width = 22, height = 10, units = c("cm"))
+ggsave("Plots/timeseries_model_hosp.png", plot = ggdraw(aligned[[2]]), width = 22, height = 10, units = c("cm"))
+ggsave("Plots/timeseries_model_deaths.png", plot = ggdraw(aligned[[3]]), width = 22, height = 10, units = c("cm"))
+ggsave("Plots/breakpoints_cases.png", plot = ggdraw(aligned[[4]]), width = 22, height = 10, units = c("cm"))
+ggsave("Plots/breakpoints_deaths.png", plot = ggdraw(aligned[[5]]), width = 22, height = 10, units = c("cm"))
+ggsave("Plots/log_breakpoints_deaths.png", plot = ggdraw(aligned[[6]]), width = 22, height = 10, units = c("cm"))
+ggsave("Plots/beta_comparison.png", plot = ggdraw(aligned[[7]]), width = 22, height = 10, units = c("cm"))
