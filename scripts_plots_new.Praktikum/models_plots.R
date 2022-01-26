@@ -247,7 +247,7 @@ beta_comparison <- dt_exp_betas %>%
   geom_step(direction = "hv") +
   # geom_segment(aes(xend = )) +
   # geom_vline(aes(xintercept = time), linetype = 2, color = "grey") +
-  # geom_hline(yintercept = 1, color = "#808080") +
+  geom_hline(yintercept = 1, color = "#808080") +
   # data filters out the starting and ending point
   geom_point(data = dt_exp_betas["2020-12-22" > time], shape = 18, size = 3) +
   labs(x = "", y = "exp(beta)") +
