@@ -272,7 +272,7 @@ model_name <- c("inz_gesamt","inz_15-34", "inz_35-59e", "inz_60-79", "inz_80", "
                 "death_15-34", "death_35-59e", "death_60-79", "death_80", "hosp_gesamt")
 
 align_diagnose <- align_plots(plotlist = list_model_diagnose,
-                              align = "hv",
+                              align = "vh",
                               axis = "tblr")
 
 # save diagnose plots as pngs

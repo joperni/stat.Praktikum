@@ -1,4 +1,3 @@
-source("nicer_implementation_models.R")
 library(ggplot2)
 library(checkmate)
 library(ggpubr)
@@ -36,7 +35,8 @@ seg_diagnose <- function(model) {
           axis.title.y = element_text(margin = margin(t = 0, r = 13, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13))
+          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df$fitted)))
   
   # # gamma qqplot
   # # TODO this doesnt make that much sense. The distribution must fit *between* the breakpoints
@@ -66,7 +66,8 @@ seg_diagnose <- function(model) {
           axis.title.y = element_text(margin = margin(t = 0, r = 13, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13))
+          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+    scale_x_continuous(expand = c(0, 0), limits = c(0, max(df$leverage)))
   # output
   alinged_diagn <- align_plots(res_pred_plot,lev_res_plot, align = "hv", axis = "tblr")
   ggarrange(plotlist = list(ggdraw(alinged_diagn[[1]]), ggdraw(alinged_diagn[[2]])))
