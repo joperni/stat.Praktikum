@@ -63,8 +63,7 @@ cases_for_grid <- fitted_vals_melt_cases %>%
   theme(axis.title = element_blank(), axis.ticks.x = element_blank(),
         axis.text.x = element_blank()) +
   labs(y = "7-Tages-Inzidenz je 100.000 Einw.") +
-  geom_point(data = dt_breakpoints["inz" == origin, .(sdi, time, variable)], shape = 18, size = 2) +
-  geom_segment(data = dt_breakpoints["inz" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
+  geom_point(data = dt_breakpoints["inz" == origin, .(sdi, time, variable)], shape = 18, size = 2)
 
 deaths_for_grid <- fitted_vals_melt_deaths %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
@@ -75,8 +74,7 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
         axis.ticks.x = element_blank(),
         axis.text.x = element_blank()) +
   labs(y = "7-Tages-Todesfälle je 100.000 Einw.") +
-  geom_point(data = dt_breakpoints["deaths" == origin, .(sdi, time, variable)], shape = 18, size = 2) +
-  geom_segment(data = dt_breakpoints["deaths" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
+  geom_point(data = dt_breakpoints["deaths" == origin, .(sdi, time, variable)], shape = 18, size = 2)
 
 # for hosp
 hosp_for_grids <- dt_hosp_y_fitted %>% 
@@ -87,8 +85,7 @@ hosp_for_grids <- dt_hosp_y_fitted %>%
                date_labels = "%d. %b %Y") +
   theme(axis.title.y = element_blank()) +
   labs(y = "7-Tages-Hospitalisierungsfälle", x = "") +
-  geom_point(data = dt_breakpoints["beds" == origin, .(geschaetzt = sdi, time, variable)], shape = 18, size = 2) +
-  geom_segment(data = dt_breakpoints["beds" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
+  geom_point(data = dt_breakpoints["beds" == origin, .(geschaetzt = sdi, time, variable)], shape = 18, size = 2)
   
 
 # legend for the plot
@@ -133,8 +130,8 @@ cases_timeseries <- dt_cases_y_fitted_melt %>%
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_vline(xintercept = dt_breakpoints["inz" == origin & variable == "Gesamt", time]
-             , color = "black", linetype = "dotted", size = 1.0) +
+  geom_point(data = dt_breakpoints["inz" == origin & variable == "Gesamt", .(values = sdi, time)],
+             color = "black", shape = 18, size = 2) +
   geom_segment(data = dt_breakpoints["inz" == origin & variable == "Gesamt"],
                aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 cases_timeseries
@@ -150,8 +147,8 @@ deaths_timeseries <- dt_deaths_y_fitted_melt %>%
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_vline(xintercept = dt_breakpoints["deaths" == origin & variable == "Gesamt", time],
-             color = "black", linetype = "dotted", size = 1.0) +
+  geom_point(data = dt_breakpoints["deaths" == origin & variable == "Gesamt", .(values = sdi, time)],
+             color = "black", shape = 18, size = 2) +
   geom_segment(data = dt_breakpoints["deaths" == origin & variable == "Gesamt"],
                aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 deaths_timeseries
@@ -167,8 +164,8 @@ hosp_timeseries <- dt_hosp_y_fitted_melt %>%
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d. %b %Y") +
-  geom_vline(xintercept = dt_breakpoints["beds" == origin & variable == "Gesamt", time],
-             color = "black", linetype = "dotted", size = 1.0) +
+  geom_point(data = dt_breakpoints["beds" == origin & variable == "Gesamt", .(values = sdi, time)],
+             color = "black", shape = 18, size = 2) +
   geom_segment(data = dt_breakpoints["beds" == origin & variable == "Gesamt"],
                aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 hosp_timeseries
