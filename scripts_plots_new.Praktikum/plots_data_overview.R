@@ -17,7 +17,7 @@ ppseven_day_alter = dt_seven_day_inz_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
@@ -42,7 +42,7 @@ ppbetten = main_data_divi %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   theme_bw() +
   expand_limits(x = as.Date("2020-01-01"), date_labels = "%d. %b %Y") +
   theme(panel.border = element_rect(colour = "black", size=1),
@@ -62,7 +62,7 @@ ppdeaths = ggplot(aes(x = time, y = death, color = variable), data = dt_seven_da
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),

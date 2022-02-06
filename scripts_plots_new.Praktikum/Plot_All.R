@@ -40,3 +40,4 @@ ggsave("Plots/breakpoints_cases.png", plot = ggdraw(aligned[[14]]), width = 22, 
 ggsave("Plots/breakpoints_deaths.png", plot = ggdraw(aligned[[15]]), width = 22, height = 10, units = c("cm"))
 ggsave("Plots/log_breakpoints_deaths.png", plot = ggdraw(aligned[[16]]), width = 22, height = 10, units = c("cm"))
 ggsave("Plots/beta_comparison.png", plot = ggdraw(aligned[[17]]), width = 22, height = 10, units = c("cm"))
+ggsave("Plots/grid_plot_models.png", plot = grid_plot, width = 22, height = 10, units = c("cm"))

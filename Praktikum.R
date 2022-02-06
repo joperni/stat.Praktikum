@@ -279,7 +279,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                date_labels = "%d. %b %Y")
+                date_labels = "%d.%m.%y")
  #plot_korr_7_inz_15_34
  #ggsave("Plots/korrigierte Inzidenz mit Lag 15-34.png", plot = plot_korr_7_inz_15_34, width = 21, height = 10, units = c("cm"))
  
@@ -307,7 +307,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d. %b %Y")
+                 date_labels = "%d.%m.%y")
  #plot_korr_7_inz_35_59
  #ggsave("Plots/korrigierte Inzidenz mit Lag 35-59.png", plot = plot_korr_7_inz_35_59, width = 20, height = 10, units = c("cm"))
  
@@ -335,7 +335,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d. %b %Y")
+                 date_labels = "%d.%m.%y")
  #plot_korr_7_inz_60_79
  #ggsave("Plots/korrigierte Inzidenz mit Lag 60-79.png", plot = plot_korr_7_inz_60_79, width = 20, height = 10, units = c("cm"))
  
@@ -363,7 +363,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d. %b %Y")
+                 date_labels = "%d.%m.%y")
  #plot_korr_7_inz_80
  #ggsave("Plots/korrigierte Inzidenz mit Lag über 80.png", plot = plot_korr_7_inz_80, width = 20, height = 10, units = c("cm"))
  
@@ -391,7 +391,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d. %b %Y")
+                 date_labels = "%d.%m.%y")
  #plot_korr_7_inz_g
  #ggsave("Plots/korrigierte Inzidenz.png", plot = plot_korr_7_inz_80, width = 20, height = 10, units = c("cm"))
  
@@ -430,7 +430,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d. %b %Y")
+                 date_labels = "%d.%m.%y")
  #plot_unterschätzung
  #ggsave("Plots/Unterschätzung Inzidenz.png", plot = plot_unterschätzung, width = 20, height = 10, units = c("cm"))
  
@@ -472,7 +472,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d. %b %Y")
+                 date_labels = "%d.%m.%y")
  #plot_unterschaetzung_7
  #ggsave("Plots/Unterschätzung Inzidenz mit Lag.png", plot = plot_unterschaetzung_7, width = 20, height = 10, units = c("cm"))
  

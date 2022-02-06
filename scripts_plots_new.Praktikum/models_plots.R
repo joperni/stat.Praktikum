@@ -22,7 +22,7 @@ cases_breakpoints <- ggplot(fitted_vals_melt_cases,
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["inz" == origin, .(sdi, time, variable)], shape = 18, size = 3) +
   geom_segment(data = dt_breakpoints["inz" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 #cases_breakpoints
@@ -45,7 +45,7 @@ deaths_breakpoints <- fitted_vals_melt_deaths %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["deaths" == origin, .(sdi, time, variable)], shape = 18, size = 3) +
   geom_segment(data = dt_breakpoints["deaths" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 #deaths_breakpoints
@@ -66,7 +66,7 @@ log_deaths_breakpoints <- fitted_vals_melt_deaths %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["deaths" == origin, .(sdi, time, variable)], shape = 18, size = 3) +
   geom_segment(data = dt_breakpoints["deaths" == origin], aes(x = lowerCI, y = log(sdi), xend = upperCI, yend = log(sdi)))
 
@@ -115,7 +115,7 @@ hosp_for_grids <- dt_hosp_y_fitted %>%
   geom_line() +
   scale_y_continuous(limits = c(0, 8000)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   theme_bw() +
   theme(axis.title.y = element_blank()) +
   annotate("text", label = "Intensivbettenbelegung", x = as.Date(c("2020-10-01")), y = 6970, size = 4.5, colour = "black", hjust = 0) +
@@ -178,7 +178,7 @@ cases_timeseries <- dt_cases_y_fitted_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["inz" == origin & variable == "Gesamt"],
              aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4[[1]]) +
   geom_segment(data = dt_breakpoints["inz" == origin & variable == "Gesamt"],
@@ -201,7 +201,7 @@ deaths_timeseries <- dt_deaths_y_fitted_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["deaths" == origin & variable == "Gesamt"],
              aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4[[1]]) +
   geom_segment(data = dt_breakpoints["deaths" == origin & variable == "Gesamt"],
@@ -224,7 +224,7 @@ hosp_timeseries <- dt_hosp_y_fitted_melt %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y") +
+               date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["beds" == origin & variable == "Gesamt"],
              aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4[[1]]) +
   geom_segment(data = dt_breakpoints["beds" == origin & variable == "Gesamt"],
@@ -261,7 +261,7 @@ beta_comparison <- dt_exp_betas %>%
   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d. %b %Y")
+               date_labels = "%d.%m.%y")
 
 
 # model diagnose plot. seg_diagnose is from the help_functions/model_diagnose.R file
