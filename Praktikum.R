@@ -188,7 +188,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  kor_7_inz_A80 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-08"]$seven_day_death_inz_A80)/CFR_7_jul_sep_A80
  kor_7_inz_A15_A80 <-(main_data["2020-12-31" > rep_date_divi & rep_date_divi >= "2020-10-08"]$seven_day_death_inz_A15_A80)/CFR_7_jul_sep_A15_A80
   
- ##Zeite Schätzung der Gesamtinzidenz
+ ##Zeite Schaetzung der Gesamtinzidenz
  ##Gesamtbevoelkerung_genau = 82089780
  
  seven_day_inz_A00_A14_okt_dez <- main_data["2020-12-24" > rep_date_divi & rep_date_divi >= "2020-10-01"]$seven_day_inz_A00_A14
@@ -258,7 +258,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  dt_korr_7_inz_15_34 <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz_A15_A34", "kor_inz_A15_A34", "kor_7_inz_A15_A34")])
  setnames(dt_korr_7_inz_15_34, c("seven_day_inz_A15_A34", "kor_inz_A15_A34", "kor_7_inz_A15_A34"), c("gemeldete", "korrigierte", "lagkorrigiert"))
  
-# 15-34 Jährige
+# 15-34 Jaehrige
  farben1534 <- c("#000000", "#1F78B4", "#1F78B4")
  dt_korr_7_inz_15_34[, time := dt_korr_7_inz_15_34$rep_date_divi]
  dt_korr_7_inz_15_34 <- dt_korr_7_inz_15_34[, -1]
@@ -283,7 +283,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  #plot_korr_7_inz_15_34
  #ggsave("Plots/korrigierte Inzidenz mit Lag 15-34.png", plot = plot_korr_7_inz_15_34, width = 21, height = 10, units = c("cm"))
  
- # 35-59-Jährige
+ # 35-59-Jaehrige
  farben3559 <- c("#000000", "#33A02C", "#33A02C")
  dt_korr_7_inz_35_59 <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz_A35_A59", "kor_inz_A35_A59", "kor_7_inz_A35_A59")])
  setnames(dt_korr_7_inz_35_59, c("seven_day_inz_A35_A59", "kor_inz_A35_A59", "kor_7_inz_A35_A59"), c("gemeldete", "korrigierte", "lagkorrigiert"))
@@ -311,7 +311,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  #plot_korr_7_inz_35_59
  #ggsave("Plots/korrigierte Inzidenz mit Lag 35-59.png", plot = plot_korr_7_inz_35_59, width = 20, height = 10, units = c("cm"))
  
- #60-79-Jährige
+ #60-79-Jaehrige
  farben6079<- c("#000000", "#FB9A99", "#FB9A99")
  dt_korr_7_inz_60_79 <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz_A60_A79", "kor_inz_A60_A79", "kor_7_inz_A60_A79")])
  setnames(dt_korr_7_inz_60_79, c("seven_day_inz_A60_A79", "kor_inz_A60_A79", "kor_7_inz_A60_A79"), c("gemeldete", "korrigierte", "lagkorrigiert"))
@@ -339,7 +339,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  #plot_korr_7_inz_60_79
  #ggsave("Plots/korrigierte Inzidenz mit Lag 60-79.png", plot = plot_korr_7_inz_60_79, width = 20, height = 10, units = c("cm"))
  
- #Ü79-Jährige
+ #Ü79-Jaehrige
  farben80<- c("#000000", "#E31A1C", "#E31A1C")
  dt_korr_7_inz_80 <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz_A80", "kor_inz_A80", "kor_7_inz_A80")])
  setnames(dt_korr_7_inz_80, c("seven_day_inz_A80", "kor_inz_A80", "kor_7_inz_A80"), c("gemeldete", "korrigierte", "lagkorrigiert"))
@@ -367,7 +367,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  #plot_korr_7_inz_80
  #ggsave("Plots/korrigierte Inzidenz mit Lag über 80.png", plot = plot_korr_7_inz_80, width = 20, height = 10, units = c("cm"))
  
- #Gesamt-Jährige
+ #Gesamt-Jaehrige
  farbenges<- c("#000000", "darkorange", "darkorange")
  dt_korr_7_inz_g <- copy(data_okt_dez[, c("rep_date_divi", "seven_day_inz", "kor_inz_total", "kor_7_inz_total")])
  setnames(dt_korr_7_inz_g, c("seven_day_inz", "kor_inz_total", "kor_7_inz_total"), c("gemeldete", "korrigierte", "lagkorrigiert"))
@@ -398,24 +398,24 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  
  
  
- ##plots aller Altersgruppen ohne Lag, Unterschätzung
- data_okt_dez$unterschätzung_total <- data_okt_dez$kor_inz_tot/data_okt_dez$seven_day_inz
- data_okt_dez$unterschätzung_A15_A34 <- data_okt_dez$kor_inz_A15_A34/data_okt_dez$seven_day_inz_A15_A34
- data_okt_dez$unterschätzung_A35_A59 <- data_okt_dez$kor_inz_A35_A59/data_okt_dez$seven_day_inz_A35_A59
- data_okt_dez$unterschätzung_A60_A79 <- data_okt_dez$kor_inz_A60_A79/data_okt_dez$seven_day_inz_A60_A79
- data_okt_dez$unterschätzung_A80 <- data_okt_dez$kor_inz_A80/data_okt_dez$seven_day_inz_A80
- dt_unterschätzung <- data_okt_dez[, c("rep_date_divi", "unterschätzung_total", "unterschätzung_A15_A34", "unterschätzung_A35_A59", "unterschätzung_A60_A79",
-                                       "unterschätzung_A80")]
- setnames(dt_unterschätzung, c("unterschätzung_total", "unterschätzung_A15_A34", "unterschätzung_A35_A59", "unterschätzung_A60_A79",
-                               "unterschätzung_A80"), c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "Über 79 Jahre"))
- dt_unterschätzung[, time := dt_unterschätzung$rep_date_divi]
- dt_unterschätzung <- dt_unterschätzung[, -1]
- dt_unterschätzung_melt <- melt(dt_unterschätzung, id.vars = "time", value.name = "inz")
+ ##plots aller Altersgruppen ohne Lag, Unterschaetzung
+ data_okt_dez$unterschaetzung_total <- data_okt_dez$kor_inz_tot/data_okt_dez$seven_day_inz
+ data_okt_dez$unterschaetzung_A15_A34 <- data_okt_dez$kor_inz_A15_A34/data_okt_dez$seven_day_inz_A15_A34
+ data_okt_dez$unterschaetzung_A35_A59 <- data_okt_dez$kor_inz_A35_A59/data_okt_dez$seven_day_inz_A35_A59
+ data_okt_dez$unterschaetzung_A60_A79 <- data_okt_dez$kor_inz_A60_A79/data_okt_dez$seven_day_inz_A60_A79
+ data_okt_dez$unterschaetzung_A80 <- data_okt_dez$kor_inz_A80/data_okt_dez$seven_day_inz_A80
+ dt_unterschaetzung <- data_okt_dez[, c("rep_date_divi", "unterschaetzung_total", "unterschaetzung_A15_A34", "unterschaetzung_A35_A59", "unterschaetzung_A60_A79",
+                                       "unterschaetzung_A80")]
+ setnames(dt_unterschaetzung, c("unterschaetzung_total", "unterschaetzung_A15_A34", "unterschaetzung_A35_A59", "unterschaetzung_A60_A79",
+                               "unterschaetzung_A80"), c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "Über 79 Jahre"))
+ dt_unterschaetzung[, time := dt_unterschaetzung$rep_date_divi]
+ dt_unterschaetzung <- dt_unterschaetzung[, -1]
+ dt_unterschaetzung_melt <- melt(dt_unterschaetzung, id.vars = "time", value.name = "inz")
  
  farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
               "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "Über 79 Jahre" = "#E31A1C")
  
- plot_unterschätzung <- dt_unterschätzung_melt %>% 
+ plot_unterschaetzung <- dt_unterschaetzung_melt %>% 
     ggplot(aes(x = time, y = inz, color = variable)) +
     geom_line() +
     labs(x = "", y = "Faktor der Unterschätzung") +
@@ -431,8 +431,8 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y")
- #plot_unterschätzung
- #ggsave("Plots/Unterschätzung Inzidenz.png", plot = plot_unterschätzung, width = 20, height = 10, units = c("cm"))
+ #plot_unterschaetzung
+ #ggsave("Plots/Unterschaetzung Inzidenz.png", plot = plot_unterschaetzung, width = 20, height = 10, units = c("cm"))
  
  
  
@@ -481,7 +481,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
                         plot_korr_7_inz_60_79,
                         plot_korr_7_inz_80,
                         plot_korr_7_inz_g,
-                        plot_unterschätzung,
+                        plot_unterschaetzung,
                         plot_unterschaetzung_7,
                         align = "hv",
                         axis = "tblr")

@@ -1,4 +1,5 @@
-source("nicer_implementation_models.R")
+source("implementation_models.R")
+# error messages are no problem. They get prduced and catched by the segmented::selgmented function
 source("help_functions/model_diagnose.R")
 
 farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
