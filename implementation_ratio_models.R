@@ -46,3 +46,9 @@ dt_models_ratio[, model_bic := lapply(base_model, selg_function)
                       y = predict(model, newdata = data.frame(rep_date_divi = conf_matrix[, 1]),
                                   type = "response"))})
 ]
+
+residual_plot <- function(model) {
+  plot(model$residuals, predict(model))
+}
+# most models seem resonable (15-34 not, but that was expectable)
+lapply(dt_models_ratio$model_bic_seq, residual_plot)
