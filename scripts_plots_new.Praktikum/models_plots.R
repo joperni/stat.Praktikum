@@ -1,5 +1,5 @@
 source("implementation_models.R")
-# error messages are no problem. They get prduced and catched by the segmented::selgmented function
+# error messages are no problem. They get produced and catched by the segmented::selgmented function
 source("help_functions/model_diagnose.R")
 
 farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
@@ -26,8 +26,8 @@ cases_breakpoints <- ggplot(fitted_vals_melt_cases,
                date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["inz" == origin, .(sdi, time, variable)], shape = 18, size = 3) +
   geom_segment(data = dt_breakpoints["inz" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
-#cases_breakpoints
-#ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
+# cases_breakpoints
+# ggsave("Plots/breakpoints_cases.png", plot = cases_breakpoints, width = 20, height = 10, units = c("cm"))
 
 
 levels(fitted_vals_melt_deaths$variable)[1] = c("Gesamt")
