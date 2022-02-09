@@ -99,7 +99,8 @@ levels(fitted_vals_melt_ratio$variable)[5] = c("Über 79 Jahre")
 ratio_breakpoints <- ggplot(fitted_vals_melt_ratio,
                             aes(x = time, y = sdi, color = variable)) +
   geom_line() +
-  scale_y_continuous(limits = c(0, 0.25), seq(0, 0.25, 0.05)) +
+  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ","),
+                     limits = c(0, 0.25), breaks = seq(0, 0.25, 0.05)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size = 1),
@@ -127,12 +128,14 @@ dt_ratio_y_fitted_melt <- melt(dt_ratio_y_fitted, id.vars = "time", value.name =
 farben4 <- c("geschätzt" = "darkorange", "gemeldet" = "#000000")
 
 levels(dt_ratio_y_fitted_melt$variable)[1] = c("geschätzt")
+
 ratio_timeseries <- dt_ratio_y_fitted_melt %>% 
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
   labs(x = "", y = "Geschätzer Anteil der Verstorbenen an den Infizierten") +
   scale_color_manual(values = farben4, name = "", labels = names(farben4)) +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 0.05)) +
+  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ","),
+                     limits = c(0, 0.05)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),

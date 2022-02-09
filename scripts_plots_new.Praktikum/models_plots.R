@@ -253,7 +253,8 @@ beta_comparison <- dt_exp_betas %>%
   geom_point(data = dt_exp_betas["2020-12-22" > time], shape = 18, size = 3) +
   labs(x = "", y = "exp(beta)") +
   scale_color_manual(values = colors_betas, name = "", labels = names(colors_betas)) +
-  scale_y_continuous(limits = c(0.98, 1.11), breaks = seq(0.98, 1.10, 0.02)) +
+  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ","),
+                     limits = c(0.98, 1.11), breaks = seq(0.98, 1.10, 0.02)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size = 1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
