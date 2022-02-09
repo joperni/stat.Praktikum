@@ -2,6 +2,7 @@ library(ggplot2)
 library(dplyr)
 library(cowplot)
 library(gridExtra)
+library(lemon)
 source("data_transformation_for_plots.R")
 
 farben <- c("Gesamt" = "#010101", "0-14 Jahre" = "#B2DF8A","15-34 Jahre" = "#1F78B4",
@@ -22,7 +23,15 @@ ppseven_day_alter = dt_seven_day_inz_melt %>%
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
         axis.title.y = element_text(margin = margin(t = 0, r = 9, b = 0, l = 0)),
-        axis.text   = element_text(colour = "black"))
+        axis.text   = element_text(colour = "black"),
+        legend.box.background = element_rect(colour = "black", size = 1),
+        legend.title=element_text(size=8),
+        legend.text = element_text(size=8),
+        legend.key.height= unit(0.3, 'cm'),
+        legend.key.width= unit(0.2, 'cm'))
+        #legend.position = c(0, 1))
+#ppseven_day_alter = reposition_legend(ppseven_day_alter, 'top left', x=0.05, y=1-0.07, plot = FALSE)
+
 
 # 7TI für Startseite
 banner = ppseven_day_alter + theme(panel.border = element_blank(), panel.grid.major = element_blank(),

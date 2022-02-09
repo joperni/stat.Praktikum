@@ -2,7 +2,7 @@
 
 <<setup-child, include = FALSE>>=
 library('knitr')
-knitr::set_parent("~/Documents/University/I2ML/HIWI/stat.Praktikum/Bericht/preamble_ueb.Rnw")
+knitr::set_parent("~/Documents/University/I2ML/HIWI/stat.Praktikum/Bericht/preamble.Rnw")
 #"~/Documents/University/I2ML/HIWI/stat.Praktikum/Bericht/preamble_ueb.Rnw"
 @
 

@@ -2,7 +2,7 @@
 
 
 \usepackage[utf8]{inputenc}
-%\usepackage[ngerman]{babel}
+\usepackage[ngerman]{babel}
 \usepackage{a4wide,paralist}
 \usepackage{amsmath, amssymb, xfrac, amsthm}
 \usepackage{dsfont}
@@ -19,7 +19,12 @@
 \usepackage{hyperref}
 \usepackage{cancel}
 \usepackage{bm}
+\usepackage{setspace}
 
+\renewcommand{\baselinestretch}{1.3} 
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
+\renewcommand{\contentsname}{Inhaltsangabe}
+\setlength{\abovecaptionskip}{2pt plus 2pt minus 1pt}
 
 %\input{../../style/common}
 \input{"~/Documents/University/I2ML/HIWI/stat.Praktikum/Bericht/common.tex"}
@@ -81,10 +86,10 @@
 \sloppy
 \parindent0em
 \parskip0.5em
-\topmargin-2.3 cm
+\topmargin-1.0 cm
 \textheight25cm
-\textwidth16.0cm
-\oddsidemargin0.0cm
+\textwidth15.0cm
+\oddsidemargin0.5cm
 \pagestyle{plain}
 
 \newcommand{\kopf}[1]{

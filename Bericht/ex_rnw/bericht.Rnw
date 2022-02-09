@@ -1,7 +1,11 @@
+\tableofcontents
 \section{Einführung}
-Lorem ipsum ...
+Zur Modellierung der Indikatoren des pandemischen Geschehens wird ein Bruchpunktmodell geschätzt. Die Erstellung des Bruchpunktmodells erfolgt direkt auf Grundlage der Daten und wird separat für die 7-Tages-Inzidenz, die Intensivbettenbelegung, die 7-Tages-Todesfälle und für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz geschätzt. Bruchpunktmodelle finden in der Analyse der COVID-19-Pandemie eine nachvollziehbare Verwendung, z. B. bei Küchenhoff et al. (2021), da sie die Beschreibung eines Untersuchungszeitraums anhand von Bruchpunkten ermöglichen. Bruchpunkte charakterisieren sich damit als Zeitpunkte, an denen das geschätzte Regressionsmodell eine Veränderung im Wachstumstrend des Indikators des pandemischen Geschehens impliziert. In der Interpretation können diese Bruchpunkte dann mit für den Pandemieverlauf möglicherweise relevanten Ereignissen, bspw. politische Beschlüsse über Maßnahmen zur Eindämmung des Infektionsgeschehens, kontextualisiert werden.
+
 \begin{figure}[hbt!]
-<<echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.height = 3.4, fig.width = 7.5>>=
+\centering
+\captionsetup{width=.9\linewidth}
+<<echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.height = 2.49, fig.width = 5.4>>=
 library(knitr)
 library(ggplot2)
 library(gridExtra)
@@ -23,25 +27,106 @@ setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
 source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/plots_data_overview.R")
 
 aligned <- align_plots(ppseven_day_alter,
-                       ppbetten,
-                       ppdeaths,
-                       plot_korr_7_inz_15_34,
-                       plot_korr_7_inz_35_59,
-                       plot_korr_7_inz_60_79,
-                       plot_korr_7_inz_80,
-                       plot_korr_7_inz_g,
-                       plot_unterschätzung,
-                       plot_unterschaetzung_7,
-                       cases_timeseries,
-                       hosp_timeseries,
-                       deaths_timeseries,
-                       cases_breakpoints,
-                       deaths_breakpoints,
-                       log_deaths_breakpoints,
-                       beta_comparison,
+                       #ppbetten,
+                       #ppdeaths,
+                       #plot_korr_7_inz_15_34,
+                       #plot_korr_7_inz_35_59,
+                       #plot_korr_7_inz_60_79,
+                       #plot_korr_7_inz_80,
+                       #plot_korr_7_inz_g,
+                       #plot_unterschaetzung,
+                       #plot_unterschaetzung_7,
+                       #cases_timeseries,
+                       #hosp_timeseries,
+                       #deaths_timeseries,
+                       #cases_breakpoints,
+                       #deaths_breakpoints,
+                       #log_deaths_breakpoints,
+                       #beta_comparison,
                        align = "hv",
                        axis = "tblr")
 ggdraw(aligned[[1]])
 @
-\caption{\textbf{7-Tages-Inzidenz nach Altersgruppe.} Dabei ist die 7-Tages-Inzidenz die Anzahl der gemeldeten Neuinfektionen innerhalb der letzten 7 Tage, normiert auf 100.000 Einwohner innerhalb der Altersgruppe. In der Altersgruppe Ü79 steigt die Inzidenz von Oktober bis Ende Dezember 2020, in den anderen Altersgruppen und in der Gesamtbevölkerung zeigt sich nach einem Anstieg bis Ende Oktober ein Plateau bzw. leichtes Abflachen der Inzidenzen bis Dezember.}
+\caption[7-Tages-Inzidenz nach Altersgruppen]{\textbf{7-Tages-Inzidenz nach Altersgruppen.} Dabei ist die 7-Tages-Inzidenz die Anzahl der gemeldeten Neuinfektionen innerhalb der letzten 7 Tage, normiert auf 100.000 Einwohner innerhalb der Altersgruppe. In der Altersgruppe Ü79 steigt die Inzidenz von Oktober bis Ende Dezember 2020, in den anderen Altersgruppen und in der Gesamtbevölkerung zeigt sich nach einem Anstieg bis Ende Oktober ein Plateau bzw. leichtes Abflachen der Inzidenzen bis Dezember.}
 \end{figure}
+
+\section{Daten und Aufbereitung}
+
+\section{Methodik}
+
+\subsection{Bruchpunktmodell}
+
+Zur Modellierung der Indikatoren des pandemischen Geschehens wird ein Bruchpunktmodell geschätzt. Die Erstellung des Bruchpunktmodells erfolgt direkt auf Grundlage der Daten und wird separat für die 7-Tages-Inzidenz, die Intensivbettenbelegung, die 7-Tages-Todesfälle und für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz geschätzt. Bruchpunktmodelle finden in der Analyse der COVID-19-Pandemie eine nachvollziehbare Verwendung, z. B. bei Küchenhoff et al. (2021), da sie die Beschreibung eines Untersuchungszeitraums anhand von Bruchpunkten ermöglichen. Bruchpunkte charakterisieren sich damit als Zeitpunkte, an denen das geschätzte Regressionsmodell eine Veränderung im Wachstumstrend des Indikators des pandemischen Geschehens impliziert. In der Interpretation können diese Bruchpunkte dann mit für den Pandemieverlauf möglicherweise relevanten Ereignissen, bspw. politische Beschlüsse über Maßnahmen zur Eindämmung des Infektionsgeschehens, kontextualisiert werden.
+Für die Analyse ergibt sich ein Regressionsmodell wie bei Muggeo (2003):
+
+\begin{align}
+\mathds{E}(\log(\text{Y}_{t})) = \beta_{0} + \beta_{1}t + \sum\limits_{k=1}^K \gamma_{k}(t-{CP}_k)_{+}
+\end{align}
+
+Dabei ist $Y_{t}$ die Zielgröße, bspw. die 7-Tages-Inzidenz, $K$ die Anzahl der Bruchpunkte, und $CP_k$ der Zeitpunkt des k-ten Bruchpunkts.
+Wir schätzen die Koeffizienten $\beta_0$, $\beta_1$, $\gamma_k$ mit $k = 1,\; …,\; K$ mit dem R-Paket \verb|segmented|.
+Dabei ist $K$ ein fester diskreter Parameter und muss vor der Schätzung spezifiziert werden.
+Wir wählen $K$ wie folgt:
+Beginnend bei $K = 0$ erhöhen wir $K$ schrittweise solange, bis sich das Bayes-Informationskriterium (BIC) des zugehörigen Regressionsmodells nicht mehr verbessert. 
+Dieses Auswahlverfahren orientiert sich im Wesentlichen am von Küchenhoff et al. (2021) verwendeten Verfahren.
+Für das resultierende Bruchpunktmodell werden für jeden Bruchpunkt zusätzlich approximate 95\%-Konfidenzintervalle mit dem segmented-Paket geschätzt.
+Die Interpretation des Modells resultiert aus der implizierten Zerlegung des Untersuchungszeitraums in $K + 1$ Intervalle, wobei die Zielgröße $Y_t$ innerhalb jedes Intervalls durch einen konstanten geschätzten Wachstumskoeffizienten $\beta_j$ mit $j = 1,\; …,\; K + 1$ charakterisiert werden kann, der sich über den Gesamtzeitraum hinweg an jedem Bruchpunkt $CP_k$ ändert.
+Dabei ergeben sich die Koeffizienten $\beta_j$ für $j > 1$ als $\beta_j = \beta_{j-1}\; +\; \gamma_{j-1}$.
+Anhand des Regressionsmodells (1) ist ersichtlich, dass $exp(\beta_j)$ als täglicher Wachstumsfaktor auf Ebene der Zielgröße interpretiert werden kann, wobei $exp(\beta_j) > 1$ ein Steigen und $exp(\beta_j) < 1$ ein Sinken in der Zielgröße innerhalb des Intervalls bedeutet.
+Wir schätzen demnach Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle, und die Intensivbettenbelegung, sowie für die ersten beiden Indikatoren zusätzlich nach Altersgruppen aufgeschlüsselt.
+Ferner schätzen wir ein Bruchpunktmodell für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz, wobei sich hier die Zielgröße $Y_t$ aus dem Quotienten der beiden Größen ergibt.
+
+\subsection{Korrigierte Inzidenz}
+
+Um eine mögliche Unterschätzung der gemeldeten 7-Tages-Inzidenz in den für die Untersuchung relevanten Monaten Oktober bis Dezember 2020 zu modellieren, berechnen wir eine korrigierte 7-Tages-Inzidenz.
+Dazu nehmen wir an, dass das Verhältnis zwischen Todesfällen und Neuinfektionen innerhalb jeder Altersgruppe (nach RKI-Gliederung) im Zeitraum von Juli bis Dezember 2020 konstant war.
+Ein auf der Grundlage dieser Annahme geschätztes Verhältnis zwischen Todesfällen und Neuinfektionen im ersten Zeitraum von Anfang Juli bis Ende September 2020 ermöglicht dann die Berechnung der korrigierten 7-Tages-Inzidenz für die interessierenden Monate Oktober, November und Dezember 2020 unter Verwendung der 7-Tages-Todesfälle. 
+Die korrigierte 7-Tages-Inzidenz berechnet sich also wie folgt:
+
+\begin{align}
+\textit{Korrigierte 7-Tages-Inzidenz}_t = \frac{1}{\phi} \; \cdot \; \textit{7-Tages-Todesfälle}_t
+\end{align}
+
+wobei $\phi$ wie beschrieben geschätzt wird als:
+
+\begin{align}
+\phi = \frac{\textit{Summe aller Todesfälle Juli-September}}{\textit{Summe aller Neuinfektionen Juli-September}}
+\end{align}
+
+Dabei ist $\phi$ konzeptionell an die epidemiologische Maßzahl der Case Fatality Rate angelehnt.
+Diese quantifiziert im Kontext von Covid-19 den Anteil SARS-CoV-2-positiv gemeldeten Fälle, der an der Erkrankung verstirbt (WHO, 2020).
+Die in (2) dargestellte Schätzung der korrigierten 7-Tages-Inzidenz setzt voraus, dass $\phi$ über den Zeitraum von Juli bis Ende Dezember 2020 konstant geblieben ist, zumindest insofern, wie es bei einer unter gleichen Umständen wie im Vergleichszeitraum Juli-September erhobenen Inzidenz im Untersuchungszeitraum Oktober-Dezember der Fall gewesen wäre.
+Gleichwohl würde die Verletzung der Gültigkeit dieser Annahme die wichtigste Limitation unserer Methode darstellen.
+Um unsere Schätzung einem im Zeitverlauf möglichst konstanten $\phi$ anzunähern, haben wir den den Vergleichszeitraum Juli-September gewählt.
+Dies lässt sich stützen durch die Dominanz der gleichen Virusvariante B.1 im Vergleichs- und Untersuchungszeitraum, wobei Covid-19 mit einer heterogenen Sterblichkeit assoziiert ist, die sich von Variante zu Variante unterscheidet (Challen et al., 2021).
+Weiterhin ist davon auszugehen, dass die sich im Pandemieverlauf fortlaufend verbessernden medizinischen Therapiemöglichkeiten, die unter Gleichhaltung anderer Einflussgrößen erwartbar zu einer geringeren Sterblichkeit führen, bei Wahl eines zu großen Vergleichzeitraums der Annahme konstanter Sterblichkeit möglicherweise entgegenstehen könnten.
+Ein weiterer Grund für die Wahl von Vergleichs- und Untersuchungszeitraum liegt im fehlenden Einfluss von Impfungen, die in Deutschland flächendeckend erst kurz vor Jahresende 2020 begannen (BMG, 2022).
+Die somit geschätzte korrigierte 7-Tages-Inzidenz stellen wir der vom RKI gemeldeten 7-Tages-Inzidenz gegenüber.
+In diesem Zusammenhang berechnen wir zusätzlich für jeden Tag des Untersuchungszeitraums die durch die korrigierte Inzidenz implizierte Unterschätzung der Meldeinzidenz als Quotient aus korrigierter 7-Tages-Inzidenz und gemeldeter 7-Tages-Inzidenz.
+
+\section{Ergebnisse}
+\subsection{Bruchpunktmodell}
+\subsection{Korrigierte Inzidenz}
+
+\section{Diskussion}
+Die geschätzten Bruchpunktmodelle zur Beschreibung des pandemischen Verlaufs in den Monaten Oktober bis Dezember 2020 impliziert, dass sich das Infektionsgeschehen in den betrachteten Altersgruppen heterogen entwickelte, wobei wir zeigen, dass sich der deutliche Anstieg der Neuinfektionen in der Altersgruppe der Über-79-Jährigen von den anderen Altersgruppen abkoppelte.
+In den anderen Altersgruppen kam es mindestens im November zu einem Plateau in der Inzidenz. Weiterhin legt unsere Modellierung nahe, dass die Intensivbettenbelegung, die 7-Tages-Todesfälle und die die 7-Tages-Inzidenz der Altersgruppe der Über-79-Jährigen einem gleichartig positiven Trend über den gesamten Untersuchungszeitraum folgten.
+Ferner zeigt unsere Analyse, dass eine unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechnete korrigierte Inzidenz ist im Herbst 2020 deutlich und im Zeitverlauf auch zunehmend größer als die gemeldete Inzidenz.
+Eine damit implizierte deutliche Unterschätzung bis hin zum Faktor 2 Ende Dezember 2020 legt nahe, dass die vom RKI gemeldete Inzidenz das tatsächliche Infektionsgeschehen möglicherweise substantiell unterschätzte.
+Die Ergebnisse stellen somit die Belastbarkeit der gemeldeten 7-Tages-Inzidenz im Herbst 2020 infrage. Inhaltlich ließen sich verschiedenartige Argumente für die systematische Unterschätzung des Infektionsgeschehens finden: So hätte eine gestiegene “Pandemiemüdigkeit” der Bevölkerung gegen Ende 2020 in einer sinkenden Bereitschaft zur Testung bei Symptomen oder zur Meldung von positiven Testergebnissen beim Gesundheitsamt resultieren können.
+Auch die Verfügbarkeit von Selbsttests, die im letzten Quartal des Jahres 2020 zunehmend erhältlich waren, könnte dazu geführt haben, dass Personen zwecks Umgehung der verpflichtenden Isolation nicht die zuständige Behörde kontaktierten.
+Darüber hinaus ist es wahrscheinlich, dass Gesundheitsämter bei hohen Inzidenzen aufgrund Personalmangels die Kontaktnachverfolgung einschränken mussten, was zur Folge hätte, dass etwaige infizierte Kontaktpersonen nicht getestet wurden.
+
+\begin{appendix}
+  \listoffigures
+  \begin{thebibliography}{9}
+\bibitem{texbook}
+Donald E. Knuth (1986) \emph{The \TeX{} Book}, Addison-Wesley Professional.
+
+\bibitem{lamport94}
+Leslie Lamport (1994) \emph{\LaTeX: a document preparation system}, Addison
+Wesley, Massachusetts, 2nd ed.
+\end{thebibliography}
+\end{appendix}
+
+
