@@ -262,8 +262,9 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  farben1534 <- c("#000000", "#1F78B4", "#1F78B4")
  dt_korr_7_inz_15_34[, time := dt_korr_7_inz_15_34$rep_date_divi]
  dt_korr_7_inz_15_34 <- dt_korr_7_inz_15_34[, -1]
+ dt_korr_7_inz_15_34 <- dt_korr_7_inz_15_34[, -3]
  dt_korr_7_inz_15_34_melt <- melt(dt_korr_7_inz_15_34, id.vars = "time", value.name = "inz")
- levels(dt_korr_7_inz_15_34_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
+ levels(dt_korr_7_inz_15_34_melt$variable) = c("gemeldet", "korrigiert")
  plot_korr_7_inz_15_34 <- dt_korr_7_inz_15_34_melt %>% 
    ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
    geom_line() +
@@ -279,7 +280,12 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                date_labels = "%d.%m.%y")
+                date_labels = "%d.%m.%y") +
+   theme(legend.box.background = element_rect(colour = "black", size = 1),
+   legend.title=element_text(size=8),
+   legend.text = element_text(size=8),
+   legend.key.height= unit(0.3, 'cm'),
+   legend.key.width= unit(0.2, 'cm'))
  #plot_korr_7_inz_15_34
  #ggsave("Plots/korrigierte Inzidenz mit Lag 15-34.png", plot = plot_korr_7_inz_15_34, width = 21, height = 10, units = c("cm"))
  
@@ -290,8 +296,9 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  
  dt_korr_7_inz_35_59[, time := dt_korr_7_inz_35_59$rep_date_divi]
  dt_korr_7_inz_35_59 <- dt_korr_7_inz_35_59[, -1]
+ dt_korr_7_inz_35_59 <- dt_korr_7_inz_35_59[, -3]
  dt_korr_7_inz_35_59_melt <- melt(dt_korr_7_inz_35_59, id.vars = "time", value.name = "inz")
- levels(dt_korr_7_inz_35_59_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
+ levels(dt_korr_7_inz_35_59_melt$variable) = c("gemeldet", "korrigiert")
  plot_korr_7_inz_35_59 <- dt_korr_7_inz_35_59_melt %>% 
     ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
     geom_line() +
@@ -307,7 +314,12 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d.%m.%y")
+                 date_labels = "%d.%m.%y") +
+   theme(legend.box.background = element_rect(colour = "black", size = 1),
+         legend.title=element_text(size=8),
+         legend.text = element_text(size=8),
+         legend.key.height= unit(0.3, 'cm'),
+         legend.key.width= unit(0.2, 'cm'))
  #plot_korr_7_inz_35_59
  #ggsave("Plots/korrigierte Inzidenz mit Lag 35-59.png", plot = plot_korr_7_inz_35_59, width = 20, height = 10, units = c("cm"))
  
@@ -318,8 +330,9 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  
  dt_korr_7_inz_60_79[, time := dt_korr_7_inz_60_79$rep_date_divi]
  dt_korr_7_inz_60_79 <- dt_korr_7_inz_60_79[, -1]
+ dt_korr_7_inz_60_79 <- dt_korr_7_inz_60_79[, -3]
  dt_korr_7_inz_60_79_melt <- melt(dt_korr_7_inz_60_79, id.vars = "time", value.name = "inz")
- levels(dt_korr_7_inz_60_79_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
+ levels(dt_korr_7_inz_60_79_melt$variable) = c("gemeldet", "korrigiert")
  plot_korr_7_inz_60_79 <- dt_korr_7_inz_60_79_melt %>% 
     ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
     geom_line() +
@@ -335,7 +348,12 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d.%m.%y")
+                 date_labels = "%d.%m.%y") +
+   theme(legend.box.background = element_rect(colour = "black", size = 1),
+         legend.title=element_text(size=8),
+         legend.text = element_text(size=8),
+         legend.key.height= unit(0.3, 'cm'),
+         legend.key.width= unit(0.2, 'cm'))
  #plot_korr_7_inz_60_79
  #ggsave("Plots/korrigierte Inzidenz mit Lag 60-79.png", plot = plot_korr_7_inz_60_79, width = 20, height = 10, units = c("cm"))
  
@@ -346,8 +364,9 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  
  dt_korr_7_inz_80[, time := dt_korr_7_inz_80$rep_date_divi]
  dt_korr_7_inz_80 <- dt_korr_7_inz_80[, -1]
+ dt_korr_7_inz_80 <- dt_korr_7_inz_80[, -3]
  dt_korr_7_inz_80_melt <- melt(dt_korr_7_inz_80, id.vars = "time", value.name = "inz")
- levels(dt_korr_7_inz_80_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
+ levels(dt_korr_7_inz_80_melt$variable) = c("gemeldet", "korrigiert")
  plot_korr_7_inz_80 <- dt_korr_7_inz_80_melt %>% 
     ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
     geom_line() +
@@ -363,7 +382,12 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d.%m.%y")
+                 date_labels = "%d.%m.%y") +
+   theme(legend.box.background = element_rect(colour = "black", size = 1),
+         legend.title=element_text(size=8),
+         legend.text = element_text(size=8),
+         legend.key.height= unit(0.3, 'cm'),
+         legend.key.width= unit(0.2, 'cm'))
  #plot_korr_7_inz_80
  #ggsave("Plots/korrigierte Inzidenz mit Lag über 80.png", plot = plot_korr_7_inz_80, width = 20, height = 10, units = c("cm"))
  
@@ -376,6 +400,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
  dt_korr_7_inz_g <- dt_korr_7_inz_g[, -1]
  dt_korr_7_inz_g_melt <- melt(dt_korr_7_inz_g, id.vars = "time", value.name = "inz")
  levels(dt_korr_7_inz_g_melt$variable) = c("gemeldet", "korrigiert", "korrigiert mit Lag")
+ dt_korr_7_inz_g_melt<-dt_korr_7_inz_g_melt[!(dt_korr_7_inz_g_melt$variable=="korrigiert mit Lag"),]
  plot_korr_7_inz_g <- dt_korr_7_inz_g_melt %>% 
     ggplot(aes(x = time, y = inz, color = variable, linetype = variable)) +
     geom_line() +
@@ -391,7 +416,12 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
           axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d.%m.%y")
+                 date_labels = "%d.%m.%y") +
+   theme(legend.box.background = element_rect(colour = "black", size = 1),
+         legend.title=element_text(size=8),
+         legend.text = element_text(size=8),
+         legend.key.height= unit(0.3, 'cm'),
+         legend.key.width= unit(0.2, 'cm'))
  #plot_korr_7_inz_g
  #ggsave("Plots/korrigierte Inzidenz.png", plot = plot_korr_7_inz_80, width = 20, height = 10, units = c("cm"))
  
