@@ -33,6 +33,9 @@ dt_models_ratio <- data.table(formulas = formulas_ratio)
 # add a lm that is needed for the segmented/selgmented function
 dt_models_ratio[, base_model := lapply(formulas, function(x) lm(data = data, x))]
 
+# https://stackoverflow.com/questions/51132359/suppress-error-message-when-using-fitdist-from-the-fitdistrplus-package
+sink(file("all.Rout", open = "wt"), type = "message")
+
 # using selg_function from "help_functions/model_help_functions.R" to create a bic for each number of breakpoints
 # error messages are no problem. They get prduced and catched by the segmented::selgmented function
 dt_models_ratio[, model_bic := lapply(base_model, selg_function)
@@ -47,11 +50,14 @@ dt_models_ratio[, model_bic := lapply(base_model, selg_function)
                                   type = "response"))})
 ]
 
+## revert output back to the console -- only then access the file!
+sink(type = "message")
+
 residual_plot <- function(model) {
   plot(predict(model), model$residuals)
 }
-# most models seem resonable (15-34 not, but that was expectable)
-lapply(dt_models_ratio$model_bic_seq, residual_plot)
+# # most models seem resonable (15-34 not, but that was expectable)
+# lapply(dt_models_ratio$model_bic_seq, residual_plot)
 
 
 # # help data table for the plots -----------------------------------------
