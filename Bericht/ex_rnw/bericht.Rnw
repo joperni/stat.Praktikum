@@ -1,4 +1,7 @@
 \tableofcontents
+
+\pagebreak
+
 \section{Einführung}
 Zur Modellierung der Indikatoren des pandemischen Geschehens wird ein Bruchpunktmodell geschätzt. Die Erstellung des Bruchpunktmodells erfolgt direkt auf Grundlage der Daten und wird separat für die 7-Tages-Inzidenz, die Intensivbettenbelegung, die 7-Tages-Todesfälle und für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz geschätzt. Bruchpunktmodelle finden in der Analyse der COVID-19-Pandemie eine nachvollziehbare Verwendung, z. B. bei Küchenhoff et al. (2021), da sie die Beschreibung eines Untersuchungszeitraums anhand von Bruchpunkten ermöglichen. Bruchpunkte charakterisieren sich damit als Zeitpunkte, an denen das geschätzte Regressionsmodell eine Veränderung im Wachstumstrend des Indikators des pandemischen Geschehens impliziert. In der Interpretation können diese Bruchpunkte dann mit für den Pandemieverlauf möglicherweise relevanten Ereignissen, bspw. politische Beschlüsse über Maßnahmen zur Eindämmung des Infektionsgeschehens, kontextualisiert werden.
 
@@ -110,10 +113,11 @@ In diesem Zusammenhang berechnen wir zusätzlich für jeden Tag des Untersuchung
 \subsection{Bruchpunktmodell}
 \subsection{Korrigierte Inzidenz}
 
+\pagebreak
 \begin{figure}[hbt!]
 \centering
 \captionsetup{width=.9\linewidth}
-<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 2.49, fig.width = 5.4>>=
+<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 1.85, fig.width = 5.4>>=
 library(knitr)
 library(ggplot2)
 library(gridExtra)

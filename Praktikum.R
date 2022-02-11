@@ -277,8 +277,8 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
          panel.grid = element_line(colour = "gray57", size = 0.2),
          axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
          axis.text   = element_text(colour = "black")) +
-   theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
+         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                 date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
@@ -311,8 +311,8 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
+         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
@@ -345,8 +345,8 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
+         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
@@ -379,8 +379,8 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
+         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
@@ -413,8 +413,8 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
+         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
