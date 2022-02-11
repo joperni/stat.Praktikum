@@ -11,7 +11,14 @@ inference_glm_seg <- function(model) {
 #                                                     it.max = 400, K = 9, display = FALSE))}
 
 # probably is 6 better against overfitting
-selg_function <- function(model) selgmented(model, type = "bic", Kmax = 9, msg = FALSE)
+selg_function <- function(model) {
+  # Error handelling of the weirdest kind
+  # We face this problem:
+  # https://stackoverflow.com/questions/45985326/r-automatically-create-daily-file-to-log-everything-from-rstudio-console
+  sink(file("all.Rout", open = "wt"), type = "message")
+  selgmented(model, type = "bic", Kmax = 9, msg = FALSE)
+  sink(type = "message")
+  }
 
 # with list "list_selg_gamma[[1]]$selection.psi" sequential selection is possible
 seq_bic_model <- function(model, model_selg) {
