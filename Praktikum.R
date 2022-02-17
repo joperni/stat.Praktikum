@@ -1,6 +1,7 @@
 library(checkmate)
 library(data.table)
 library(tidyverse)
+library(cowplot)
 
 main_data <- readRDS("data/main_data")
 source("examples_of_code/example_aggregating.R")
@@ -449,7 +450,8 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     ggplot(aes(x = time, y = inz, color = variable)) +
     geom_line() +
     labs(x = "", y = "Faktor der Unterschätzung") +
-    scale_y_continuous(labels = scales::label_number(accuracy = 0.5), limits = c(0, 3), breaks = c(0, 0.5, 1, 1.5, 2, 2.5, 3)) +
+    scale_y_continuous(trans="log2", breaks = c(0.5, 1, 1.5, 2, 2.5), limits = c(0.3, 2.6)) +
+    #scale_y_continuous(labels = scales::label_number(accuracy = 0.5), limits = c(0, 3), breaks = c(0, 0.5, 1, 1.5, 2, 2.5, 3)) +
     scale_color_manual(values = farben3, name = "Altersgruppe") +
     geom_hline(yintercept = 1, color = "#808080") + 
     theme_bw() +
@@ -457,10 +459,15 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-    theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-          axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+    theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
+          axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-                 date_labels = "%d.%m.%y")
+                 date_labels = "%d.%m.%y") +
+    theme(legend.box.background = element_rect(colour = "black", size = 1),
+          legend.title=element_text(size=8),
+          legend.text = element_text(size=8),
+          legend.key.height= unit(0.3, 'cm'),
+          legend.key.width= unit(0.2, 'cm'))
  #plot_unterschaetzung
  #ggsave("Plots/Unterschaetzung Inzidenz.png", plot = plot_unterschaetzung, width = 20, height = 10, units = c("cm"))
  
