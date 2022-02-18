@@ -87,10 +87,15 @@
 \parindent0em
 \parskip0.5em
 \topmargin-1.0 cm
-\textheight25cm
+\textheight23cm
 \textwidth15.0cm
 \oddsidemargin0.5cm
 \pagestyle{plain}
+
+\usepackage{calc}
+\setlength{\footskip}{\paperheight
+  -(1in+\voffset+\topmargin+\headheight+\headsep+\textheight)
+  -1.00in}
 
 \newcommand{\kopf}[1]{
 \hrule
