@@ -33,12 +33,12 @@ dt_models <- data.table(formulas = formulas)
 # add a glm that is needed for the segmented/selgmented function
 dt_models[, base_model := lapply(formulas, function(x) glm(data = data, x, family = Gamma(link = "log")))]
 
+# using sink: Avoid dirty error messages from "selgmented" function
 # https://stackoverflow.com/questions/51132359/suppress-error-message-when-using-fitdist-from-the-fitdistrplus-package
 sink(file("all.Rout", open = "wt"), type = "message")
 
 
 # using selg_function from "help_functions/model_help_functions.R" to create a bic for each number of breakpoints
-# error messages are no problem. They get prduced and catched by the segmented::selgmented function
 dt_models[, model_bic := lapply(base_model, selg_function)
 # choosing the model with the sequential lowest BIC for the number of breakpoints
 ][, model_bic_seq := Map(seq_bic_model, base_model, model_bic)

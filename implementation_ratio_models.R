@@ -33,11 +33,11 @@ dt_models_ratio <- data.table(formulas = formulas_ratio)
 # add a lm that is needed for the segmented/selgmented function
 dt_models_ratio[, base_model := lapply(formulas, function(x) lm(data = data, x))]
 
+# using sink: Avoid dirty error messages from "selgmented" function
 # https://stackoverflow.com/questions/51132359/suppress-error-message-when-using-fitdist-from-the-fitdistrplus-package
 sink(file("all.Rout", open = "wt"), type = "message")
 
 # using selg_function from "help_functions/model_help_functions.R" to create a bic for each number of breakpoints
-# error messages are no problem. They get prduced and catched by the segmented::selgmented function
 dt_models_ratio[, model_bic := lapply(base_model, selg_function)
           # choosing the model with the sequential lowest BIC for the number of breakpoints
 ][, model_bic_seq := Map(seq_bic_model, base_model, model_bic)
