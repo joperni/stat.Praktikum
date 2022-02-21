@@ -73,7 +73,7 @@ levels(fitted_vals_melt_kor$variable)[5] = c("Über 79 Jahre")
 kor_model_breakpoints <- ggplot(fitted_vals_melt_kor[variable == "Gesamt"],
                             aes(x = time, y = sdi#, color = variable
                                 )) +
-  geom_line() +
+  geom_line(color = "darkorange") +
   geom_line(data = dt_kor_inz[, .(time = as.Date(rep_date, format = "%d. %b %Y", origin = lubridate::origin),
                                   sdi = .SD.kor_inz_total#, variable = "Gesamt"
                                   )]) +
@@ -93,3 +93,24 @@ kor_model_breakpoints <- ggplot(fitted_vals_melt_kor[variable == "Gesamt"],
   # geom_segment(data = dt_breakpoints["inz" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 
 ggsave("Plots/kor_model.png", kor_model_breakpoints, width = 22, height = 10, units = c("cm"))
+
+kor_model_age <- ggplot(fitted_vals_melt_kor,
+                                aes(x = time, y = sdi, color = variable
+                                )) +
+  geom_line() +
+  labs(x = "", y = "7-Tages-Inzidenz") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 450), breaks = seq(0, 450, 50)) +
+  scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
+  theme_bw() +
+  theme(panel.border = element_rect(colour = "black", size = 1),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        axis.title.y = element_text(margin = margin(t = 0, r = 18, b = 0, l = 0)),
+        axis.text   = element_text(colour = "black")) +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d.%m.%y")# +
+# geom_point(data = dt_breakpoints["inz" == origin, .(sdi, time, variable)], shape = 18, size = 3) +
+# geom_segment(data = dt_breakpoints["inz" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
+
+ggsave("Plots/kor_model_age.png", kor_model_age, width = 22, height = 10, units = c("cm"))
