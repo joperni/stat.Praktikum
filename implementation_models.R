@@ -134,12 +134,7 @@ dt_hosp_y_fitted_melt <- melt(dt_hosp_y_fitted, id.vars = "time", value.name = "
 
 
 # growth_rates ------------------------------------------------------------
-# This part is for the growth rates exp(beta) for the models
 
-growth_rate <- function(model) {
-  mod_coef <- model$coefficients
-  exp(cumsum(mod_coef[seq(2, length(model$coefficients) / 2 + 1)]))
-}
 
 # list of exp(beta)s for each model
 exp_betas <- lapply(dt_models[, model_bic_seq], growth_rate)

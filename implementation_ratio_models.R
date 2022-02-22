@@ -24,14 +24,14 @@ sdi_deaths_colnames <- c("seven_day_death_inz", "seven_day_death_inz_A15_A34",
 data[, paste("ratio", age, sep = "_") := 
        data[, .SD, .SDcols = sdi_deaths_colnames] / data[, .SD, .SDcols = sdi_cases_colnames]]
 
-formulas_ratio <- paste(paste("ratio", age, sep = "_"), " ~ rep_date_divi")
+formulas_ratio <- paste(paste("ratio", age, sep = "_"), "+ exp(-10) ~ rep_date_divi")
 
 # change data type of the date, because otherwise predicting doesnt work
 data$rep_date_divi <- as.numeric(data$rep_date_divi)
 
 dt_models_ratio <- data.table(formulas = formulas_ratio)
 # add a lm that is needed for the segmented/selgmented function
-dt_models_ratio[, base_model := lapply(formulas, function(x) lm(data = data, x))]
+dt_models_ratio[, base_model := lapply(formulas, function(x) glm(data = data, x, family = Gamma(link = "log")))]
 
 # using sink: Avoid dirty error messages from "selgmented" function
 # https://stackoverflow.com/questions/51132359/suppress-error-message-when-using-fitdist-from-the-fitdistrplus-package
@@ -155,3 +155,7 @@ ratio_timeseries <- dt_ratio_y_fitted_melt %>%
              aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4[[1]]) +
   geom_segment(data = dt_bp_ratio[variable == "Gesamt"],
                aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi), colour = farben4[[1]])
+
+# coeficients -------------------------------------------------------------
+lapply(dt_models_ratio$model_bic_seq, growth_rate)
+lapply(dt_models_ratio$confint, function(x) as.Date(x[, 1], lubridate::origin))

@@ -35,3 +35,9 @@ seq_bic_model <- function(model, model_selg) {
 #     geom_line(aes(y = model_3$fitted.values, color = "fitted_seq_bic")) +
 #     labs(title = title)
 # }
+
+# This part is for the growth rates exp(beta) for the models
+growth_rate <- function(model) {
+  mod_coef <- model$coefficients
+  exp(cumsum(mod_coef[seq(2, length(model$coefficients) / 2 + 1)]))
+}
