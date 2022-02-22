@@ -3,8 +3,15 @@
 \pagebreak
 
 \section{Einführung}
-Zur Modellierung der Indikatoren des pandemischen Geschehens wird ein Bruchpunktmodell geschätzt. Die Erstellung des Bruchpunktmodells erfolgt direkt auf Grundlage der Daten und wird separat für die 7-Tages-Inzidenz, die Intensivbettenbelegung, die 7-Tages-Todesfälle und für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz geschätzt. Bruchpunktmodelle finden in der Analyse der COVID-19-Pandemie eine nachvollziehbare Verwendung, z. B. bei Küchenhoff et al. (2021), da sie die Beschreibung eines Untersuchungszeitraums anhand von Bruchpunkten ermöglichen. Bruchpunkte charakterisieren sich damit als Zeitpunkte, an denen das geschätzte Regressionsmodell eine Veränderung im Wachstumstrend des Indikators des pandemischen Geschehens impliziert. In der Interpretation können diese Bruchpunkte dann mit für den Pandemieverlauf möglicherweise relevanten Ereignissen, bspw. politische Beschlüsse über Maßnahmen zur Eindämmung des Infektionsgeschehens, kontextualisiert werden.
+Die Erforschung der Covid-19-Pandemie in Deutschland stellt einen Schwerpunkt aktueller wissenschaftlicher Untersuchungen dar. Dabei stehen insbesondere die Inzidenz, die Todesfälle und die Hospitalisierungen im Mittelpunkt statistischer Analysen.
+Unser Projektpartner, Herr Dr. André Klima, beschrieb im Rahmen seiner Forschung als Mitglied der COVID-19 Data Analysis Group (CODAG) eine auffällige Entwicklung in den wesentlichen Indikatoren des pandemischen Geschehens im Herbst 2020.
+Während die 7-Tages-Inzidenz (Anzahl der gemeldeten Neuinfektionen innerhalb von 7 Tagen je 100.000 Einwohner) in der Altersgruppe der Über-79-Jährigen, die 7-Tages-Todesfälle (Anzahl der gemeldeten Neuinfektionen innerhalb von 7 Tagen je 100.000 Einwohner, die nachfolgend verstarben), sowie die Intensivbettenbelegung (Anzahl der mit Covid-19-Patienten belegten Betten auf Intensivstationen) bis Weihnachten steigt, findet sich in der 7-Tages-Inzidenz aller anderen Altersgruppen ein Plateau bzw. ein Absinken von Ende Oktober bis Mitte November.
+Auch die 7-Tages-Inzidenz der Gesamtbevölkerung stagnierte in diesem Zeitraum, im Kontrast zu gerade beschriebenem Anstieg der 7-Tages-Todesfälle und der Intensivbettenbelegung. \\
+Auf dieser Grundlage stellen wir uns die Frage, ob und inwiefern die Inzidenz im Herbst 2020 wirklich ein belastbarer statistischer Indikator für die Entwicklung der Covid-19-Pandemie in Deutschland war.
+Dieser Bericht ist wie folgt strukturiert: Kapitel 2 stellt die verwendeten Daten vor und beschreibt die wesentlichen in unserer Analyse verwendeten Indikatoren. Kapitel 3 erklärt die Methodik unserer Analyse. In einem ersten Schritt modellieren wir das pandemische Geschehen anhand von Bruchpunktmodellen, um wesentliche Gemeinsamkeiten und Unterschiede der zeitlichen Entwicklung der Indikatoren zu beleuchten. Dabei betrachten wir einerseits die Indikatoren selbst, andererseits auch das Verhältnis zueinander. In einem nachfolgenden Schritt überprüfen wir dann, ob eine basierend auf dem Konzept der Case Fatality RATE (CFR) berechnete korrigierte Inzidenz einen anderen Verlauf als die gemeldete Inzidenz im Herbst 2020 genommen hätte. Kapitel 4 stellt die Ergebnisse unserer Arbeit vor, und Kapitel 5 diskutiert die wichtigsten Erkenntnisse und  mögliche Implikationen für das Verständnis des pandemischen Geschehens.
 
+\section{Daten und Aufbereitung}
+\pagebreak
 \begin{figure}[hbt!]
 \centering
 \captionsetup{width=.9\linewidth}
@@ -54,8 +61,6 @@ ggdraw(aligned[[1]])
 @
 \caption[7-Tages-Inzidenz nach Altersgruppen]{\textbf{7-Tages-Inzidenz nach Altersgruppen.} Dabei ist die 7-Tages-Inzidenz die Anzahl der gemeldeten Neuinfektionen innerhalb der letzten 7 Tage, normiert auf 100.000 Einwohner innerhalb der Altersgruppe. In der Altersgruppe Ü79 steigt die Inzidenz von Oktober bis Ende Dezember 2020, in den anderen Altersgruppen und in der Gesamtbevölkerung zeigt sich nach einem Anstieg bis Ende Oktober ein Plateau bzw. leichtes Abflachen der Inzidenzen bis Dezember.}
 \end{figure}
-
-\section{Daten und Aufbereitung}
 
 \section{Methodik}
 
@@ -113,8 +118,8 @@ In diesem Zusammenhang berechnen wir zusätzlich für jeden Tag des Untersuchung
 \subsection{Bruchpunktmodell}
 \subsection{Korrigierte Inzidenz}
 
-\pagebreak
-\begin{figure}[hbt!]
+
+\begin{figure}[!p]
 \centering
 \captionsetup{width=.9\linewidth}
 <<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 8.00, fig.width = 5.4>>=
