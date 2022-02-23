@@ -1,4 +1,4 @@
-## help function
+## help function for inference
 inference_glm_seg <- function(model) {
   slopes <- slope(model) 
   conf_int <- confint(model)
@@ -10,9 +10,10 @@ inference_glm_seg <- function(model) {
 #   segmented(model, psi = NA, control = seg.control(fix.npsi = FALSE, n.boot = 0, tol = 1e-7,
 #                                                     it.max = 400, K = 9, display = FALSE))}
 
-# probably is 6 better against overfitting
+# Function, that evaluates the BIC for a potentual model with 1 to Kmax breakpoints
 selg_function <- function(model) selgmented(model, type = "bic", Kmax = 9, msg = FALSE)
 
+# Function that chooses the sequemtial lowest BIC value
 # with list "list_selg_gamma[[1]]$selection.psi" sequential selection is possible
 seq_bic_model <- function(model, model_selg) {
   # Are the BICs of the breakpoints higher than before?
@@ -36,7 +37,7 @@ seq_bic_model <- function(model, model_selg) {
 #     labs(title = title)
 # }
 
-# This part is for the growth rates exp(beta) for the models
+# This part is for the growth rates exp(beta) for the models. It helps to interpretate
 growth_rate <- function(model) {
   mod_coef <- model$coefficients
   exp(cumsum(mod_coef[seq(2, length(model$coefficients) / 2 + 1)]))

@@ -110,6 +110,24 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
         axis.text   = element_text(colour = "black"))#+
   #geom_segment(data = dt_breakpoints["deaths" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 
+ratio_for_grid <- ggplot(fitted_vals_melt_ratio,
+                         aes(x = time, y = sdi, color = variable)) +
+  geom_line() +
+  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ","),
+                     limits = c(0, 0.25), breaks = seq(0, 0.25, 0.05)) +
+  scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
+  theme_bw() +
+  annotate("text", label = "Verhältnis", x = as.Date(c("2020-10-01")),
+           y = 0.21, size = 4.5, colour = "black", hjust = 0) +
+  theme(axis.title = element_blank(), legend.position = "none", 
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  theme(panel.border = element_rect(colour = "black", size=1),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        axis.text   = element_text(colour = "black")) +
+  geom_point(data = dt_bp_ratio[, .(sdi, time, variable)], shape = 18, size = 3) +
+  labs(y = "Geschätzer Anteil der Verstorbenen an den Infizierten")
+
 # for hosp
 hosp_for_grids <- dt_hosp_y_fitted %>% 
   ggplot(aes(time, y = geschaetzt), color = "#000000") +
@@ -119,7 +137,8 @@ hosp_for_grids <- dt_hosp_y_fitted %>%
                date_labels = "%d.%m.%y") +
   theme_bw() +
   theme(axis.title.y = element_blank()) +
-  annotate("text", label = "Intensivbettenbelegung", x = as.Date(c("2020-10-01")), y = 6970, size = 4.5, colour = "black", hjust = 0) +
+  annotate("text", label = "Intensivbettenbelegung", x = as.Date(c("2020-10-01")),
+           y = 6970, size = 4.5, colour = "black", hjust = 0) +
   #theme(plot.margin = unit(c(-0.5, 1.5, 1, 0), "cm")) +
   labs(y = "7-Tages-Hospitalisierungsfälle", x = "") +
   geom_point(data = dt_breakpoints["beds" == origin, .(geschaetzt = sdi, time, variable)], shape = 18, size = 2.2) +
@@ -145,6 +164,8 @@ p_grid <- plot_grid(cases_for_grid +
                     NULL,
                     deaths_for_grid,
                     NULL,
+                    ratio_for_grid,
+                    NULL,
                     hosp_for_grids,
                     # labels need to be adjusted
                     #labels = c('Inzidenz', "Todesfälle", "Intensivbettenbelegung"),
@@ -153,7 +174,7 @@ p_grid <- plot_grid(cases_for_grid +
                     # adjusting the positions of the labels
                     label_x = .08, label_y = .97, hjust = 0, scale = 1, 
                     align = "hv",
-                    rel_heights = c(1, -0.22, 1, -0.22, 1))
+                    rel_heights = c(1, -0.22, 1, -0.22, 1, -0.22, 1))
 
 # Arranges all together
 
