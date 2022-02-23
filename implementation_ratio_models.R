@@ -106,7 +106,7 @@ ratio_breakpoints <- ggplot(fitted_vals_melt_ratio,
                             aes(x = time, y = sdi, color = variable)) +
   geom_line() +
   scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ","),
-                     limits = c(0, 0.25), breaks = seq(0, 0.25, 0.05)) +
+                     limits = c(0, 0.24), breaks = seq(0, 0.24, 0.06)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size = 1),
