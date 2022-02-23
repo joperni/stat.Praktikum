@@ -120,7 +120,7 @@ In diesem Zusammenhang berechnen wir zusätzlich für jeden Tag des Untersuchung
 
 \subsection{Korrigierte Inzidenz}
 
-Die Ergebnisse einer unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechneten korrigierten 7-Tages-Inzidenz sind in \ref[fig:kinz]{Abbildung 2} zu sehen.
+Die Ergebnisse einer unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechneten korrigierten 7-Tages-Inzidenz sind in \hyperref[fig:kinz]{Abbildung 2} zu sehen.
 Wir vergleichen die korrigierte Inzidenz für die Altersgruppen 15-34, 35-59, 60-79, sowie Ü79 mit der Meldeinzidenz, also der auf Grundlage der offiziell vom RKI veröffentlichten Daten berechneten 7-Tages-Inzidenz.
 Darüber hinaus vergleichen wir die korrigierte Inzidenz und die Meldeinzidenz der Gesamtbevölkerung.
 Die korrigierte Inzidenz der Gesamtbevölkerung ergibt sich als mit dem Bevölkerungsanteil gewichteter Mittelwert der korrigierten Inzidenzen der Altersgruppen, wobei für die Altersgruppe der 0-14-Jährigen aus bereits genannten Gründen die gemeldete 7-Tages-Inzidenz verwendet wird. \\
@@ -196,7 +196,7 @@ aligned4 <- align_plots(plot_korr_7_inz_15_34,
                         plot_korr_7_inz_60_79,
                         plot_korr_7_inz_80,
                         plot_korr_7_inz_g,
-                       #plot_unterschaetzung,
+                        plot_unterschaetzung,
                        #plot_unterschaetzung_7,
                        #cases_timeseries,
                        #hosp_timeseries,
@@ -221,7 +221,7 @@ grid_ki
 
 \pagebreak
 
-Das Verhältnis zwischen gemeldeter und korrigierter 7-Tages-Inzidenz ist in Abbildung 3 dargestellt.
+Das Verhältnis zwischen gemeldeter und korrigierter 7-Tages-Inzidenz ist in \hyperref[fig:factorkinz]{Abbildung 3} dargestellt.
 Der in der Abbildung dargestellte Quotient aus korrigerter Inzidenz und Meldeinzidenz im Zeitverlauf lässt sich als implizierter Faktor der Unterschätzung interpretieren.
 Dabei bedeutet ein Faktor von 1, dass beide Größen gleich groß sind.
 Ein Faktor größer 1 lässt sich als Unterschätzung der tatsächlichen Infektionslage durch die gemeldete Inzidenz interpretieren, wenn man die korrigierte Inzidenz als wahren Wert der Inzidenz annehmen würde.
@@ -231,6 +231,42 @@ Hier liegt der Wert im Dezember beständig bei größer 2.
 Das würde bedeuten, dass die Anzahl der tatsächlichen Neuinfektionen in dieser Altersgruppe im Dezember um mehr als 100\% höher gewesen wäre als vom RKI gemeldet.
 Auch in der Altersgruppe der Über-79-Jährigen, für die kein Plateau in der Meldeinzidenz zu beobachten war, liegt der implizierte Faktor der Unterschätzung über den gesamten Untersuchungszeitraum hinweg bei Werten größer 1.
 Dennoch ist das relative Maß der Unterschätzung hier etwas geringer als in den beiden jüngeren Altersgruppen.
+
+
+\begin{figure}[!hbt]
+\centering
+\captionsetup{width=.9\linewidth}
+<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 2.50, fig.width = 5.4>>=
+library(knitr)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(e1071)
+library(rpart)
+library(rpart.plot)
+
+lgr::get_logger("mlr3")$set_threshold("error")
+
+options(digits = 3, 
+        width = 165, 
+        str = strOptions(strict.width = "cut", vec.len = 3))
+setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
+
+source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/Praktikum.R")
+
+aligned4 <- align_plots(plot_korr_7_inz_15_34,
+                        plot_korr_7_inz_35_59,
+                        plot_korr_7_inz_60_79,
+                        plot_korr_7_inz_80,
+                        plot_korr_7_inz_g,
+                        plot_unterschaetzung,
+                        align = "hv",
+                        axis = "tblr")
+ggdraw(aligned4[[6]])
+@
+\caption[Implizierter Faktor der Unterschätzung]{\textbf{Implizierter Faktor der Unterschätzung.} Der Faktor der Unterschätzung berechnet sich als Quotient von korrigierter und gemeldeter 7-Tages-Inzidenz. Mit Ausnahme der 15-34-Jährigen ist der Faktor für alle Altersgruppen spätestens ab November 2020 größer 1 und nimmt im Zeitverlauf auch tendenziell zu. Nimmt man an, dass die korrigierte Inzidenz dem wahren Infektionsgeschehen entspricht, impliziert dies z.B. für den Dezember ein um mindestens 50\% höheres Infektionsgeschehen als durch die gemeldete Inzidenz abgebildet.}
+\label{fig:factorkinz}
+\end{figure}
 
 
 \section{Diskussion}
