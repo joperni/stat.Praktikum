@@ -16,7 +16,7 @@
 \usepackage{bytefield}
 \usepackage{csquotes}
 \usepackage[breakable, theorems, skins]{tcolorbox}
-\usepackage{hyperref}
+\usepackage[colorlinks=true, pdfborder={0 0 0}, linkcolor=blue]{hyperref}
 \usepackage{cancel}
 \usepackage{bm}
 \usepackage{setspace}

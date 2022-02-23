@@ -271,15 +271,15 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
    geom_line() +
    labs(x = "", y = "7-Tages-Inzidenz") +
    scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-   scale_color_manual("Methode", values = farben1534) +
-   scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+   scale_color_manual("15-34 Jahre", values = farben1534) +
+   scale_linetype_manual("15-34 Jahre", values = c(rep("solid", 2), rep("dashed", 1))) +
    theme_bw() +
    theme(panel.border = element_rect(colour = "black", size=1),
          panel.grid = element_line(colour = "gray57", size = 0.2),
          axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
          axis.text   = element_text(colour = "black")) +
-   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
-         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
+   theme(axis.text.x = element_text(size = 9), axis.title.x = element_text(size = 10),
+         axis.text.y = element_text(size = 9), axis.title.y = element_text(size = 10)) +
    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                 date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
@@ -305,15 +305,15 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     geom_line() +
     labs(x = "", y = "7-Tages-Inzidenz") +
     scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-    scale_color_manual("Methode", values = farben3559) +
-    scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+    scale_color_manual("35-59 Jahre", values = farben3559) +
+    scale_linetype_manual("35-59 Jahre", values = c(rep("solid", 2), rep("dashed", 1))) +
     theme_bw() +
     theme(panel.border = element_rect(colour = "black", size=1),
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
-         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
+   theme(axis.text.x = element_text(size = 9), axis.title.x = element_text(size = 10),
+         axis.text.y = element_text(size = 9), axis.title.y = element_text(size = 10)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
@@ -339,15 +339,15 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     geom_line() +
     labs(x = "", y = "7-Tages-Inzidenz") +
     scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-    scale_color_manual("Methode", values = farben6079) +
-    scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+    scale_color_manual("60-79 Jahre", values = farben6079) +
+    scale_linetype_manual("60-79 Jahre", values = c(rep("solid", 2), rep("dashed", 1))) +
     theme_bw() +
     theme(panel.border = element_rect(colour = "black", size=1),
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
-         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
+   theme(axis.text.x = element_text(size = 9), axis.title.x = element_text(size = 10),
+         axis.text.y = element_text(size = 9), axis.title.y = element_text(size = 10)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
@@ -373,15 +373,15 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     geom_line() +
     labs(x = "", y = "7-Tages-Inzidenz") +
     scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-    scale_color_manual("Methode", values = farben80) +
-    scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+    scale_color_manual("79+ Jahre", values = farben80) +
+    scale_linetype_manual("79+ Jahre", values = c(rep("solid", 2), rep("dashed", 1))) +
     theme_bw() +
     theme(panel.border = element_rect(colour = "black", size=1),
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
-         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
+   theme(axis.text.x = element_text(size = 9), axis.title.x = element_text(size = 10),
+         axis.text.y = element_text(size = 9), axis.title.y = element_text(size = 10)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
@@ -407,15 +407,15 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     geom_line() +
     labs(x = "", y = "7-Tages-Inzidenz") +
     scale_y_continuous(labels = scales::comma,limits = c(0, 600), breaks = c(0, 100, 200, 300, 400, 500, 600)) +
-    scale_color_manual("Methode", values = farbenges) +
-    scale_linetype_manual("Methode", values = c(rep("solid", 2), rep("dashed", 1))) +
+    scale_color_manual("Gesamt", values = farbenges) +
+    scale_linetype_manual("Gesamt", values = c(rep("solid", 2), rep("dashed", 1))) +
     theme_bw() +
     theme(panel.border = element_rect(colour = "black", size=1),
           panel.grid = element_line(colour = "gray57", size = 0.2),
           axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
           axis.text   = element_text(colour = "black")) +
-   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 11),
-         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11)) +
+   theme(axis.text.x = element_text(size = 9), axis.title.x = element_text(size = 10),
+         axis.text.y = element_text(size = 9), axis.title.y = element_text(size = 10)) +
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
