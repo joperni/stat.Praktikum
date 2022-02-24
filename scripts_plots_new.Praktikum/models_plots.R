@@ -182,6 +182,8 @@ grid_plot <- grid.arrange(arrangeGrob(p_grid, right = legend))
 ggsave("Plots/grid_plot_models.png", plot = grid_plot, width = 22, height = 10, units = c("cm"))
 
 
+
+
 # model_plus_timeseries ---------------------------------------------------
 farben4 <- c("geschätzt" = "darkorange", "gemeldet" = "#000000")
 
