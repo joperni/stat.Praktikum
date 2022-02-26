@@ -111,6 +111,9 @@ deaths_for_grid <- fitted_vals_melt_deaths %>%
         axis.text   = element_text(colour = "black"))#+
   #geom_segment(data = dt_breakpoints["deaths" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi))
 
+dt_bp_ratio$variable[dt_bp_ratio$variable == "ueber 80 Jahre"] = c("Über 79 Jahre")
+levels(fitted_vals_melt_ratio$variable)[1] = c("Gesamt")
+levels(fitted_vals_melt_ratio$variable)[5] = c("Über 79 Jahre")
 ratio_for_grid <- ggplot(fitted_vals_melt_ratio,
                          aes(x = time, y = sdi, color = variable)) +
   geom_line() +
@@ -126,7 +129,7 @@ ratio_for_grid <- ggplot(fitted_vals_melt_ratio,
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
         axis.text   = element_text(colour = "black")) +
-  geom_point(data = dt_bp_ratio[, .(sdi, time, variable)], shape = 18, size = 3) +
+  geom_point(data = dt_bp_ratio[, .(sdi, time, variable)], shape = 18, size = 2.2) +
   labs(y = "Geschätzer Anteil der Verstorbenen an den Infizierten")
 
 # for hosp
