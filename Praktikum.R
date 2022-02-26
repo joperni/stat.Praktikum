@@ -283,7 +283,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
    scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                 date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
-   legend.title=element_text(size=8),
+   legend.title=element_text(size=8, face = "bold"),
    legend.text = element_text(size=8),
    legend.key.height= unit(0.3, 'cm'),
    legend.key.width= unit(0.2, 'cm'))
@@ -317,7 +317,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
-         legend.title=element_text(size=8),
+         legend.title=element_text(size=8, face = "bold"),
          legend.text = element_text(size=8),
          legend.key.height= unit(0.3, 'cm'),
          legend.key.width= unit(0.2, 'cm'))
@@ -351,7 +351,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
-         legend.title=element_text(size=8),
+         legend.title=element_text(size=8, face = "bold"),
          legend.text = element_text(size=8),
          legend.key.height= unit(0.3, 'cm'),
          legend.key.width= unit(0.2, 'cm'))
@@ -385,7 +385,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
-         legend.title=element_text(size=8),
+         legend.title=element_text(size=8, face = "bold"),
          legend.text = element_text(size=8),
          legend.key.height= unit(0.3, 'cm'),
          legend.key.width= unit(0.2, 'cm'))
@@ -419,7 +419,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
    theme(legend.box.background = element_rect(colour = "black", size = 1),
-         legend.title=element_text(size=8),
+         legend.title=element_text(size=8, face = "bold"),
          legend.text = element_text(size=8),
          legend.key.height= unit(0.3, 'cm'),
          legend.key.width= unit(0.2, 'cm'))
@@ -464,7 +464,7 @@ CFR_7_jul_sep_A00_A14 <- sum(main_data["2020-10-08" > rep_date_divi & rep_date_d
     scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                  date_labels = "%d.%m.%y") +
     theme(legend.box.background = element_rect(colour = "black", size = 1),
-          legend.title=element_text(size=8),
+          legend.title=element_text(size=8, face = "bold"),
           legend.text = element_text(size=8),
           legend.key.height= unit(0.3, 'cm'),
           legend.key.width= unit(0.2, 'cm'))

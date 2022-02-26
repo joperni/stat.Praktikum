@@ -225,11 +225,102 @@ In diesem Zusammenhang berechnen wir zusätzlich für jeden Tag des Untersuchung
 \section{Ergebnisse}
 \subsection{Bruchpunktmodell}
 
-Die Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle und die Intensivbettenbelegung, jeweils auf Ebene der Gesamtbevölkerung, sind in Abbildung \hyperref[fig:bpm]{Abbildung 4} zusammen mit den zugehörigen implizierten täglichen Wachstumsfaktoren dargestellt. Das Bruchpunktmodell für die 7-Tages-Inzidenz enthält acht Bruchpunkte. Alle den Bruchpunkten zugehörigen geschätzten 95\%-Konfidenzintervalle haben eine Spannweite von nicht mehr als drei Tagen. Die den durch die Bruchpunkte festgelegten Zeitabschnitten zugeordneten konstanten Wachstumsfaktoren implizieren einen Anstieg der Inzidenz ab Oktober. Dabei geht das Wachstum der Neuinfektionen im Oktober beständig zurück. Die täglichen Wachstumsfakoren der Inzidenz im November sind nahe 1,0, was inhaltlich das anhand der Rohdaten beschriebene Plateau der Inzidenz widerspiegelt. In der zweiten Novemberhälfte wird ein ca. 8-tägiger Rückgang der Neuinfektionen geschätzt, der modellierte Wachstumsfaktor beträgt im besagten Zeitraum knapp unter 1,0. In der ersten Dezemberhälfte beträgt der tägliche modellierte Wachstumsfaktor ca. 1,03. Die Neuinfektionen stiegen in diesem Zeitraum gemäß der Schätzung also um 3\% pro Tag.
+Die Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle und die Intensivbettenbelegung, jeweils auf Ebene der Gesamtbevölkerung, sind in \hyperref[fig:bpm]{Abbildung 4} zusammen mit den zugehörigen implizierten täglichen Wachstumsfaktoren dargestellt. Das Bruchpunktmodell für die 7-Tages-Inzidenz enthält acht Bruchpunkte. Alle den Bruchpunkten zugehörigen geschätzten 95\%-Konfidenzintervalle haben eine Spannweite von nicht mehr als drei Tagen. 
+
+<<echo=FALSE, message=FALSE, warning=FALSE, include=FALSE, fig.align="center", fig.height = 7.70, fig.width = 5.4>>=
+options(digits = 3, 
+        width = 165, 
+        str = strOptions(strict.width = "cut", vec.len = 3))
+setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
+source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/models_plots.R")
+@
+
+\pagebreak
+
+\begin{figure}[!hbt]
+\centering
+\captionsetup{width=.9\linewidth}
+<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 7.00, fig.width = 5.4>>=
+library(knitr)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(e1071)
+library(rpart)
+library(rpart.plot)
+
+lgr::get_logger("mlr3")$set_threshold("error")
+
+options(digits = 3, 
+        width = 165, 
+        str = strOptions(strict.width = "cut", vec.len = 3))
+setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
+#source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/plots_data_overview.R")
+#source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/models_plots.R")
+#source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/Praktikum.R")
+
+#aligned4 <- align_plots(plot_korr_7_inz_15_34 + theme(legend.position = c(0.2, 0.8),plot.margin=margin(10, 20, 0, 1)),
+                       #plot_korr_7_inz_35_59 + theme(legend.position = c(0.2, 0.8), axis.title.y=element_blank(),plot.margin=margin(0, 80, 0, 0)),
+                       #plot_korr_7_inz_60_79 + theme(legend.position = c(0.2, 0.8),plot.margin=margin(10, 20, 0, 1)),
+                       #plot_korr_7_inz_80 + theme(legend.position = c(0.2, 0.8), axis.title.y=element_blank(),plot.margin=margin(0, 80, 0, 0)),
+                       #plot_korr_7_inz_g,
+                       #plot_unterschaetzung,
+                       #plot_unterschaetzung_7,
+                       #cases_timeseries,
+                       #hosp_timeseries,
+                       #deaths_timeseries,
+                       #cases_breakpoints,
+                       #deaths_breakpoints,
+                       #log_deaths_breakpoints,
+                       #beta_comparison,
+                       #align = "hv",
+                       #axis = "tb")
+
+#grid4 <- arrangeGrob(ggdraw(aligned4[[1]]),
+                       #ggdraw(aligned4[[2]]),
+                       #ggdraw(aligned4[[3]]),
+                       #ggdraw(aligned4[[4]]), nrow=2, ncol=2)
+#grid5 <- arrangeGrob(grid4, ggplot() + theme_void())
+#p <- as_ggplot(grid4) + draw_plot_label(label = c("15-34", "36-59", "C"), size = 15, x = c(0, 0, 0.5), y = c(1.2, 0.7, 0.5))
+#plot(grid5)
+
+
+
+aligned4 <- align_plots(#plot_korr_7_inz_15_34,
+                        #plot_korr_7_inz_35_59,
+                        #plot_korr_7_inz_60_79,
+                        #plot_korr_7_inz_80,
+                        #plot_korr_7_inz_g,
+                        #plot_unterschaetzung,
+                       #plot_unterschaetzung_7,
+                       cases_timeseries,
+                       hosp_timeseries,
+                       deaths_timeseries,
+                       #cases_breakpoints,
+                       #deaths_breakpoints,
+                       #log_deaths_breakpoints,
+                       beta_comparison,
+                       align = "hv",
+                       axis = "tblr")
+#ggdraw(aligned4[[1]])
+#ggdraw(aligned4[[2]])
+#ggdraw(aligned4[[3]])
+#ggdraw(aligned4[[4]])
+#ggdraw(aligned4[[5]])
+grid_bpm = plot_grid(ggdraw(aligned4[[1]]), NULL, ggdraw(aligned4[[2]]), NULL, ggdraw(aligned4[[3]]), NULL, ggdraw(aligned4[[4]]), rel_heights = c(5, -0.4, 5, -0.4, 5, -0.4, 5), ncol = 1)
+grid_bpm
+@
+\caption[Bruchpunktmodelle und Wachstumsfaktoren für 7-Tages-Inzidenz, 7-Tages-Todesfälle und Intensivbettenbelegung]{\textbf{Bruchpunktmodelle für 7-Tages-Inzidenz, 7-Tages-Todesfälle und Intensivbetttenbelegung sowie implizierte Wachstumsfaktoren.} Die Wachstumsfaktoren sind für alle Zielgrößen im Oktober positiv. Im November impliziert das Modell ein weiter fortschreitendes, obgleich geringeres Wachstum der Intensivbettenbelegung sowie der Todesfälle. Die Neuinfektionen hingegen scheinen zu stagnieren, bei impliziertem Wachstumsfaktor von ca. 1. Im Dezember steigen alle Indikatoren der pandemischen Entwicklung wieder, jedoch weniger stark als im Oktober.}
+\label{fig:bpm}
+\end{figure}
+
+
+Die den durch die Bruchpunkte festgelegten Zeitabschnitten zugeordneten konstanten Wachstumsfaktoren implizieren einen Anstieg der Inzidenz ab Oktober. Dabei geht das Wachstum der Neuinfektionen im Oktober beständig zurück. Die täglichen Wachstumsfakoren der Inzidenz im November sind nahe 1,0, was inhaltlich das anhand der Rohdaten beschriebene Plateau der Inzidenz widerspiegelt. In der zweiten Novemberhälfte wird ein ca. 8-tägiger Rückgang der Neuinfektionen geschätzt, der modellierte Wachstumsfaktor beträgt im besagten Zeitraum knapp unter 1,0. In der ersten Dezemberhälfte beträgt der tägliche modellierte Wachstumsfaktor ca. 1,03. Die Neuinfektionen stiegen in diesem Zeitraum gemäß der Schätzung also um 3\% pro Tag.
 Das Bruchpunktmodell für die 7-Tages-Todesfälle enthält zwei Bruchpunkte. Beide finden sich in der zweiten Oktoberhälfte, wobei dem ersten Bruchpunkt ein großes 95\%-Konfidenzintervall mit einer Spannweite von mehr als drei Wochen zugeordnet wird. Das modellierte Wachstum der Todesfälle fällt mit täglichen Wachstumsraten von über 9\% fast über den gesamten Untersuchungszeitraum hinweg größer aus als das modellierte Wachstum der Inzidenz. Dabei bleibt das implizierte tägliche Wachstum nie unter einem Faktor von ca. 3\%.
 Das Bruchpunktmodell für die Intensivbettenbelegung enthält vier Bruchpunkte, welche sich über die fast drei Monate des Untersuchsungszeitraums verteilen. Die Spannweite der 95\%-Konfidenzintervalle ist hier ähnlich gering wie bei der 7-Tages-Inzidenz und umfasst nie mehr als drei Tage. Ähnlich wie beim Bruchpunktmodellen der Todesfälle ist das modellierte Wachstum stets positiv, wobei nach anfänglich hohen Wachstumsfaktoren im Oktober im November zu einer vorübergehenden Verlangsamung des modellierten Wachstums kommt.  \\
 Alle drei Bruchpunktmodelle implizieren somit einen starken Anstieg der jeweiligen Zielgröße im Oktober. Anschließend lässt sich ein Abschwächen des Wachstums als Gemeinsamkeit ausmachen. Während es bei Todesfällen und Intensivbettenbelegung jedoch weiterhin zu einer modellierten Zunahme in der Zielgröße kommt, wird für die Inzidenz im Oktober zumindest ein temporäres Sinken der Zielgröße geschätzt. Die Bruchpunktmodelle scheinen somit den Befund der auf Grundlage der Rohdaten in Kapitel 2 beschriebenen Beobachtung zu untermauern, dass die Inzidenz keinen den anderen Indikatoren gleichartigen Verlauf im Herbst 2020 aufweist.
 Die Lage der Bruchpunkte in den drei Indikatoren ist substantiell verschieden. Es gibt keinen Zeitraum von fünf Tagen, innerhalb derer sich in allen Modellen Bruchpunkte finden würden. Ebenso wenig lassen sich etwaige durch zeitlichen Verzug entstehende Muster in den Bruchpunkten erkennen, bis auf die obig beschriebenen Gemeinsamkeiten finden wir keine weiteren relevanten Beziehungen der Bruchpunkte und Wachstumstrends der drei Indikatoren.
+
 
 
 \subsection{Korrigierte Inzidenz}

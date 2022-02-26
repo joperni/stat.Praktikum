@@ -182,36 +182,44 @@ p_grid <- plot_grid(cases_for_grid +
 
 # Arranges all together
 
-grid_plot <- grid.arrange(arrangeGrob(p_grid, right = legend))
+grid_plot <- arrangeGrob(p_grid, right = legend)
 ggsave("Plots/grid_plot_models.png", plot = grid_plot, width = 22, height = 10, units = c("cm"))
 
 
 
 
 # model_plus_timeseries ---------------------------------------------------
-farben4 <- c("geschätzt" = "darkorange", "gemeldet" = "#000000")
+farben4cas <- c("geschätzt" = "#009E73", "gemeldet" = "#000000")
+farben4de <- c("geschätzt" = "darkorange", "gemeldet" = "#000000")
+farben4int <- c("geschätzt" = "#CC79A7", "gemeldet" = "#000000")
+
 
 levels(dt_cases_y_fitted_melt$variable)[1] = c("geschätzt")
 cases_timeseries <- dt_cases_y_fitted_melt %>% 
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
   labs(x = "", y = "7-Tages-Inzidenz") +
-  scale_color_manual(values = farben4, name = "", labels = names(farben4)) +
+  scale_color_manual(values = farben4cas, name = "7-Tages-Inzidenz", labels = names(farben4cas)) +
   scale_y_continuous(labels = scales::comma, limits = c(0, 250)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
         axis.title.y = element_text(margin = margin(t = 0, r = 19, b = 0, l = 0)),
         axis.text   = element_text(colour = "black")) +
-  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 10)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["inz" == origin & variable == "Gesamt"],
-             aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4[[1]]) +
+             aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4cas[[1]]) +
   geom_segment(data = dt_breakpoints["inz" == origin & variable == "Gesamt"],
-               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi), colour = farben4[[1]])
-#cases_timeseries
+               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi), colour = farben4cas[[1]]) +
+  theme(legend.box.background = element_rect(colour = "black", size = 1),
+        legend.title=element_text(size=8, face = "bold"),
+        legend.text = element_text(size=8),
+        legend.key.height= unit(0.3, 'cm'),
+        legend.key.width= unit(0.2, 'cm'))
+cases_timeseries
 #ggsave("Plots/timeseries_model_cases.png", plot = cases_timeseries, width = 20, height = 10, units = c("cm"))
 
 levels(dt_deaths_y_fitted_melt$variable)[1] = c("geschätzt")
@@ -219,21 +227,26 @@ deaths_timeseries <- dt_deaths_y_fitted_melt %>%
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
   labs(x = "", y = "7-Tages-Todesfälle") +
-  scale_color_manual(values = farben4, name = "", labels = names(farben4)) +
+  scale_color_manual(values = farben4de, name = "7-Tages-Todesfälle", labels = names(farben4de)) +
   scale_y_continuous(labels = scales::label_number(accuracy = 1), limits = c(0, 10), breaks = c(0, 2, 4, 6, 8, 10)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
         axis.title.y = element_text(margin = margin(t = 0, r = 25, b = 0, l = 0)),
         axis.text   = element_text(colour = "black")) +
-  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 10)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["deaths" == origin & variable == "Gesamt"],
-             aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4[[1]]) +
+             aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4de[[1]]) +
   geom_segment(data = dt_breakpoints["deaths" == origin & variable == "Gesamt"],
-               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi), colour = farben4[[1]])
+               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi), colour = farben4de[[1]]) +
+  theme(legend.box.background = element_rect(colour = "black", size = 1),
+        legend.title=element_text(size=8, face = "bold"),
+        legend.text = element_text(size=8),
+        legend.key.height= unit(0.3, 'cm'),
+        legend.key.width= unit(0.2, 'cm'))
 #deaths_timeseries
 #ggsave("Plots/timeseries_model_deaths.png", plot = deaths_timeseries, width = 20, height = 10, units = c("cm"))
 
@@ -242,25 +255,30 @@ hosp_timeseries <- dt_hosp_y_fitted_melt %>%
   ggplot(aes(x = time, y = values, color = variable)) +
   geom_line() +
   labs(x = "", y = "Belegte Intensivbetten") +
-  scale_color_manual(values = farben4, name = "", labels = names(farben4)) +
+  scale_color_manual(values = farben4int, name = "Intensivbettenbelegung", labels = names(farben4int)) +
   scale_y_continuous(limits = c(0, 6000), breaks = c(0, 1000, 2000, 3000, 4000, 5000, 6000, 7000)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
         axis.title.y = element_text(margin = margin(t = 0, r = 13, b = 0, l = 0)),
         axis.text   = element_text(colour = "black")) +
-  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 10)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d.%m.%y") +
   geom_point(data = dt_breakpoints["beds" == origin & variable == "Gesamt"],
-             aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4[[1]]) +
+             aes(x = time, y = sdi), shape = 18, size = 3, colour = farben4int[[1]]) +
   geom_segment(data = dt_breakpoints["beds" == origin & variable == "Gesamt"],
-               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi), colour = farben4[[1]])
+               aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi), colour = farben4int[[1]]) +
+  theme(legend.box.background = element_rect(colour = "black", size = 1),
+        legend.title=element_text(size=8, face = "bold"),
+        legend.text = element_text(size=8),
+        legend.key.height= unit(0.3, 'cm'),
+        legend.key.width= unit(0.2, 'cm'))
 #hosp_timeseries
 #ggsave("Plots/timeseries_model_hosp.png", plot = hosp_timeseries, width = 20, height = 10, units = c("cm"))
 
-colors_betas <- c("#009E73", "orange", "#CC79A7")
+colors_betas <- c("#009E73", "darkorange", "#CC79A7")
 names(colors_betas) <- c("7-Tages-Inzidenz", "7-Tages-Todesfälle", "Intensivbettenbelegung")
 
 # change "origin" for plots
@@ -279,18 +297,23 @@ beta_comparison <- dt_exp_betas %>%
   # data filters out the starting and ending point
   geom_point(data = dt_exp_betas["2020-12-22" > time], shape = 18, size = 3) +
   labs(x = "", y = "exp(beta)") +
-  scale_color_manual(values = colors_betas, name = "", labels = names(colors_betas)) +
-  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ","),
+  scale_color_manual(values = colors_betas, name = "Wachstumsfaktoren", labels = names(colors_betas)) +
+  scale_y_continuous(labels = scales::comma_format(accuracy = 0.01, big.mark = ".", decimal.mark = ","),
                      limits = c(0.98, 1.11), breaks = seq(0.98, 1.10, 0.02)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size = 1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
         axis.title.y = element_text(margin = margin(t = 0, r = 13, b = 0, l = 0)),
         axis.text   = element_text(colour = "black")) +
-  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
-        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 10)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d.%m.%y")
+               date_labels = "%d.%m.%y") +
+  theme(legend.box.background = element_rect(colour = "black", size = 1),
+        legend.title=element_text(size=8, face = "bold"),
+        legend.text = element_text(size=8),
+        legend.key.height= unit(0.3, 'cm'),
+        legend.key.width= unit(0.2, 'cm'))
 
 
 # model diagnose plot. seg_diagnose is from the help_functions/model_diagnose.R file
