@@ -5,6 +5,8 @@ source("help_functions/model_diagnose.R")
 
 farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "Über 79 Jahre" = "#E31A1C")
+load("dt_breakpoints260222.Rda")
+load("dt_exp_betas260222.Rda")
 
 # Age_group_plot ----------------------------------------------------------
 dt_breakpoints$variable[dt_breakpoints$variable == "ueber 80 Jahre"] = c("Über 79 Jahre")
@@ -219,7 +221,7 @@ cases_timeseries <- dt_cases_y_fitted_melt %>%
         legend.text = element_text(size=8),
         legend.key.height= unit(0.3, 'cm'),
         legend.key.width= unit(0.2, 'cm'))
-cases_timeseries
+#cases_timeseries
 #ggsave("Plots/timeseries_model_cases.png", plot = cases_timeseries, width = 20, height = 10, units = c("cm"))
 
 levels(dt_deaths_y_fitted_melt$variable)[1] = c("geschätzt")

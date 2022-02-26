@@ -249,12 +249,12 @@ library(e1071)
 library(rpart)
 library(rpart.plot)
 
-lgr::get_logger("mlr3")$set_threshold("error")
+#lgr::get_logger("mlr3")$set_threshold("error")
 
-options(digits = 3, 
-        width = 165, 
-        str = strOptions(strict.width = "cut", vec.len = 3))
-setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
+#options(digits = 3, 
+        #width = 165, 
+        #str = strOptions(strict.width = "cut", vec.len = 3))
+#setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
 #source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/plots_data_overview.R")
 #source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/models_plots.R")
 #source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/Praktikum.R")
