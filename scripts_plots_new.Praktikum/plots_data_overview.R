@@ -57,8 +57,13 @@ ppbetten = main_data_divi %>%
   expand_limits(x = as.Date("2020-01-01"), date_labels = "%d. %b %Y") +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
-        axis.title.y = element_text(margin = margin(t = 0, r = 4, b = 0, l = 0)),
-        axis.text   = element_text(colour = "black"))
+        axis.title.y = element_text(margin = margin(t = 0, r = 9, b = 0, l = 0)),
+        axis.text   = element_text(colour = "black"),
+        legend.box.background = element_rect(colour = "black", size = 1),
+        legend.title=element_text(size=8),
+        legend.text = element_text(size=8),
+        legend.key.height= unit(0.3, 'cm'),
+        legend.key.width= unit(0.2, 'cm'))
 
 # 7-Tages-Todesfaelle nach Alter
 dt_seven_day_deaths_melt = as.data.frame(dt_seven_day_deaths_melt)
