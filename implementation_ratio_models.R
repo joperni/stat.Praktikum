@@ -99,9 +99,7 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "Über 79 Jahre" = "#E31A1C")
 
 # Age_group_plot ratio ----------------------------------------------------------
-dt_bp_ratio$variable[dt_bp_ratio$variable == "ueber 80 Jahre"] = c("Über 79 Jahre")
-levels(fitted_vals_melt_ratio$variable)[1] = c("Gesamt")
-levels(fitted_vals_melt_ratio$variable)[5] = c("Über 79 Jahre")
+
 ratio_breakpoints <- ggplot(fitted_vals_melt_ratio,
                             aes(x = time, y = sdi, color = variable)) +
   geom_line() +
