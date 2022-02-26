@@ -77,8 +77,13 @@ ppdeaths = ggplot(aes(x = time, y = death, color = variable), data = dt_seven_da
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
-        axis.title.y = element_text(margin = margin(t = 0, r = 13, b = 0, l = 0)),
-        axis.text   = element_text(colour = "black"))
+        axis.title.y = element_text(margin = margin(t = 0, r = 9, b = 0, l = 0)),
+        axis.text   = element_text(colour = "black"),
+        legend.box.background = element_rect(colour = "black", size = 1),
+        legend.title=element_text(size=8),
+        legend.text = element_text(size=8),
+        legend.key.height= unit(0.3, 'cm'),
+        legend.key.width= unit(0.2, 'cm'))
 
 # Alignment
 aligned <- align_plots(ppseven_day_alter,

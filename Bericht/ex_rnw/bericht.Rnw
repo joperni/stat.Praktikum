@@ -5,13 +5,29 @@
 \section{Einführung}
 Die Erforschung der Covid-19-Pandemie in Deutschland stellt einen Schwerpunkt aktueller wissenschaftlicher Untersuchungen dar. Dabei stehen insbesondere die Inzidenz, die Todesfälle und die Hospitalisierungen im Mittelpunkt statistischer Analysen.
 Unser Projektpartner, Herr Dr. André Klima, beschrieb im Rahmen seiner Forschung als Mitglied der COVID-19 Data Analysis Group (CODAG) eine auffällige Entwicklung in den wesentlichen Indikatoren des pandemischen Geschehens im Herbst 2020.
-Während die 7-Tages-Inzidenz (Anzahl der gemeldeten Neuinfektionen innerhalb von 7 Tagen je 100.000 Einwohner) in der Altersgruppe der Über-79-Jährigen, die 7-Tages-Todesfälle (Anzahl der gemeldeten Neuinfektionen innerhalb von 7 Tagen je 100.000 Einwohner, die nachfolgend verstarben), sowie die Intensivbettenbelegung (Anzahl der mit Covid-19-Patienten belegten Betten auf Intensivstationen) bis Weihnachten steigt, findet sich in der 7-Tages-Inzidenz aller anderen Altersgruppen ein Plateau bzw. ein Absinken von Ende Oktober bis Mitte November.
+Während die 7-Tages-Inzidenz in der Altersgruppe der über 79-Jährigen, die 7-Tages-Todesfälle, sowie die Intensivbettenbelegung bis Weihnachten steigt, findet sich in der 7-Tages-Inzidenz aller anderen Altersgruppen ein Plateau bzw. ein Absinken von Ende Oktober bis Mitte November.
 Auch die 7-Tages-Inzidenz der Gesamtbevölkerung stagnierte in diesem Zeitraum, im Kontrast zu gerade beschriebenem Anstieg der 7-Tages-Todesfälle und der Intensivbettenbelegung. \\
 Auf dieser Grundlage stellen wir uns die Frage, ob und inwiefern die Inzidenz im Herbst 2020 wirklich ein belastbarer statistischer Indikator für die Entwicklung der Covid-19-Pandemie in Deutschland war.
 Dieser Bericht ist wie folgt strukturiert: Kapitel 2 stellt die verwendeten Daten vor und beschreibt die wesentlichen in unserer Analyse verwendeten Indikatoren. Kapitel 3 erklärt die Methodik unserer Analyse. In einem ersten Schritt modellieren wir das pandemische Geschehen anhand von Bruchpunktmodellen, um wesentliche Gemeinsamkeiten und Unterschiede der zeitlichen Entwicklung der Indikatoren zu beleuchten. Dabei betrachten wir einerseits die Indikatoren selbst, andererseits auch das Verhältnis zueinander. In einem nachfolgenden Schritt überprüfen wir dann, ob eine basierend auf dem Konzept der Case Fatality RATE (CFR) berechnete korrigierte Inzidenz einen anderen Verlauf als die gemeldete Inzidenz im Herbst 2020 genommen hätte. Kapitel 4 stellt die Ergebnisse unserer Arbeit vor, und Kapitel 5 diskutiert die wichtigsten Erkenntnisse und  mögliche Implikationen für das Verständnis des pandemischen Geschehens.
 
 \section{Daten und Aufbereitung}
-\pagebreak
+
+Wir betrachten drei wesentliche statistische Indikatoren der Covid-19-Pandemie in Deutschland:
+
+\begin{itemize}
+   \item \textbf{7-Tages-Inzidenz:} Anzahl der gemeldeten Neuinfektionen innerhalb von 7 Tagen je 100.000 Einwohner
+   \item \textbf{7-Tages-Todesfälle:} Anzahl der gemeldeten Neuinfektionen innerhalb von 7 Tagen je 100.000 Einwohner, die nachfolgend im Kontext von Covid-19 verstarben
+   \item \textbf{Intensivbettenbelegung:} Anzahl der mit Covid-19-Patienten belegten Betten auf Intensivstationen
+\end{itemize}
+
+Wir verwenden für 7-Tages-Inzidenz und 7-Tages-Todesfälle die offiziellen Daten des Robert-Koch-Instituts (RKI), für die unter anderem eine Aufschlüsselung nach Altersgruppen vorliegt. Dabei wird zwischen den Altersgruppen 0-14, 15-34, 35-59, 60-79 und über 79 unterschieden. Wir betrachten Daten im Zeitraum vom 01.01.2020 bis zum 31.01.2021. Für die Intensivbettenbelegung werden Daten der Deutschen Interdisziplinären Vereinigung für Intensiv- und Notfallmedizin (DIVI) verwendet. Für diese liegen keine Alterskategorien vor, außerdem beginnt der Erhebungszeitraum bei diesem Indikator erst am 24.04.2020.  \\
+Der zeitliche Verlauf der 7-Tages-Inzidenz in Deutschland ist in \hyperref[fig:inz]{Abbildung 1} zu sehen.
+Die 7-Tages-Inzidenz steigt mit dem Beginn der Covid-19-Pandemie in Deutschland ab Anfang März in allen Altersgruppen.
+Sie erreicht Mitte März ein lokales Maximum und beginnt daraufhin wieder zu fallen. Bei der Altersgruppe der über 79-Jährigen ist das Maximum und das darauffolgende Abfallen um einige Wochen verzögert. In den Sommermonaten verharren die Inzidenzen auf niedrigem Niveau. Ab Anfang Oktober lässt sich dann ein rasanter Anstieg der gemeldeten Neuinfektionen in allen Altersgruppen beobachten, wobei die altersgruppenspezifischen 7-Tages-Inzidenzen erstmals in der Pandemie Werte von über 100 erreichen.
+Zwischen Ende Oktober und Mitte November kommt es in allen Altersgruppen außer bei den über 79-Jährigen zu einem Absinken bzw. Stagnieren der gemeldeten Neuinfektionen. Ab Mitte November steigen dann die Inzidenzen bis Ende Dezember wieder an.
+In der Altersgruppe der über 79-Jährigen zeigt sich kein vorübergehendes Absinken der Neuinfektionen. In der höchsten Altersgruppe steigen diese von Anfang Oktober bis Ende Dezember kontinuierlich an und erreichen gegen Jahresende einen Höchstwert von über 350. Die 7-Tages-Inzidenz der über 79-Jährigen unterscheidet sich in ihrem zeitlichen Verlauf somit strukturell von den anderen Altersgruppen.
+Mit Beginn der Weihnachtsfeiertage 2020 gehen die Neuinfektionen in allen Altersgruppen zurück, wobei nach RKI-Angaben (2021) insbesondere über verlängerte Feiertagszeiträume nur ein unvollständiges Bild der epidemiologischen Lage abgebildet werden kann.
+
 \begin{figure}[hbt!]
 \centering
 \captionsetup{width=.9\linewidth}
@@ -36,11 +52,11 @@ options(digits = 3,
 setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
 source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/plots_data_overview.R")
 #source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/models_plots.R")
-source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/Praktikum.R")
+#source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/Praktikum.R")
 
 aligned <- align_plots(ppseven_day_alter,
                        #ppbetten,
-                       #ppdeaths,
+                       ppdeaths,
                        #lot_korr_7_inz_15_34,
                        #plot_korr_7_inz_35_59,
                        #plot_korr_7_inz_60_79,
@@ -60,7 +76,70 @@ aligned <- align_plots(ppseven_day_alter,
 ggdraw(aligned[[1]])
 @
 \caption[7-Tages-Inzidenz nach Altersgruppen]{\textbf{7-Tages-Inzidenz nach Altersgruppen.} Dabei ist die 7-Tages-Inzidenz die Anzahl der gemeldeten Neuinfektionen innerhalb der letzten 7 Tage, normiert auf 100.000 Einwohner innerhalb der Altersgruppe. In der Altersgruppe Ü79 steigt die Inzidenz von Oktober bis Ende Dezember 2020, in den anderen Altersgruppen und in der Gesamtbevölkerung zeigt sich nach einem Anstieg bis Ende Oktober ein Plateau bzw. leichtes Abflachen der Inzidenzen bis Dezember.}
+\label{fig:inz}
 \end{figure}
+
+Der zeitliche Verlauf der 7-Tages-Todesfälleist in \hyperref[fig:tod]{Abbildung 2} zu sehen.
+Die 7-Tages-Todesfälle spiegeln in ihrem Verlauf den wellenartigen Charakter der 7-Tages-Inzidenz wider. Mit Beginn der ersten Welle im März steigen die auch die Todesfälle, wobei insbesondere die beiden ältesten Altersgruppen betroffen sind. In allen jüngeren Altersgruppen (unter 60) ist die Anzahl der tödlich verlaufenden SARS-CoV-2-Infektionen sehr gering. Die Todesfälle in Deutschland erreichen ein lokales Maximum Anfang April, wobei die Gruppe der über 79-Jährigen um ein Vielfaches stärker betroffen ist als die der 60-79-Jährigen. Analog zur Entwicklung der Neuinfektionen sinken die Todesfälle ab Anfang April und verbleiben über die Sommermonate hinweg in allen Altersgruppen auf einem sehr niedrigen Niveau.
+Mit Beginn der zweiten Welle im Oktober steigt die Anzahl der Todesfälle in den Altersgruppen 60-79 und über 79 wieder an. Dabei ist die Steigung bei den über 79-Jährigen deutlich größer als bei den 60-79-Jährigen. Der Verlauf der Todesfälle bei den 60-79-Jährigen ist dem der Todesfälle der Gesamtbevölkerung sehr ähnlich. Ab Ende Dezember sinkt dann in allen Altersgruppen die 7-Tages-Todesfälle.
+Der zeitliche Verlauf der 7-Tages-Todesfälle im Herbst 2020 scheint dem Verlauf der Inzidenz der über 79-Jährigen zu ähneln. Nur in dieser Altersgruppe scheint die Anzahl der gemeldeten Neuinfektionen im Oktober und November anzuwachsen, während in den anderen Altersgruppen das bereits beschriebene Plateau beobachtet wird.
+
+
+
+
+\begin{figure}[hbt!]
+\centering
+\captionsetup{width=.9\linewidth}
+<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 2.49, fig.width = 5.4>>=
+library(knitr)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(mlr3)
+library(mlr3learners)
+library(mlr3measures)
+library(mlr3viz)
+library(e1071)
+library(rpart)
+library(rpart.plot)
+
+lgr::get_logger("mlr3")$set_threshold("error")
+
+options(digits = 3, 
+        width = 165, 
+        str = strOptions(strict.width = "cut", vec.len = 3))
+setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
+source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/plots_data_overview.R")
+#source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/models_plots.R")
+#source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/Praktikum.R")
+
+aligned <- align_plots(ppseven_day_alter,
+                       #ppbetten,
+                       ppdeaths,
+                       #lot_korr_7_inz_15_34,
+                       #plot_korr_7_inz_35_59,
+                       #plot_korr_7_inz_60_79,
+                       #plot_korr_7_inz_80,
+                       #plot_korr_7_inz_g,
+                       #plot_unterschaetzung,
+                       #plot_unterschaetzung_7,
+                       #cases_timeseries,
+                       #hosp_timeseries,
+                       #deaths_timeseries,
+                       #cases_breakpoints,
+                       #deaths_breakpoints,
+                       #log_deaths_breakpoints,
+                       #beta_comparison,
+                       align = "hv",
+                       axis = "tblr")
+ggdraw(aligned[[2]])
+@
+\caption[7-Tages-Todesfälle nach Altersgruppen]{\textbf{7-Tages-Todesfälle nach Altersgruppen.} Dabei ist die 7-Tages-Inzidenz die Anzahl der gemeldeten Neuinfektionen innerhalb der letzten 7 Tage, normiert auf 100.000 Einwohner innerhalb der Altersgruppe. In der Altersgruppe Ü79 steigt die Inzidenz von Oktober bis Ende Dezember 2020, in den anderen Altersgruppen und in der Gesamtbevölkerung zeigt sich nach einem Anstieg bis Ende Oktober ein Plateau bzw. leichtes Abflachen der Inzidenzen bis Dezember.}
+\label{fig:tod}
+\end{figure}
+
+
+
 
 \section{Methodik}
 
@@ -136,9 +215,9 @@ Dabei weist die korrigierte Inzidenz in allen Altersgruppen ein höheres Wachstu
 Insbesondere für den Monat Dezember lässt sich ein substantieller Anstieg der korrigerten Inzidenz feststellen, der in der Meldeinzidenz schwächer ausfällt.
 Am Ende des Untersuchungszeitraums, also zu Beginn der Weihnachtsfeiertage 2020, liegt die korrigierte Inzidenz über alle Altersgruppen hinweg deutlich über der jeweiligen Meldeinzidenz.
 Die beschriebenen Unterschiede scheinen also unabhängig vom Alter zu sein, auch wenn die Größe des Unterschieds zwischen Meldeinzidenz und korrigierter Inzidenz variieren mag.
-Das in der Einführung beschriebene Plateau in der gemeldeten Inzidenz im November, das sich in allen Altersgruppen außer bei den Über-79-Jährigen finden lässt, ist in den korrigierten Inzidenzen so nicht zu finden.
+Das in der Einführung beschriebene Plateau in der gemeldeten Inzidenz im November, das sich in allen Altersgruppen außer bei den über 79-Jährigen finden lässt, ist in den korrigierten Inzidenzen so nicht zu finden.
 Ganz im Gegenteil: Die korrigierte Inzidenz wächst im November deutlich.
-Die korrigierte Inzidenz der Altersgruppe der 35-59-Jährigen wächst im November um 50\%, die der 60-79-Jährigen um 100\%, die der Über-79-Jährigen sogar um 160\%.
+Die korrigierte Inzidenz der Altersgruppe der 35-59-Jährigen wächst im November um 50\%, die der 60-79-Jährigen um 100\%, die der über 79-Jährigen sogar um 160\%.
 
 \pagebreak
 
@@ -229,7 +308,7 @@ Mit Ausnahme der Altersgruppe der 15-34-Jährigen ist der implizierte Faktor der
 Am deutlichsten unterschätzt die Meldeinzidenz die korrigierte Inzidenz in der Altersgruppe der 60-79-Jährigen.
 Hier liegt der Wert im Dezember beständig bei größer 2.
 Das würde bedeuten, dass die Anzahl der tatsächlichen Neuinfektionen in dieser Altersgruppe im Dezember um mehr als 100\% höher gewesen wäre als vom RKI gemeldet.
-Auch in der Altersgruppe der Über-79-Jährigen, für die kein Plateau in der Meldeinzidenz zu beobachten war, liegt der implizierte Faktor der Unterschätzung über den gesamten Untersuchungszeitraum hinweg bei Werten größer 1.
+Auch in der Altersgruppe der über 79-Jährigen, für die kein Plateau in der Meldeinzidenz zu beobachten war, liegt der implizierte Faktor der Unterschätzung über den gesamten Untersuchungszeitraum hinweg bei Werten größer 1.
 Dennoch ist das relative Maß der Unterschätzung hier etwas geringer als in den beiden jüngeren Altersgruppen.
 
 
@@ -270,8 +349,8 @@ ggdraw(aligned4[[6]])
 
 
 \section{Diskussion}
-Die geschätzten Bruchpunktmodelle zur Beschreibung des pandemischen Verlaufs in den Monaten Oktober bis Dezember 2020 impliziert, dass sich das Infektionsgeschehen in den betrachteten Altersgruppen heterogen entwickelte, wobei wir zeigen, dass sich der deutliche Anstieg der Neuinfektionen in der Altersgruppe der Über-79-Jährigen von den anderen Altersgruppen abkoppelte.
-In den anderen Altersgruppen kam es mindestens im November zu einem Plateau in der Inzidenz. Weiterhin legt unsere Modellierung nahe, dass die Intensivbettenbelegung, die 7-Tages-Todesfälle und die die 7-Tages-Inzidenz der Altersgruppe der Über-79-Jährigen einem gleichartig positiven Trend über den gesamten Untersuchungszeitraum folgten.
+Die geschätzten Bruchpunktmodelle zur Beschreibung des pandemischen Verlaufs in den Monaten Oktober bis Dezember 2020 implizieren, dass sich das Infektionsgeschehen in den betrachteten Altersgruppen heterogen entwickelte, wobei wir zeigen, dass sich der deutliche Anstieg der Neuinfektionen in der Altersgruppe der über 79-Jährigen von den anderen Altersgruppen abkoppelte.
+In den anderen Altersgruppen kam es mindestens im November zu einem Plateau in der Inzidenz. Weiterhin legt unsere Modellierung nahe, dass die Intensivbettenbelegung, die 7-Tages-Todesfälle und die die 7-Tages-Inzidenz der Altersgruppe der über 79-Jährigen einem gleichartig positiven Trend über den gesamten Untersuchungszeitraum folgten.
 Ferner zeigt unsere Analyse, dass eine unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechnete korrigierte Inzidenz ist im Herbst 2020 deutlich und im Zeitverlauf auch zunehmend größer als die gemeldete Inzidenz.
 Eine damit implizierte deutliche Unterschätzung bis hin zum Faktor 2 Ende Dezember 2020 legt nahe, dass die vom RKI gemeldete Inzidenz das tatsächliche Infektionsgeschehen möglicherweise substantiell unterschätzte.
 Die Ergebnisse stellen somit die Belastbarkeit der gemeldeten 7-Tages-Inzidenz im Herbst 2020 infrage. Inhaltlich ließen sich verschiedenartige Argumente für die systematische Unterschätzung des Infektionsgeschehens finden: So hätte eine gestiegene “Pandemiemüdigkeit” der Bevölkerung gegen Ende 2020 in einer sinkenden Bereitschaft zur Testung bei Symptomen oder zur Meldung von positiven Testergebnissen beim Gesundheitsamt resultieren können.
