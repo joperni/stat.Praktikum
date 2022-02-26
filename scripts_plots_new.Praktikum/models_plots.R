@@ -1,4 +1,5 @@
 source("implementation_models.R")
+source("implementation_ratio_models.R")
 # error messages are no problem. They get produced and catched by the segmented::selgmented function
 source("help_functions/model_diagnose.R")
 
@@ -117,7 +118,7 @@ ratio_for_grid <- ggplot(fitted_vals_melt_ratio,
                      limits = c(0, 0.24), breaks = seq(0, 0.24, 0.06)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
   theme_bw() +
-  annotate("text", label = "Verhältnis", x = as.Date(c("2020-10-01")),
+  annotate("text", label = "Todesfälle/Inzidenz", x = as.Date(c("2020-10-01")),
            y = 0.21, size = 4.5, colour = "black", hjust = 0) +
   theme(axis.title = element_blank(), legend.position = "none", 
         axis.ticks.x = element_blank(),
