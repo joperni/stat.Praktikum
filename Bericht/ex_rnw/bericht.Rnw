@@ -5,7 +5,7 @@
 \section{Einführung}
 Die Erforschung der Covid-19-Pandemie in Deutschland stellt einen Schwerpunkt aktueller wissenschaftlicher Untersuchungen dar. Dabei stehen insbesondere die Inzidenz, die Todesfälle und die Hospitalisierungen im Mittelpunkt statistischer Analysen.
 Unser Projektpartner, Herr Dr. André Klima, beschrieb im Rahmen seiner Forschung als Mitglied der COVID-19 Data Analysis Group (CODAG) eine auffällige Entwicklung in den wesentlichen Indikatoren des pandemischen Geschehens im Herbst 2020.
-Während die 7-Tages-Inzidenz in der Altersgruppe der über 79-Jährigen, die 7-Tages-Todesfälle, sowie die Intensivbettenbelegung bis Weihnachten steigt, findet sich in der 7-Tages-Inzidenz aller anderen Altersgruppen ein Plateau bzw. ein Absinken von Ende Oktober bis Mitte November.
+Während die 7-Tages-Inzidenz in der Altersgruppe der über 79-Jährigen, die 7-Tages-Todesfälle sowie die Intensivbettenbelegung bis Weihnachten steigt, findet sich in der 7-Tages-Inzidenz aller anderen Altersgruppen ein Plateau bzw. ein Absinken von Ende Oktober bis Mitte November.
 Auch die 7-Tages-Inzidenz der Gesamtbevölkerung stagnierte in diesem Zeitraum, im Kontrast zu gerade beschriebenem Anstieg der 7-Tages-Todesfälle und der Intensivbettenbelegung. \\
 Auf dieser Grundlage stellen wir uns die Frage, ob und inwiefern die Inzidenz im Herbst 2020 wirklich ein belastbarer statistischer Indikator für die Entwicklung der Covid-19-Pandemie in Deutschland war.
 Dieser Bericht ist wie folgt strukturiert: Kapitel 2 stellt die verwendeten Daten vor und beschreibt die wesentlichen in unserer Analyse verwendeten Indikatoren. Kapitel 3 erklärt die Methodik unserer Analyse. In einem ersten Schritt modellieren wir das pandemische Geschehen anhand von Bruchpunktmodellen, um wesentliche Gemeinsamkeiten und Unterschiede der zeitlichen Entwicklung der Indikatoren zu beleuchten. Dabei betrachten wir einerseits die Indikatoren selbst, andererseits auch das Verhältnis zueinander. In einem nachfolgenden Schritt überprüfen wir dann, ob eine basierend auf dem Konzept der Case Fatality RATE (CFR) berechnete korrigierte Inzidenz einen anderen Verlauf als die gemeldete Inzidenz im Herbst 2020 genommen hätte. Kapitel 4 stellt die Ergebnisse unserer Arbeit vor, und Kapitel 5 diskutiert die wichtigsten Erkenntnisse und  mögliche Implikationen für das Verständnis des pandemischen Geschehens.
@@ -191,7 +191,7 @@ Für das resultierende Bruchpunktmodell werden für jeden Bruchpunkt zusätzlich
 Die Interpretation des Modells resultiert aus der implizierten Zerlegung des Untersuchungszeitraums in $K + 1$ Intervalle, wobei die Zielgröße $Y_t$ innerhalb jedes Intervalls durch einen konstanten geschätzten Wachstumskoeffizienten $\beta_j$ mit $j = 1,\; …,\; K + 1$ charakterisiert werden kann, der sich über den Gesamtzeitraum hinweg an jedem Bruchpunkt $CP_k$ ändert.
 Dabei ergeben sich die Koeffizienten $\beta_j$ für $j > 1$ als $\beta_j = \beta_{j-1}\; +\; \gamma_{j-1}$.
 Anhand des Regressionsmodells (1) ist ersichtlich, dass $exp(\beta_j)$ als täglicher Wachstumsfaktor auf Ebene der Zielgröße interpretiert werden kann, wobei $exp(\beta_j) > 1$ ein Steigen und $exp(\beta_j) < 1$ ein Sinken in der Zielgröße innerhalb des Intervalls bedeutet.
-Wir schätzen demnach Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle, und die Intensivbettenbelegung, sowie für die ersten beiden Indikatoren zusätzlich nach Altersgruppen aufgeschlüsselt.
+Wir schätzen demnach Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle, und die Intensivbettenbelegung sowie für die ersten beiden Indikatoren zusätzlich nach Altersgruppen aufgeschlüsselt.
 Ferner schätzen wir ein Bruchpunktmodell für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz, wobei sich hier die Zielgröße $Y_t$ aus dem Quotienten der beiden Größen ergibt.
 
 \subsection{Korrigierte Inzidenz}
@@ -294,8 +294,8 @@ aligned4 <- align_plots(#plot_korr_7_inz_15_34,
                         #plot_unterschaetzung,
                        #plot_unterschaetzung_7,
                        cases_timeseries,
-                       hosp_timeseries,
                        deaths_timeseries,
+                       hosp_timeseries,
                        #cases_breakpoints,
                        #deaths_breakpoints,
                        #log_deaths_breakpoints,
@@ -319,20 +319,93 @@ Die den durch die Bruchpunkte festgelegten Zeitabschnitten zugeordneten konstant
 Das Bruchpunktmodell für die 7-Tages-Todesfälle enthält zwei Bruchpunkte. Beide finden sich in der zweiten Oktoberhälfte, wobei dem ersten Bruchpunkt ein großes 95\%-Konfidenzintervall mit einer Spannweite von mehr als drei Wochen zugeordnet wird. Das modellierte Wachstum der Todesfälle fällt mit täglichen Wachstumsraten von über 9\% fast über den gesamten Untersuchungszeitraum hinweg größer aus als das modellierte Wachstum der Inzidenz. Dabei bleibt das implizierte tägliche Wachstum nie unter einem Faktor von ca. 3\%.
 Das Bruchpunktmodell für die Intensivbettenbelegung enthält vier Bruchpunkte, welche sich über die fast drei Monate des Untersuchsungszeitraums verteilen. Die Spannweite der 95\%-Konfidenzintervalle ist hier ähnlich gering wie bei der 7-Tages-Inzidenz und umfasst nie mehr als drei Tage. Ähnlich wie beim Bruchpunktmodellen der Todesfälle ist das modellierte Wachstum stets positiv, wobei nach anfänglich hohen Wachstumsfaktoren im Oktober im November zu einer vorübergehenden Verlangsamung des modellierten Wachstums kommt.  \\
 Alle drei Bruchpunktmodelle implizieren somit einen starken Anstieg der jeweiligen Zielgröße im Oktober. Anschließend lässt sich ein Abschwächen des Wachstums als Gemeinsamkeit ausmachen. Während es bei Todesfällen und Intensivbettenbelegung jedoch weiterhin zu einer modellierten Zunahme in der Zielgröße kommt, wird für die Inzidenz im Oktober zumindest ein temporäres Sinken der Zielgröße geschätzt. Die Bruchpunktmodelle scheinen somit den Befund der auf Grundlage der Rohdaten in Kapitel 2 beschriebenen Beobachtung zu untermauern, dass die Inzidenz keinen den anderen Indikatoren gleichartigen Verlauf im Herbst 2020 aufweist.
-Die Lage der Bruchpunkte in den drei Indikatoren ist substantiell verschieden. Es gibt keinen Zeitraum von fünf Tagen, innerhalb derer sich in allen Modellen Bruchpunkte finden würden. Ebenso wenig lassen sich etwaige durch zeitlichen Verzug entstehende Muster in den Bruchpunkten erkennen, bis auf die obig beschriebenen Gemeinsamkeiten finden wir keine weiteren relevanten Beziehungen der Bruchpunkte und Wachstumstrends der drei Indikatoren.
+Die Lage der Bruchpunkte in den drei Indikatoren ist substantiell verschieden. Es gibt keinen Zeitraum von fünf Tagen, innerhalb derer sich in allen Modellen Bruchpunkte finden würden. Ebenso wenig lassen sich etwaige durch zeitlichen Verzug entstehende Muster in den Bruchpunkten erkennen, bis auf die obig beschriebenen Gemeinsamkeiten finden wir keine weiteren relevanten Beziehungen der Bruchpunkte und Wachstumstrends der drei Indikatoren. \\
+In \hyperref[fig:bpkat]{Abbildung 5} sind die geschätzten Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle sowie dem Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz jeweils nach Altersgruppen aufgeschlüsselt dargestellt.
+
+
+\pagebreak
+
+\begin{figure}[!hbt]
+\centering
+\captionsetup{width=.9\linewidth}
+<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 7.00, fig.width = 5.4>>=
+
+ratio_for_grid <- ggplot(fitted_vals_melt_ratio,
+                         aes(x = time, y = sdi, color = variable)) +
+  geom_line() +
+  scale_y_continuous(labels = scales::comma_format(accuracy = 0.01, big.mark = ".", decimal.mark = ","),
+                     limits = c(0, 0.24), breaks = seq(0, 0.24, 0.03)) +
+  scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d.%m.%y") +
+  theme_bw() +
+  #annotate("text", label = "Todesfälle/Inzidenz", x = as.Date(c("2020-10-01")),
+           #y = 0.21, size = 4.5, colour = "black", hjust = 0) +
+  theme(panel.border = element_rect(colour = "black", size=1),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        axis.text   = element_text(colour = "black"),
+        legend.position = "none",
+        axis.text.x = element_text(size = 11),
+        axis.text.y = element_text(size = 11),
+        axis.title.y = element_text(size = 13, margin = margin(t = 0, r = 14, b = 0, l = 0)),
+        axis.title.x=element_blank()) +
+  geom_point(data = dt_bp_ratio[, .(sdi, time, variable)], shape = 18, size = 3) +
+  labs(y = "Verhältnis Todesfälle/Inzidenz")
+
+cases_breakpoints = cases_breakpoints + theme(legend.position = "none",
+                                              axis.text.x = element_text(size = 11),
+                                              axis.title.x = element_text(size = 13),
+                                              axis.text.y = element_text(size = 11),
+                                              axis.title.y = element_text(size = 13)) +
+                    scale_y_continuous(labels = scales::comma,
+                                       limits = c(0, 400),
+                                       breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400))
+
+deaths_breakpoints = deaths_breakpoints + scale_y_continuous(labels = scales::comma,
+                                                            limits = c(0, 80),
+                                                            breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80)) +
+                     theme(legend.box.background = element_rect(colour = "black", size = 1),
+                           legend.title=element_text(size=8, face = "bold"),
+                           legend.text = element_text(size=8),
+                           legend.key.height= unit(0.3, 'cm'),
+                           legend.key.width= unit(0.2, 'cm'))
+
+aligned5 <- align_plots(#plot_korr_7_inz_15_34,
+                        #plot_korr_7_inz_35_59,
+                        #plot_korr_7_inz_60_79,
+                        #plot_korr_7_inz_80,
+                        #plot_korr_7_inz_g,
+                        #plot_unterschaetzung,
+                       #plot_unterschaetzung_7,
+                       #cases_timeseries,
+                       #deaths_timeseries,
+                       #hosp_timeseries,
+                       cases_breakpoints,
+                       deaths_breakpoints,
+                       #log_deaths_breakpoints,
+                       ratio_for_grid,
+                       align = "hv",
+                       axis = "tblr")
+grid_bpmkat = plot_grid(ggdraw(aligned5[[1]]), NULL, ggdraw(aligned5[[2]]), NULL, ggdraw(aligned5[[3]]), rel_heights = c(5, -0.4, 5, -0.4, 5, -0.4, 5), ncol = 1)
+grid_bpmkat
+@
+\caption[7-Tages-Inzidenz, 7-Tages-Todesfälle und Verhältnis Todesfälle/Inzidenz nach Altersgruppen]{\textbf{7-Tages-Inzidenz, 7-Tages-Todesfälle und Verhältnis Todesfälle/Inzidenz nach Altersgruppen.} Die Wachstumsfaktoren sind für alle Zielgrößen im Oktober positiv. Im November impliziert das Modell ein weiter fortschreitendes, obgleich geringeres Wachstum der Intensivbettenbelegung sowie der Todesfälle. Die Neuinfektionen hingegen scheinen zu stagnieren, bei impliziertem Wachstumsfaktor von ca. 1. Im Dezember steigen alle Indikatoren der pandemischen Entwicklung wieder, jedoch weniger stark als im Oktober.}
+\label{fig:bpkat}
+\end{figure}
+
 
 
 
 \subsection{Korrigierte Inzidenz}
 
 Die Ergebnisse einer unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechneten korrigierten 7-Tages-Inzidenz sind in \hyperref[fig:kinz]{Abbildung 2} zu sehen.
-Wir vergleichen die korrigierte Inzidenz für die Altersgruppen 15-34, 35-59, 60-79, sowie Ü79 mit der Meldeinzidenz, also der auf Grundlage der offiziell vom RKI veröffentlichten Daten berechneten 7-Tages-Inzidenz.
+Wir vergleichen die korrigierte Inzidenz für die Altersgruppen 15-34, 35-59, 60-79 sowie Ü79 mit der Meldeinzidenz, also der auf Grundlage der offiziell vom RKI veröffentlichten Daten berechneten 7-Tages-Inzidenz.
 Darüber hinaus vergleichen wir die korrigierte Inzidenz und die Meldeinzidenz der Gesamtbevölkerung.
 Die korrigierte Inzidenz der Gesamtbevölkerung ergibt sich als mit dem Bevölkerungsanteil gewichteter Mittelwert der korrigierten Inzidenzen der Altersgruppen, wobei für die Altersgruppe der 0-14-Jährigen aus bereits genannten Gründen die gemeldete 7-Tages-Inzidenz verwendet wird. \\
 Für die korrigierte 7-Tages-Inzidenz zeigt sich im den betrachteten Untersuchungszeitraum von Anfang Oktober bis Ende Dezember über alle Altersgruppen hinweg ein relativ homogenes Bild.
 Die korrigierte 7-Tages-Inzidenz ist durchgehend von einem positiven Trend gekennzeichnet.
 Anfang Oktober liegt sie in allen Altersgruppen sowie in der Gesamtbevölkerung deutlich im Bereich unter 50, was auch ihrem Minimum entspricht.
-Ihren Höhepunkt erreicht sie Ende Dezember bei Werten im Bereich von 350 bis 600, wobei in den Altersgruppen 15-34, 35-59, sowie Ü79 die höchsten Ausprägungen erreicht werden.
+Ihren Höhepunkt erreicht sie Ende Dezember bei Werten im Bereich von 350 bis 600, wobei in den Altersgruppen 15-34, 35-59 sowie Ü79 die höchsten Ausprägungen erreicht werden.
 Für die Altersgruppe der 15-34-Jährigen ist jedoch hervorzuheben, dass die geringe Anzahl von Todesfällen im Untersuchungszeitraum die Interpretierbarkeit der berechneten korrigierten Inzidenz beschränkt.
 Im Folgenden beschränken wir uns somit auf die nähere Betrachtung der Altersgruppen 35-59, 60-79, Ü79 sowie der Gesamtbevölkerung.
 Im Vergleich zur Meldeinzidenz zeigen sich deutliche Unterschiede:
