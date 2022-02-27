@@ -319,9 +319,10 @@ Die den durch die Bruchpunkte festgelegten Zeitabschnitten zugeordneten konstant
 Das Bruchpunktmodell für die 7-Tages-Todesfälle enthält zwei Bruchpunkte. Beide finden sich in der zweiten Oktoberhälfte, wobei dem ersten Bruchpunkt ein großes 95\%-Konfidenzintervall mit einer Spannweite von mehr als drei Wochen zugeordnet wird. Das modellierte Wachstum der Todesfälle fällt mit täglichen Wachstumsraten von über 9\% fast über den gesamten Untersuchungszeitraum hinweg größer aus als das modellierte Wachstum der Inzidenz. Dabei bleibt das implizierte tägliche Wachstum nie unter einem Faktor von ca. 3\%.
 Das Bruchpunktmodell für die Intensivbettenbelegung enthält vier Bruchpunkte, welche sich über die fast drei Monate des Untersuchsungszeitraums verteilen. Die Spannweite der 95\%-Konfidenzintervalle ist hier ähnlich gering wie bei der 7-Tages-Inzidenz und umfasst nie mehr als drei Tage. Ähnlich wie beim Bruchpunktmodellen der Todesfälle ist das modellierte Wachstum stets positiv, wobei nach anfänglich hohen Wachstumsfaktoren im Oktober im November zu einer vorübergehenden Verlangsamung des modellierten Wachstums kommt.  \\
 Alle drei Bruchpunktmodelle implizieren somit einen starken Anstieg der jeweiligen Zielgröße im Oktober. Anschließend lässt sich ein Abschwächen des Wachstums als Gemeinsamkeit ausmachen. Während es bei Todesfällen und Intensivbettenbelegung jedoch weiterhin zu einer modellierten Zunahme in der Zielgröße kommt, wird für die Inzidenz im Oktober zumindest ein temporäres Sinken der Zielgröße geschätzt. Die Bruchpunktmodelle scheinen somit den Befund der auf Grundlage der Rohdaten in Kapitel 2 beschriebenen Beobachtung zu untermauern, dass die Inzidenz keinen den anderen Indikatoren gleichartigen Verlauf im Herbst 2020 aufweist.
-Die Lage der Bruchpunkte in den drei Indikatoren ist substantiell verschieden. Es gibt keinen Zeitraum von fünf Tagen, innerhalb derer sich in allen Modellen Bruchpunkte finden würden. Ebenso wenig lassen sich etwaige durch zeitlichen Verzug entstehende Muster in den Bruchpunkten erkennen, bis auf die obig beschriebenen Gemeinsamkeiten finden wir keine weiteren relevanten Beziehungen der Bruchpunkte und Wachstumstrends der drei Indikatoren. \\
-In \hyperref[fig:bpkat]{Abbildung 5} sind die geschätzten Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle sowie dem Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz jeweils nach Altersgruppen aufgeschlüsselt dargestellt.
-
+Die Lage der Bruchpunkte in den drei Indikatoren ist substantiell voneinander verschieden. Es gibt keinen Zeitraum von fünf Tagen, innerhalb derer sich in allen Modellen Bruchpunkte finden würden. Ebenso wenig lassen sich etwaige durch zeitlichen Verzug entstehende Muster in den Bruchpunkten erkennen, bis auf die obig beschriebenen Gemeinsamkeiten finden wir keine weiteren relevanten Beziehungen der Bruchpunkte und Wachstumstrends der drei Indikatoren. \\
+In \hyperref[fig:bpkat]{Abbildung 5} sind die geschätzten Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle sowie dem Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz jeweils nach Altersgruppen aufgeschlüsselt dargestellt. Für die modellierte 7-Tages-Inzidenz zeigen sich im zeitlichen Verlauf innerhalb der Gruppen Gemeinsamkeiten bezüglich der geschätzten Bruchpunkte. Für die Altersgruppen 15-34, 35-59, 60-79 und die Gesamtbevölkerung lässt sich das Abflachen der 7-Tages-Inzidenz Ende Oktober anhand von jeweils drei aufeinanderfolgenden Bruchpunkten beschreiben, die jeweils innerhalb eines Zeitraums von drei Wochen liegen. Nach dem jeweils dritten Bruchpunkt ist das Wachstum der 7-Tages-Inzidenz im Bruchpunktmodell vollends zurückgegangen. Dies fällt zeitlich mit dem in Deutschland verhängten "Teil-Lockdown" zusammen, infolgedessen ab dem 02.11.2020 Kultur- und Freizeiteinrichtungen, Gastronomie und Hotellerie weitestgehend geschlossen bleiben mussten. Für die Altersgruppe der über 79-Jährigen gilt das Gegenteil. Das Bruchpunktmodell schätzt für den Zeitraum nach dem zweiten Bruchpunkt Ende November zwar einen niedrigeren Wachstumsfaktor der 7-Tages-Inzidenz, dennoch hebt sich das implizierte tägliche Wachstum mit 3\% deutlich von den anderen Altersgruppen ab. Auch an der Anzahl der geschätzten Bruchpunkte lassen sich Unterschiede ausmachen. So hat die Altersgruppe über 79 nur einen Bruchpunkt, alle anderen Altersgruppen jedoch mindestens 5. Der Verlauf der Inzidenz der ältesten Altersgruppe scheint also deutlich weniger von strukturellen Brüchen geprägt zu sein als der anderer Gruppen.
+Für die Bruchpunktmodelle der Todesfälle nach Altersgruppe werden hingegen nie mehr als 3 Burchpunkte geschätzt. Hier impliziert die Modellierung, dass die bevölkerungsnormierte Anzahl der Todesfälle mit zunehmendem Alter steigt. Außerdem lassen die Bruchpunktmodelle erkennen, dass die 7-Tages-Todesfälle mit kurzen Unterbrechungen über den gesamten Untersuchungszeitraum hinweg in allen Gruppen zunehmen.
+Mit Ausnahme der ältesten Altersgruppe steigen also bei annähernd gleich bleibenden Inzidenzen im November die modellierten Todesfälle in den jeweiligen Altersgruppen. Dies spiegelt sich in den Bruchpunktmodellen zum Verhältnis zwischen Todesfällen und Inzidenz wider. Für die Gruppen, in denen es überhaupt zu substantiellen Sterbezahlen kommt, steigt auch der Anteil der versterbenden Neuinfizierten an den insgesamt gemeldeten Infizierten im gesamten Zeitraum deutlich. Während nach dem Modell bspw. Anfang Oktober jeder zwölfte über 79-Jährige gemeldete Covid-19-Infizierte verstirbt, ist dies Mitte Dezember schon fast jeder Vierte. Für die Altersgruppe 60-79 Jahre steigt der Anteil von unter 3\% Anfang Oktober auf 6\% im Dezember. Die in den Modellen zur Inzidenz erkennbaren Muster in den Bruchpunkten sind in den Modellen zu Todesfällen und zum Verhältnis Todesfälle/Inzidenz hingegen so nicht zu finden.
 
 \pagebreak
 
@@ -356,7 +357,7 @@ cases_breakpoints = cases_breakpoints + theme(legend.position = "none",
                                               axis.text.x = element_text(size = 11),
                                               axis.title.x = element_text(size = 13),
                                               axis.text.y = element_text(size = 11),
-                                              axis.title.y = element_text(size = 13)) +
+                                              axis.title.y = element_text(size = 12)) +
                     scale_y_continuous(labels = scales::comma,
                                        limits = c(0, 400),
                                        breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400))
@@ -379,6 +380,7 @@ deaths_breakpoints = deaths_breakpoints + scale_y_continuous(labels = scales::co
                            legend.title=element_text(size=8, face = "bold"),
                            legend.text = element_text(size=8),
                            legend.key.height= unit(0.3, 'cm'),
+                           axis.title.y = element_text(size = 12),
                            legend.key.width= unit(0.2, 'cm'))
 
 aligned5 <- align_plots(#plot_korr_7_inz_15_34,
@@ -409,7 +411,7 @@ grid_bpmkat
 
 \subsection{Korrigierte Inzidenz}
 
-Die Ergebnisse einer unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechneten korrigierten 7-Tages-Inzidenz sind in \hyperref[fig:kinz]{Abbildung 2} zu sehen.
+Die Ergebnisse einer unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechneten korrigierten 7-Tages-Inzidenz sind in \hyperref[fig:kinz]{Abbildung 6} zu sehen.
 Wir vergleichen die korrigierte Inzidenz für die Altersgruppen 15-34, 35-59, 60-79 sowie Ü79 mit der Meldeinzidenz, also der auf Grundlage der offiziell vom RKI veröffentlichten Daten berechneten 7-Tages-Inzidenz.
 Darüber hinaus vergleichen wir die korrigierte Inzidenz und die Meldeinzidenz der Gesamtbevölkerung.
 Die korrigierte Inzidenz der Gesamtbevölkerung ergibt sich als mit dem Bevölkerungsanteil gewichteter Mittelwert der korrigierten Inzidenzen der Altersgruppen, wobei für die Altersgruppe der 0-14-Jährigen aus bereits genannten Gründen die gemeldete 7-Tages-Inzidenz verwendet wird. \\
@@ -510,7 +512,7 @@ grid_ki
 
 \pagebreak
 
-Das Verhältnis zwischen gemeldeter und korrigierter 7-Tages-Inzidenz ist in \hyperref[fig:factorkinz]{Abbildung 3} dargestellt.
+Das Verhältnis zwischen gemeldeter und korrigierter 7-Tages-Inzidenz ist in \hyperref[fig:factorkinz]{Abbildung 7} dargestellt.
 Der in der Abbildung dargestellte Quotient aus korrigerter Inzidenz und Meldeinzidenz im Zeitverlauf lässt sich als implizierter Faktor der Unterschätzung interpretieren.
 Dabei bedeutet ein Faktor von 1, dass beide Größen gleich groß sind.
 Ein Faktor größer 1 lässt sich als Unterschätzung der tatsächlichen Infektionslage durch die gemeldete Inzidenz interpretieren, wenn man die korrigierte Inzidenz als wahren Wert der Inzidenz annehmen würde.
@@ -556,6 +558,7 @@ ggdraw(aligned4[[6]])
 \caption[Implizierter Faktor der Unterschätzung]{\textbf{Implizierter Faktor der Unterschätzung.} Der Faktor der Unterschätzung berechnet sich als Quotient von korrigierter und gemeldeter 7-Tages-Inzidenz. Mit Ausnahme der 15-34-Jährigen ist der Faktor für alle Altersgruppen spätestens ab November 2020 größer 1 und nimmt im Zeitverlauf auch tendenziell zu. Nimmt man an, dass die korrigierte Inzidenz dem wahren Infektionsgeschehen entspricht, impliziert dies z.B. für den Dezember ein um mindestens 50\% höheres Infektionsgeschehen als durch die gemeldete Inzidenz abgebildet.}
 \label{fig:factorkinz}
 \end{figure}
+
 
 
 \section{Diskussion}

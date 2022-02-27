@@ -306,7 +306,7 @@ beta_comparison <- dt_exp_betas %>%
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size = 1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
-        axis.title.y = element_text(margin = margin(t = 0, r = 13, b = 0, l = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, r = 16, b = 0, l = 0)),
         axis.text   = element_text(colour = "black")) +
   theme(axis.text.x = element_text(size = 10), axis.title.x = element_text(size = 10),
         axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 10)) +
