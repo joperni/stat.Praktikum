@@ -8,7 +8,7 @@ Unser Projektpartner, Herr Dr. André Klima, beschrieb im Rahmen seiner Forschun
 Während die 7-Tages-Inzidenz in der Altersgruppe der über 79-Jährigen, die 7-Tages-Todesfälle sowie die Intensivbettenbelegung bis Weihnachten steigt, findet sich in der 7-Tages-Inzidenz aller anderen Altersgruppen ein Plateau bzw. ein Absinken von Ende Oktober bis Mitte November.
 Auch die 7-Tages-Inzidenz der Gesamtbevölkerung stagnierte in diesem Zeitraum, im Kontrast zu gerade beschriebenem Anstieg der 7-Tages-Todesfälle und der Intensivbettenbelegung. \\
 Auf dieser Grundlage stellen wir uns die Frage, ob und inwiefern die Inzidenz im Herbst 2020 wirklich ein belastbarer statistischer Indikator für die Entwicklung der Covid-19-Pandemie in Deutschland war.
-Dieser Bericht ist wie folgt strukturiert: Kapitel 2 stellt die verwendeten Daten vor und beschreibt die wesentlichen in unserer Analyse verwendeten Indikatoren. Kapitel 3 erklärt die Methodik unserer Analyse. In einem ersten Schritt modellieren wir das pandemische Geschehen anhand von Bruchpunktmodellen, um wesentliche Gemeinsamkeiten und Unterschiede der zeitlichen Entwicklung der Indikatoren zu beleuchten. Dabei betrachten wir einerseits die Indikatoren selbst, andererseits auch das Verhältnis zueinander. In einem nachfolgenden Schritt überprüfen wir dann, ob eine basierend auf dem Konzept der Case Fatality RATE (CFR) berechnete korrigierte Inzidenz einen anderen Verlauf als die gemeldete Inzidenz im Herbst 2020 genommen hätte. Kapitel 4 stellt die Ergebnisse unserer Arbeit vor, und Kapitel 5 diskutiert die wichtigsten Erkenntnisse und  mögliche Implikationen für das Verständnis des pandemischen Geschehens.
+Dieser Bericht ist wie folgt strukturiert: Kapitel 2 stellt die verwendeten Daten vor und beschreibt die wesentlichen in unserer Analyse verwendeten Indikatoren. Kapitel 3 erklärt die Methodik unserer Analyse. In einem ersten Schritt modellieren wir das pandemische Geschehen anhand von Bruchpunktmodellen, um wesentliche Gemeinsamkeiten und Unterschiede der zeitlichen Entwicklung der Indikatoren zu beleuchten. Dabei betrachten wir einerseits die Indikatoren selbst, andererseits auch das Verhältnis zueinander. In einem nachfolgenden Schritt überprüfen wir dann, ob eine basierend auf dem Konzept der Case Fatality Rate (CFR) berechnete korrigierte Inzidenz einen anderen Verlauf als die gemeldete Inzidenz im Herbst 2020 genommen hätte. Kapitel 4 stellt die Ergebnisse unserer Arbeit vor, und Kapitel 5 diskutiert die wichtigsten Erkenntnisse und  mögliche Implikationen für das Verständnis des pandemischen Geschehens.
 
 \section{Daten und Aufbereitung}
 
@@ -347,10 +347,10 @@ ratio_for_grid <- ggplot(fitted_vals_melt_ratio,
         legend.position = "none",
         axis.text.x = element_text(size = 11),
         axis.text.y = element_text(size = 11),
-        axis.title.y = element_text(size = 13, margin = margin(t = 0, r = 14, b = 0, l = 0)),
+        axis.title.y = element_text(size = 12, margin = margin(t = 0, r = 14, b = 0, l = 0)),
         axis.title.x=element_blank()) +
   geom_point(data = dt_bp_ratio[, .(sdi, time, variable)], shape = 18, size = 3) +
-  labs(y = "Verhältnis Todesfälle/Inzidenz")
+  labs(y = "Todesfälle/Inzidenz")
 
 cases_breakpoints = cases_breakpoints + theme(legend.position = "none",
                                               axis.text.x = element_text(size = 11),
@@ -360,6 +360,17 @@ cases_breakpoints = cases_breakpoints + theme(legend.position = "none",
                     scale_y_continuous(labels = scales::comma,
                                        limits = c(0, 400),
                                        breaks = c(0, 50, 100, 150, 200, 250, 300, 350, 400))
+
+#deaths_breakpoints = deaths_breakpoints + scale_y_continuous(labels = scales::comma_format(accuracy = 0.01),
+  #                                                           trans="log2",
+   #                                                          limits = c(0.001, 80),
+    #                                                         breaks = c(0.01, 0.1, 5, 10, 50, 100)) +
+     #                theme(legend.box.background = element_rect(colour = "black", size = 1),
+      #                     legend.title=element_text(size=8, face = "bold"),
+       #                    legend.text = element_text(size=8),
+        #                   legend.key.height= unit(0.3, 'cm'),
+         #                  legend.key.width= unit(0.2, 'cm'),
+          #                 axis.title.y = element_text(size = 12))
 
 deaths_breakpoints = deaths_breakpoints + scale_y_continuous(labels = scales::comma,
                                                             limits = c(0, 80),
@@ -389,7 +400,7 @@ aligned5 <- align_plots(#plot_korr_7_inz_15_34,
 grid_bpmkat = plot_grid(ggdraw(aligned5[[1]]), NULL, ggdraw(aligned5[[2]]), NULL, ggdraw(aligned5[[3]]), rel_heights = c(5, -0.4, 5, -0.4, 5, -0.4, 5), ncol = 1)
 grid_bpmkat
 @
-\caption[7-Tages-Inzidenz, 7-Tages-Todesfälle und Verhältnis Todesfälle/Inzidenz nach Altersgruppen]{\textbf{7-Tages-Inzidenz, 7-Tages-Todesfälle und Verhältnis Todesfälle/Inzidenz nach Altersgruppen.} Die Wachstumsfaktoren sind für alle Zielgrößen im Oktober positiv. Im November impliziert das Modell ein weiter fortschreitendes, obgleich geringeres Wachstum der Intensivbettenbelegung sowie der Todesfälle. Die Neuinfektionen hingegen scheinen zu stagnieren, bei impliziertem Wachstumsfaktor von ca. 1. Im Dezember steigen alle Indikatoren der pandemischen Entwicklung wieder, jedoch weniger stark als im Oktober.}
+\caption[7-Tages-Inzidenz, 7-Tages-Todesfälle und Verhältnis Todesfälle/Inzidenz nach Altersgruppen]{\textbf{7-Tages-Inzidenz, 7-Tages-Todesfälle und Verhältnis Todesfälle/Inzidenz nach Altersgruppen.} Dabei entspricht das Verhältnis von Todesfällen und Inzidenz dem Quotienten beider Größen. Die modellierte Inzidenz der über 79-Jährigen setzt sich in ihrem positiven Trend von den auf einem annähernd konstanten Niveau verharrenden Inzidenzen der anderen Altersgruppen ab. Für die Todesfälle zeigt sich das starke Wachstum in der Altersgruppe über 79 Jahre über den gesamten Zeitraum hinweg. Ab Ende Oktober steigen die modellierten Todesfälle insbesondere in den beiden ältesten Gruppen. Im Verhältnis von Todesfälle/Inzidenz lässt sich für die beiden ältesten Gruppen wie auch für die Gesamtbevölkerung ein deutliches impliziertes Wachstum des Anteils der versterbenden Neuinfizierten an den insgesamt gemeldeten Infizierten beobachten.}
 \label{fig:bpkat}
 \end{figure}
 

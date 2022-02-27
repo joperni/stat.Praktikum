@@ -7,6 +7,7 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
              "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "Über 79 Jahre" = "#E31A1C")
 load("dt_breakpoints260222.Rda")
 load("dt_exp_betas260222.Rda")
+load("dt_bp_ratio270222.Rda")
 
 # Age_group_plot ----------------------------------------------------------
 dt_breakpoints$variable[dt_breakpoints$variable == "ueber 80 Jahre"] = c("Über 79 Jahre")
