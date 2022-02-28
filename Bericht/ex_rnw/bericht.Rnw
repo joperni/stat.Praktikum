@@ -7,7 +7,8 @@ Die Erforschung der Covid-19-Pandemie in Deutschland stellt einen Schwerpunkt ak
 Unser Projektpartner, Herr Dr. André Klima, beschrieb im Rahmen seiner Forschung als Mitglied der COVID-19 Data Analysis Group (CODAG) eine auffällige Entwicklung in den wesentlichen Indikatoren des pandemischen Geschehens im Herbst 2020.
 Während die 7-Tages-Inzidenz in der Altersgruppe der über 79-Jährigen, die 7-Tages-Todesfälle sowie die Intensivbettenbelegung bis Weihnachten steigt, findet sich in der 7-Tages-Inzidenz aller anderen Altersgruppen ein Plateau bzw. ein Absinken von Ende Oktober bis Mitte November.
 Auch die 7-Tages-Inzidenz der Gesamtbevölkerung stagnierte in diesem Zeitraum, im Kontrast zu gerade beschriebenem Anstieg der 7-Tages-Todesfälle und der Intensivbettenbelegung. \\
-Auf dieser Grundlage stellen wir uns die Frage, ob und inwiefern die Inzidenz im Herbst 2020 wirklich ein belastbarer statistischer Indikator für die Entwicklung der Covid-19-Pandemie in Deutschland war.
+Inhaltlich implizieren die drei Indikatoren somit durchaus widersprüchliche Beschreibungen der pandemischen Entwicklung im Herbst.
+Auf dieser Grundlage stellen wir uns die Frage, ob und inwiefern die Inzidenz im Herbst 2020 wirklich ein belastbarer statistischer Indikator für die Entwicklung der Covid-19-Pandemie in Deutschland war. Dabei identifizieren und analysieren wir zuerst Bruchpunkte im Verlauf der statistischen Zeitreihen. Nachfolgend untersuchen wir, ob die Aussagekraft der 7-Tages-Inzidenz durch eine Korrektur erhöht werden kann.
 Dieser Bericht ist wie folgt strukturiert: Kapitel 2 stellt die verwendeten Daten vor und beschreibt die wesentlichen in unserer Analyse verwendeten Indikatoren. Kapitel 3 erklärt die Methodik unserer Analyse. In einem ersten Schritt modellieren wir das pandemische Geschehen anhand von Bruchpunktmodellen, um wesentliche Gemeinsamkeiten und Unterschiede der zeitlichen Entwicklung der Indikatoren zu beleuchten. Dabei betrachten wir einerseits die Indikatoren selbst, andererseits auch das Verhältnis zueinander. In einem nachfolgenden Schritt überprüfen wir dann, ob eine basierend auf dem Konzept der Case Fatality Rate (CFR) berechnete korrigierte Inzidenz einen anderen Verlauf als die gemeldete Inzidenz im Herbst 2020 genommen hätte. Kapitel 4 stellt die Ergebnisse unserer Arbeit vor, und Kapitel 5 diskutiert die wichtigsten Erkenntnisse und  mögliche Implikationen für das Verständnis des pandemischen Geschehens.
 
 \section{Daten und Aufbereitung}
@@ -172,6 +173,8 @@ plot_grid(NULL, ggdraw(aligned[[2]]),
 
 \section{Methodik}
 
+Wir interessieren uns in unserer Untersuchung für die Entwicklung der beschriebenen pandemischen Indikatoren im Herbst 2020. Wir beschränken folglich die Analyse auf einen Untersuchungszeitraum von knapp drei Monaten vom 01.10. bis zum 24.12.2020. Für das in Kapitel 4.2 vorgestellte Verfahren wird zusätzlich ein Vergleichszeitraum vom 01.07. bis zum 30.09.2020 benutzt. In der näheren Betrachtung der Altersgruppen sind die 0-14-Jährigen ausgelassen, da es in dieser Altersgruppe nur vereinzelt zu Todesfällen kam.
+
 \subsection{Bruchpunktmodell}
 
 Zur Modellierung der Indikatoren des pandemischen Geschehens wird ein Bruchpunktmodell geschätzt. Die Erstellung des Bruchpunktmodells erfolgt direkt auf Grundlage der Daten und wird separat für die 7-Tages-Inzidenz, die Intensivbettenbelegung, die 7-Tages-Todesfälle und für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz geschätzt. Bruchpunktmodelle finden in der Analyse der COVID-19-Pandemie eine nachvollziehbare Verwendung, z. B. bei Küchenhoff et al. (2021), da sie die Beschreibung eines Untersuchungszeitraums anhand von Bruchpunkten ermöglichen. Bruchpunkte charakterisieren sich damit als Zeitpunkte, an denen das geschätzte Regressionsmodell eine Veränderung im Wachstumstrend des Indikators des pandemischen Geschehens impliziert. In der Interpretation können diese Bruchpunkte dann mit für den Pandemieverlauf möglicherweise relevanten Ereignissen, bspw. politische Beschlüsse über Maßnahmen zur Eindämmung des Infektionsgeschehens, kontextualisiert werden.
@@ -182,7 +185,7 @@ Für die Analyse ergibt sich ein Regressionsmodell wie bei Muggeo (2003):
 \end{align}
 
 Dabei ist $Y_{t}$ die Zielgröße, bspw. die 7-Tages-Inzidenz, $K$ die Anzahl der Bruchpunkte, und $CP_k$ der Zeitpunkt des k-ten Bruchpunkts.
-Wir schätzen die Koeffizienten $\beta_0$, $\beta_1$, $\gamma_k$ mit $k = 1,\; …,\; K$ mit dem R-Paket \verb|segmented|.
+Wir schätzen die Koeffizienten $\beta_0$, $\beta_1$, $\gamma_k$, ${CP}_k$ mit $k = 1,\; …,\; K$ mit dem R-Paket \verb|segmented|.
 Dabei ist $K$ ein fester diskreter Parameter und muss vor der Schätzung spezifiziert werden.
 Wir wählen $K$ wie folgt:
 Beginnend bei $K = 0$ erhöhen wir $K$ schrittweise solange, bis sich das Bayes-Informationskriterium (BIC) des zugehörigen Regressionsmodells nicht mehr verbessert. 
@@ -192,7 +195,7 @@ Die Interpretation des Modells resultiert aus der implizierten Zerlegung des Unt
 Dabei ergeben sich die Koeffizienten $\beta_j$ für $j > 1$ als $\beta_j = \beta_{j-1}\; +\; \gamma_{j-1}$.
 Anhand des Regressionsmodells (1) ist ersichtlich, dass $exp(\beta_j)$ als täglicher Wachstumsfaktor auf Ebene der Zielgröße interpretiert werden kann, wobei $exp(\beta_j) > 1$ ein Steigen und $exp(\beta_j) < 1$ ein Sinken in der Zielgröße innerhalb des Intervalls bedeutet.
 Wir schätzen demnach Bruchpunktmodelle für die 7-Tages-Inzidenz, die 7-Tages-Todesfälle, und die Intensivbettenbelegung sowie für die ersten beiden Indikatoren zusätzlich nach Altersgruppen aufgeschlüsselt.
-Ferner schätzen wir ein Bruchpunktmodell für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz, wobei sich hier die Zielgröße $Y_t$ aus dem Quotienten der beiden Größen ergibt.
+Ferner schätzen wir ein Bruchpunktmodell für das Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz, wobei sich hier die Zielgröße $Y_t$ aus dem Quotienten der beiden Größen ergibt. Die so modellierte Größe beschreibt inhaltlich den Anteil der an einem Tag gemeldeten Neuinfizierten, der verstirbt (bereinigt um Wochentagseffekte).
 
 \subsection{Korrigierte Inzidenz}
 
@@ -221,6 +224,7 @@ Weiterhin ist davon auszugehen, dass die sich im Pandemieverlauf fortlaufend ver
 Ein weiterer Grund für die Wahl von Vergleichs- und Untersuchungszeitraum liegt im fehlenden Einfluss von Impfungen, die in Deutschland flächendeckend erst kurz vor Jahresende 2020 begannen (BMG, 2022).
 Die somit geschätzte korrigierte 7-Tages-Inzidenz stellen wir der vom RKI gemeldeten 7-Tages-Inzidenz gegenüber.
 In diesem Zusammenhang berechnen wir zusätzlich für jeden Tag des Untersuchungszeitraums die durch die korrigierte Inzidenz implizierte Unterschätzung der Meldeinzidenz als Quotient aus korrigierter 7-Tages-Inzidenz und gemeldeter 7-Tages-Inzidenz.
+Insofern die korrigierte Inzidenz andere Werte als die gemeldete Inzidenz annimmt, schätzen wir schließlich auch für die korrigierte Inzidenz ein Bruchpunktmodell. Um einen Vergleich zwischen Strukturen im Verlauf von Meldeinzidenz und korrigierter Inizdenz zu ermöglichen, schätzen wir Bruchpunktmodelle für die korrigierte Inzidenz mit der gleichen Anzahl von Bruchpunkten, wie sich im Zuge des Schätzverfahrens für die gemeldete Inzidenz ergeben haben. Wenn das Verfahren des \verb|segmented|-Pakets hier keine optimale Lage von Bruchpunkten ${CP}_k$ mit $k = 1,\; …,\; K$ finden kann, wählen wir die nächstniedrigere Anzahl von Bruchpunkten $K$, für die dies möglich ist.
 
 \section{Ergebnisse}
 \subsection{Bruchpunktmodell}
@@ -233,6 +237,7 @@ options(digits = 3,
         str = strOptions(strict.width = "cut", vec.len = 3))
 setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
 source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/scripts_plots_new.Praktikum/models_plots.R")
+#source("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/implementation_kor_inz_models2.R")
 @
 
 \pagebreak
@@ -559,26 +564,251 @@ ggdraw(aligned4[[6]])
 \label{fig:factorkinz}
 \end{figure}
 
+\hyperref[fig:compare]{Abbildung 8} stellt das bereits in \hyperref[fig:bpkat]{Abbildung 5} dargestellte Bruchpunktmodell der nach Altersgruppen aufgeschlüsselten gemeldeten 7-Tages-Inzidenz dem Bruchpunktmodell der nach Altersgruppen aufgeschlüsselten korrigierten 7-Tages-Inzidenz gegenüber. Wie in Kapitel 4.2 beschrieben, wird dabei die Anzahl der Bruchpunkte $K$ in den Modellen zur korrigierten Inzidenz auf das Niveau von $K$ in den Modellen zur Meldeinzidenz gesetzt. Die Optimierung erfolgt also so, dass die Lage (und nicht die Anzahl) der Bruchpunkte für die korrigierte Inzidenz geschätzt wird. Dabei kann für alle Altersgruppen außer den 35-59-Jährigen ein Modell für die korrigierte Inzidenz mit $K$ Bruchpunkten mit \verb|segmented| geschätzt werden. Für die Altersgruppe 35-59 kann ein Modell mit maximal $K = 4$ Bruchpunkten vom Algorithmus gefunden werden. Mit Ausnahme der jüngsten Altersgruppe zeigt sich auch in den Bruchpunktmodellen der bereits beschriebene Anstieg der korrigierten 7-Tages-Inzidenz von Oktober bis Dezember. Vergleicht man die Lage der Bruchpunkte in den Modellen zur Meldeinzidenz und zur korrigierten Inzidenz, findet man nur vereinzelt Gemeinsamkeiten. Für die Altersgruppe der über 79-Jährigen findet sich ein gemeinsamer Bruchpunkt in der letzten Oktoberwoche. Das könnte ein Hinweis darauf sein, dass zumindest der Verlauf der Meldeinzidenz der über 79-Jährigen dem der entsprechenden korrigierten Inzidenz entspricht, auch wenn sich beide in ihren Absolutwerten unterscheiden. Für die anderen Altersgruppen lassen sich keine eindeutigen Muster in der Struktur der Bruchpunkte feststellen. Inbesondere die sehr großen Spannweiten der 95\%-Konfidenzintervalle der Bruchpunkte zur korrigierten Inzidenz könnten darauf schließen lassen, dass ein Festhalten der Anzahl der Bruchpunkte zu einer geringeren Anpassungsgüte führt. So beträgt die Spannweite des sechsten Bruchpunkts im Modell der korrigierten Inzidenz der Gesamtbevölkerung mehr als 100 Tage, symptomatisch für die schlechte Anpassung des Modells. Unserer Untersuchung nach kann also mit Ausnahme der ältesten Altersgruppe nicht davon ausgegangen werden, dass die Meldeinzidenz die gleichen Bruchpunkte wie die korrigierte Inzidenz aufweist.
 
+\begin{figure}[!hbt]
+\centering
+\captionsetup{width=.9\linewidth}
+<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 5.33, fig.width = 5.4>>=
+set.seed(23354634)
+setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
+# data from "Praktikum.R"
+dt_kor_inz <- copy(data_okt_dez[, .(rep_date = as.numeric(rep_date_divi), .SD),
+                                .SDcols = colnames(data_okt_dez)[grepl("kor_inz", colnames(data_okt_dez))]][
+                                  , .SD.kor_inz_A00_A14 := NULL])
+# is dependent from the sequence of the columns in "Praktikum.R"
+setcolorder(dt_kor_inz, c(1, 6, 2:4))
+formulas_kor <- paste(colnames(dt_kor_inz)[-1], "+ exp(-3) ~ rep_date")
+
+dt_kor_models <- data.table(formulas = formulas_kor)
+
+dt_kor_models[, seg_fixed_bp := lapply(seq(1, 5), function(x) {
+  # first fit the base model
+  segmented(glm(formulas_kor[[x]], dt_kor_inz, family = Gamma(link = "log")),
+            # n breakpoints from the fitted models for the not corrected inzidenz
+            npsi = length(dt_models[x, model_bic_seq[[1]]$psi[, 2]]),
+            control = seg.control(fix.npsi = TRUE, n.boot = 40, tol = 1e-5))
+  })
+# making a confint matrix with the predicted y for the estimated breakpoints
+]
+
+
+# the algorithm does not converge for 7 Breakpoints for the 35-59 group -> Add it manually
+dt_kor_models[3, seg_fixed_bp := list(segmented(glm(formulas_kor[[3]], dt_kor_inz, family = Gamma(link = "log")),
+                                           # n breakpoints from the fitted models for the not corrected inzidenz
+                                           npsi = 4,
+                                           control = seg.control(fix.npsi = TRUE, n.boot = 40, tol = 1e-5)))]
+
+dt_kor_models[, confint := lapply(seg_fixed_bp, function(model) {
+  conf_matrix <- confint(model)
+  # bind the conf_matrix with a prediction for the estimated breakpoints
+  new_matrix <- cbind(conf_matrix,
+                      y = predict(model, newdata = data.frame(rep_date = model$psi[, 2]),
+                                  type = "response"))})
+]
+
+farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
+             "35-59 Jahre" = "#33A02C", "60-79 Jahre" = "#FB9A99", "Über 79 Jahre" = "#E31A1C")
+
+# # help data table for the plots -----------------------------------------
+
+# At first: Making data table with breakpoints, for all used gamma models
+
+# # how much should each label be repeated
+rep_times_age_kor <- c(0, cumsum(vapply(dt_kor_models[, confint], nrow, numeric(1))))
+# char_vec with age groups
+age_groups_kor <- c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre")
+dt_bp_cor <- as.data.table(Reduce(rbind, dt_kor_models[, confint]))
+
+# fastest way in dt
+# add an age column
+for (i in seq_along(age_groups_kor)) {
+  set(dt_bp_cor,
+     seq(rep_times_age_kor[i] + 1, rep_times_age_kor[1 + i]), "age_variable", age_groups_kor[i])
+}
+
+#
+setnames(dt_bp_cor, c("time", "lowerCI", "upperCI", "sdi", "variable"))
+dt_bp_cor[, c("time", "lowerCI", "upperCI") := lapply(.SD, as.Date, format = "%d. %b %Y",
+                                                      origin = lubridate::origin),
+          .SDcols = c("time", "lowerCI", "upperCI")]
+
+
+
+# Transforming data table for easier plotting for cases
+#
+# add fitted values to a data_frame
+dt_kor_fitted_vals <- 
+  dt_kor_models[, lapply(seg_fixed_bp, function(model) model$fitted.values)]
+# add time column
+dt_kor_fitted_vals[, time := as.Date(dt_kor_inz$rep_date, format = "%d. %b %Y", origin = lubridate::origin)]
+setnames(dt_kor_fitted_vals, c("V1", "V2", "V3", "V4", "V5"),
+         c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
+# melting for easier plotting
+fitted_vals_melt_kor <- melt(dt_kor_fitted_vals, id.vars = "time", value.name = "sdi")
+
+#set confint limits to "beobachtungszeitraum"
+dt_bp_cor[lowerCI < as.Date("2020-10-01"), lowerCI := as.Date("2020-10-01")]
+
+
+dt_bp_cor[upperCI > as.Date("2020-12-23"), upperCI := as.Date("2020-12-23")]
+
+fitted_vals_melt_kor <- rbind(fitted_vals_melt_kor, dt_bp_cor[, .(time, variable, sdi)])
+    
+# Age_group_plot ----------------------------------------------------------
+dt_bp_cor$variable[dt_bp_cor$variable == "ueber 80 Jahre"] = c("Über 79 Jahre")
+levels(fitted_vals_melt_kor$variable)[1] = c("Gesamt")
+levels(fitted_vals_melt_kor$variable)[5] = c("Über 79 Jahre")
+kor_model_breakpoints <- ggplot(fitted_vals_melt_kor[variable == "Gesamt"],
+                                aes(x = time, y = sdi#, color = variable
+                                )) +
+  geom_line(color = "darkorange") +
+  geom_line(data = dt_kor_inz[, .(time = as.Date(rep_date, format = "%d. %b %Y", origin = lubridate::origin),
+                                  sdi = .SD.kor_inz_total#, variable = "Gesamt"
+  )]) +
+  labs(x = "", y = "7-Tages-Inzidenz") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 450), breaks = seq(0, 450, 50)) +
+  scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
+  theme_bw() +
+  theme(panel.border = element_rect(colour = "black", size = 1),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        axis.title.y = element_text(margin = margin(t = 0, r = 18, b = 0, l = 0)),
+        axis.text   = element_text(colour = "black")) +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
+  geom_point(data = dt_bp_cor[variable == "Gesamt", .(sdi, time, variable)], shape = 18, size = 3) +
+  geom_segment(data = dt_bp_cor[variable == "Gesamt"], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d.%m.%y", limits = as.Date(c("2020-10-01", "2020-12-23")))
+#ggsave("Plots/kor_model.png", kor_model_breakpoints, width = 22, height = 10, units = c("cm"))
+
+kor_model_age <- ggplot(fitted_vals_melt_kor,
+                                aes(x = time, y = sdi, color = variable)) +
+  geom_line() +
+  labs(x = "", y = "7-Tages-Inzidenz") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 700), breaks = seq(0, 700, 100)) +
+  scale_color_manual(values = farben3[-3], name = "Altersgruppe", labels = names(farben3)[-3]) +
+  theme_bw() +
+  theme(panel.border = element_rect(colour = "black", size = 1),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        axis.title.y = element_text(margin = margin(t = 0, r = 18, b = 0, l = 0)),
+        axis.text   = element_text(colour = "black")) +
+  theme(axis.text.x = element_text(size = 11), axis.title.x = element_text(size = 13),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 12)) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d.%m.%y", limits = as.Date(c("2020-10-01", "2020-12-23"))) +
+geom_point(data = dt_bp_cor[, .(sdi, time, variable)], shape = 18, size = 3)
+#ggsave("Plots/kor_model_age.png", kor_model_age, width = 22, height = 10, units = c("cm"))
+
+
+# grid_plot ---------------------------------------------------------------
+
+dt_breakpoints$variable[dt_breakpoints$variable == "ueber 80 Jahre"] = c("Über 79 Jahre")
+levels(fitted_vals_melt_cases$variable)[1] = c("Gesamt")
+levels(fitted_vals_melt_cases$variable)[5] = c("Über 79 Jahre")
+cases_for_grid_kor <- fitted_vals_melt_cases %>%
+  ggplot(aes(x = time, y = sdi, color = variable)) +
+  geom_line() +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 650), breaks = seq(0, 700, 150)) +
+  scale_color_manual(values = farben3, name = "Altersgruppe", labels = c(names(farben3)[1:4], "Über 79 Jahre")) +
+  theme_bw() +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d.%m.%y") +
+  #theme(plot.margin = unit(c(-0.5, 1.5, 3, 0), "cm")) +
+  labs(y = "7-Tages-Inzidenz je 100.000 Einw.") +
+  geom_point(data = dt_breakpoints["inz" == origin, .(sdi, time, variable)], shape = 18, size = 2.2) +
+  theme(panel.border = element_rect(colour = "black", size=1),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        plot.margin = margin(0.5, 1, 0.7, 0.5, "cm"),
+        axis.text   = element_text(colour = "black"),
+        axis.title.x = element_blank()) +
+  theme(axis.text.x = element_text(size = 11),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 12, margin = margin(t = 0, r = 16, b = 0, l = 0))) +
+  geom_segment(data = dt_breakpoints["inz" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi)) +
+  labs(y = "Gemeldete 7-Tages-Inzidenz")
+
+
+load("dt_bp_cor280222.Rda")
+kor_for_grid <- ggplot(fitted_vals_melt_kor,
+                       aes(x = time, y = sdi, color = variable)) +
+  geom_line() +
+  labs(x = "", y = "geschätzte korrigierte 7-Tages-Inzidenz je 100.000 Einw.") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 650), breaks = seq(0, 700, 150)) +
+  scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
+  theme_bw() +
+  theme(panel.border = element_rect(colour = "black", size = 1),
+        plot.margin = margin(0, 1, 0.5, 0.5, "cm"),
+        panel.grid = element_line(colour = "gray57", size = 0.2),
+        axis.text = element_text(colour = "black")) +
+  theme(axis.title = element_blank(), legend.position = "none", 
+        axis.ticks.x = element_blank()) +
+  scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
+               date_labels = "%d.%m.%y", limits = as.Date(c("2020-10-01", "2020-12-23"))) +
+  geom_point(data = dt_bp_cor[, .(sdi, time, variable)], shape = 18, size = 2.2) +
+  geom_segment(data = dt_bp_cor, aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi)) +
+  theme(axis.text.x = element_text(size = 11),
+        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 12, margin = margin(t = 0, r = 16, b = 0, l = 0))) +
+  labs(y = "Korrigierte 7-Tages-Inzidenz")
+
+# legend for the plot
+legend <- get_legend(
+  # create some space to the left of the legend
+  cases_for_grid_kor + theme(legend.box.background = element_rect(colour = "black", size = 1),
+                                                                                legend.title=element_text(size=8, face = "bold"),
+                                                                                legend.text = element_text(size=8),
+                                                                                legend.key.height= unit(0.3, 'cm'),
+                                                                                legend.key.width= unit(0.2, 'cm'))
+)
+
+# # creates y Axis for the hole plot
+# y_axis <- textGrob("Inzidenz", 
+#                      gp = gpar(fontface="bold", fontsize = 15), rot = 90)
+
+p_grid <- plot_grid(cases_for_grid_kor +
+                      # deleting legend manuall to add it later, for the grid plot
+                      theme(legend.position = "none"),
+                    NULL,
+                    kor_for_grid,
+                    # labels need to be adjusted
+                    # one col for the three plots, to adjust them among each other
+                    ncol = 1,
+                    # adjusting the positions of the labels
+                    label_x = .08, label_y = .97, hjust = 0, scale = 1, 
+                    align = "v",
+                    rel_heights = c(7, -0.22, 7))
+p_grid2 <- plot_grid(p_grid, NULL, legend, ncol = 3, rel_widths = c(6, -0.3, 1.5))
+p_grid2
+@
+\caption[Bruchpunktmodelle für gemeldete und korrigierte 7-Tages-Inzidenz nach Altersgruppen]{\textbf{Bruchpunktmodelle für gemeldete und korrigierte 7-Tages-Inzidenz nach Altersgruppen.} Der Faktor der Unterschätzung berechnet sich als Quotient von korrigierter und gemeldeter 7-Tages-Inzidenz. Mit Ausnahme der 15-34-Jährigen ist der Faktor für alle Altersgruppen spätestens ab November 2020 größer 1 und nimmt im Zeitverlauf auch tendenziell zu. Nimmt man an, dass die korrigierte Inzidenz dem wahren Infektionsgeschehen entspricht, impliziert dies z.B. für den Dezember ein um mindestens 50\% höheres Infektionsgeschehen als durch die gemeldete Inzidenz abgebildet.}
+\label{fig:compare}
+\end{figure}
 
 \section{Diskussion}
 Die geschätzten Bruchpunktmodelle zur Beschreibung des pandemischen Verlaufs in den Monaten Oktober bis Dezember 2020 implizieren, dass sich das Infektionsgeschehen in den betrachteten Altersgruppen heterogen entwickelte, wobei wir zeigen, dass sich der deutliche Anstieg der Neuinfektionen in der Altersgruppe der über 79-Jährigen von den anderen Altersgruppen abkoppelte.
-In den anderen Altersgruppen kam es mindestens im November zu einem Plateau in der Inzidenz. Weiterhin legt unsere Modellierung nahe, dass die Intensivbettenbelegung, die 7-Tages-Todesfälle und die die 7-Tages-Inzidenz der Altersgruppe der über 79-Jährigen einem gleichartig positiven Trend über den gesamten Untersuchungszeitraum folgten.
-Ferner zeigt unsere Analyse, dass eine unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechnete korrigierte Inzidenz ist im Herbst 2020 deutlich und im Zeitverlauf auch zunehmend größer als die gemeldete Inzidenz.
+In den anderen Altersgruppen kam es mindestens im November zu einem Plateau in der Inzidenz. Weiterhin legt unsere Modellierung nahe, dass die Intensivbettenbelegung, die 7-Tages-Todesfälle und die die 7-Tages-Inzidenz der Altersgruppe der über 79-Jährigen einem gleichartig positiven Trend über den gesamten Untersuchungszeitraum folgten. Aus dem Bruchpunktmodell zum Verhältnis von 7-Tages-Todesfällen und 7-Tages-Inzidenz geht hervor, dass im Herbst entweder der Anteil der an Covid-19 versterbenden Infizierten steigt, oder die Inzidenz möglicherweise das tatsächliche Infektionsgeschehen unterschätzt hat.
+Der zweite Teil unserer Analyse zeigt, dass eine unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechnete korrigierte Inzidenz ist im Herbst 2020 deutlich und im Zeitverlauf auch zunehmend größer als die gemeldete Inzidenz.
 Eine damit implizierte deutliche Unterschätzung bis hin zum Faktor 2 Ende Dezember 2020 legt nahe, dass die vom RKI gemeldete Inzidenz das tatsächliche Infektionsgeschehen möglicherweise substantiell unterschätzte.
 Die Ergebnisse stellen somit die Belastbarkeit der gemeldeten 7-Tages-Inzidenz im Herbst 2020 infrage. Inhaltlich ließen sich verschiedenartige Argumente für die systematische Unterschätzung des Infektionsgeschehens finden: So hätte eine gestiegene “Pandemiemüdigkeit” der Bevölkerung gegen Ende 2020 in einer sinkenden Bereitschaft zur Testung bei Symptomen oder zur Meldung von positiven Testergebnissen beim Gesundheitsamt resultieren können.
-Auch die Verfügbarkeit von Selbsttests, die im letzten Quartal des Jahres 2020 zunehmend erhältlich waren, könnte dazu geführt haben, dass Personen zwecks Umgehung der verpflichtenden Isolation nicht die zuständige Behörde kontaktierten.
-Darüber hinaus ist es wahrscheinlich, dass Gesundheitsämter bei hohen Inzidenzen aufgrund Personalmangels die Kontaktnachverfolgung einschränken mussten, was zur Folge hätte, dass etwaige infizierte Kontaktpersonen nicht getestet wurden.
+Auch die Verfügbarkeit von Selbsttests, die im letzten Quartal des Jahres 2020 zunehmend erhältlich waren, könnte dazu geführt haben, dass Personen zwecks Umgehung der verpflichtenden Isolation nicht die zuständigen Behörden bei positivem Testergebnis kontaktierten.
+Darüber hinaus ist es wahrscheinlich, dass Gesundheitsämter bei hohen Inzidenzen aufgrund Personalmangels die Kontaktnachverfolgung einschränken mussten, was zur Folge hätte, dass etwaige infizierte Kontaktpersonen nicht getestet wurden. Zuletzt lässt sich auf Grundlage unserer Analyse nicht ausschließen, dass eine SARS-CoV-2-Infektion im Herbst 2020 nicht auch mit einer im Zeitverlauf ansteigenden Sterblichkeit einhergegangen sein könnte. Diesbezüglich müsste die tatsächliche Infektionssterblichkeit (Infection Fatality Rate) geschätzt werden, was über die Modellierung auf Grundlage der uns vorliegenden Daten hinausgeht.
 
 \begin{appendix}
   \listoffigures
   \begin{thebibliography}{9}
-\bibitem{texbook}
-Donald E. Knuth (1986) \emph{The \TeX{} Book}, Addison-Wesley Professional.
+\bibitem{bmg}
+Bundesministerium für Gesundheit (2022) \emph{Covid-19 Impfdashboard}, https://impfdashboard.de/, zuletzt am 28.02.2022
 
-\bibitem{lamport94}
-Leslie Lamport (1994) \emph{\LaTeX: a document preparation system}, Addison
-Wesley, Massachusetts, 2nd ed.
+\bibitem{kuechenhoff}
+Küchenhoff, H., Günther, F., Höhle, M., \& Bender, A. (2021) \emph{Analysis of the early COVID-19 epidemic curve in Germany by regression models with change points}, Epidemiology \& Infection, 149.
+
+\bibitem{muggeo2003}
+Muggeo, V. (2003) \emph{Estimating regression models with unknown break‐points}, Statistics in medicine, 22(19), 3055-3071.
+
+\bibitem{muggeo2017}
+Muggeo, V. (2017) \emph{Interval estimation for the breakpoint in segmented regression: A smoothed score‐based approach}, Australian \& New Zealand Journal of Statistics, 59(3), 311-322.
+
+\bibitem{who}
+World Health Organization (2020) \emph{Estimating mortality from COVID-19: scientific brief, 4 August 2020}, World Health Organization.
 \end{thebibliography}
 \end{appendix}
 
