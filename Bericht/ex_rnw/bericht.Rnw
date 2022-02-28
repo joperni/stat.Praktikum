@@ -709,7 +709,7 @@ levels(fitted_vals_melt_cases$variable)[5] = c("Über 79 Jahre")
 cases_for_grid_kor <- fitted_vals_melt_cases %>%
   ggplot(aes(x = time, y = sdi, color = variable)) +
   geom_line() +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 650), breaks = seq(0, 700, 150)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 650), breaks = seq(0, 600, 100)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = c(names(farben3)[1:4], "Über 79 Jahre")) +
   theme_bw() +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
@@ -719,21 +719,22 @@ cases_for_grid_kor <- fitted_vals_melt_cases %>%
   geom_point(data = dt_breakpoints["inz" == origin, .(sdi, time, variable)], shape = 18, size = 2.2) +
   theme(panel.border = element_rect(colour = "black", size=1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
-        plot.margin = margin(0.5, 1, 0.7, 0.5, "cm"),
+        plot.margin = margin(0.5, 1, 0.3, 0.5, "cm"),
         axis.text   = element_text(colour = "black"),
         axis.title.x = element_blank()) +
-  theme(axis.text.x = element_text(size = 11),
-        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 12, margin = margin(t = 0, r = 16, b = 0, l = 0))) +
+  theme(axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11, margin = margin(t = 0, r = 16, b = 0, l = 0))) +
   geom_segment(data = dt_breakpoints["inz" == origin], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi)) +
   labs(y = "Gemeldete 7-Tages-Inzidenz")
 
 
 load("dt_bp_cor280222.Rda")
+load("fitted_vals_melt_kor280222.Rda")
 kor_for_grid <- ggplot(fitted_vals_melt_kor,
                        aes(x = time, y = sdi, color = variable)) +
   geom_line() +
   labs(x = "", y = "geschätzte korrigierte 7-Tages-Inzidenz je 100.000 Einw.") +
-  scale_y_continuous(labels = scales::comma, limits = c(0, 650), breaks = seq(0, 700, 150)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 650), breaks = seq(0, 600, 100)) +
   scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size = 1),
@@ -746,8 +747,8 @@ kor_for_grid <- ggplot(fitted_vals_melt_kor,
                date_labels = "%d.%m.%y", limits = as.Date(c("2020-10-01", "2020-12-23"))) +
   geom_point(data = dt_bp_cor[, .(sdi, time, variable)], shape = 18, size = 2.2) +
   geom_segment(data = dt_bp_cor, aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi)) +
-  theme(axis.text.x = element_text(size = 11),
-        axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 12, margin = margin(t = 0, r = 16, b = 0, l = 0))) +
+  theme(axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10), axis.title.y = element_text(size = 11, margin = margin(t = 0, r = 16, b = 0, l = 0))) +
   labs(y = "Korrigierte 7-Tages-Inzidenz")
 
 # legend for the plot
@@ -760,15 +761,18 @@ legend <- get_legend(
                                                                                 legend.key.width= unit(0.2, 'cm'))
 )
 
-# # creates y Axis for the hole plot
-# y_axis <- textGrob("Inzidenz", 
-#                      gp = gpar(fontface="bold", fontsize = 15), rot = 90)
+cases_for_grid_kor = cases_for_grid_kor + theme(legend.position = "none")
 
-p_grid <- plot_grid(cases_for_grid_kor +
+aligned7 <- align_plots(cases_for_grid_kor,
+                        kor_for_grid,
+                        align = "hv",
+                        axis = "tblr")
+
+p_grid <- plot_grid(ggdraw(aligned7[[1]]) +
                       # deleting legend manuall to add it later, for the grid plot
                       theme(legend.position = "none"),
                     NULL,
-                    kor_for_grid,
+                    ggdraw(aligned7[[2]]),
                     # labels need to be adjusted
                     # one col for the three plots, to adjust them among each other
                     ncol = 1,
@@ -776,8 +780,7 @@ p_grid <- plot_grid(cases_for_grid_kor +
                     label_x = .08, label_y = .97, hjust = 0, scale = 1, 
                     align = "v",
                     rel_heights = c(7, -0.22, 7))
-p_grid2 <- plot_grid(p_grid, NULL, legend, ncol = 3, rel_widths = c(6, -0.3, 1.5))
-p_grid2
+plot_grid(p_grid, NULL, legend, ncol = 3, rel_widths = c(6, -0.3, 1.5))
 @
 \caption[Bruchpunktmodelle für gemeldete und korrigierte 7-Tages-Inzidenz nach Altersgruppen]{\textbf{Bruchpunktmodelle für gemeldete und korrigierte 7-Tages-Inzidenz nach Altersgruppen.} Der Faktor der Unterschätzung berechnet sich als Quotient von korrigierter und gemeldeter 7-Tages-Inzidenz. Mit Ausnahme der 15-34-Jährigen ist der Faktor für alle Altersgruppen spätestens ab November 2020 größer 1 und nimmt im Zeitverlauf auch tendenziell zu. Nimmt man an, dass die korrigierte Inzidenz dem wahren Infektionsgeschehen entspricht, impliziert dies z.B. für den Dezember ein um mindestens 50\% höheres Infektionsgeschehen als durch die gemeldete Inzidenz abgebildet.}
 \label{fig:compare}
@@ -791,9 +794,10 @@ Eine damit implizierte deutliche Unterschätzung bis hin zum Faktor 2 Ende Dezem
 Die Ergebnisse stellen somit die Belastbarkeit der gemeldeten 7-Tages-Inzidenz im Herbst 2020 infrage. Inhaltlich ließen sich verschiedenartige Argumente für die systematische Unterschätzung des Infektionsgeschehens finden: So hätte eine gestiegene “Pandemiemüdigkeit” der Bevölkerung gegen Ende 2020 in einer sinkenden Bereitschaft zur Testung bei Symptomen oder zur Meldung von positiven Testergebnissen beim Gesundheitsamt resultieren können.
 Auch die Verfügbarkeit von Selbsttests, die im letzten Quartal des Jahres 2020 zunehmend erhältlich waren, könnte dazu geführt haben, dass Personen zwecks Umgehung der verpflichtenden Isolation nicht die zuständigen Behörden bei positivem Testergebnis kontaktierten.
 Darüber hinaus ist es wahrscheinlich, dass Gesundheitsämter bei hohen Inzidenzen aufgrund Personalmangels die Kontaktnachverfolgung einschränken mussten, was zur Folge hätte, dass etwaige infizierte Kontaktpersonen nicht getestet wurden. Zuletzt lässt sich auf Grundlage unserer Analyse nicht ausschließen, dass eine SARS-CoV-2-Infektion im Herbst 2020 nicht auch mit einer im Zeitverlauf ansteigenden Sterblichkeit einhergegangen sein könnte. Diesbezüglich müsste die tatsächliche Infektionssterblichkeit (Infection Fatality Rate) geschätzt werden, was über die Modellierung auf Grundlage der uns vorliegenden Daten hinausgeht.
-
+  \pagebreak
 \begin{appendix}
   \listoffigures
+  \pagebreak
   \begin{thebibliography}{9}
 \bibitem{bmg}
 Bundesministerium für Gesundheit (2022) \emph{Covid-19 Impfdashboard}, https://impfdashboard.de/, zuletzt am 28.02.2022
