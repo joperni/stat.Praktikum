@@ -22,11 +22,19 @@ dt_kor_models[, seg_fixed_bp := lapply(seq(1, 5), function(x) {
             control = seg.control(fix.npsi = TRUE, n.boot = 40, tol = 1e-5))
   })
 # making a confint matrix with the predicted y for the estimated breakpoints
-][, confint := lapply(seg_fixed_bp, function(model) {
+]
+
+# the algorithm does not converge for 7 Breakpoints for the 35-59 group -> Add it manually
+dt_kor_models[3, seg_fixed_bp := list(segmented(glm(formulas_kor[[3]], dt_kor_inz, family = Gamma(link = "log")),
+                                           # n breakpoints from the fitted models for the not corrected inzidenz
+                                           npsi = 4,
+                                           control = seg.control(fix.npsi = TRUE, n.boot = 40, tol = 1e-5)))]
+
+dt_kor_models[, confint := lapply(seg_fixed_bp, function(model) {
   conf_matrix <- confint(model)
   # bind the conf_matrix with a prediction for the estimated breakpoints
   new_matrix <- cbind(conf_matrix,
-                      y = predict(model, newdata = data.frame(rep_date = conf_matrix[, 1]),
+                      y = predict(model, newdata = data.frame(rep_date = model$psi[, 2]),
                                   type = "response"))})
 ]
 
@@ -38,10 +46,10 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
 # At first: Making data table with breakpoints, for all used gamma models
 
 # # how much should each label be repeated
-rep_times_age_kor <- c(0, cumsum(vapply(dt_kor_models[-3, confint], nrow, numeric(1))))
+rep_times_age_kor <- c(0, cumsum(vapply(dt_kor_models[, confint], nrow, numeric(1))))
 # char_vec with age groups
-age_groups_kor <- c("Gesamt", "15-34 Jahre", "60-79 Jahre", "ueber 80 Jahre")
-dt_bp_cor <- as.data.table(Reduce(rbind, dt_kor_models[-3, confint]))
+age_groups_kor <- c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre")
+dt_bp_cor <- as.data.table(Reduce(rbind, dt_kor_models[, confint]))
 # fastest way in dt
 # add an age column
 for (i in seq_along(age_groups_kor)) {
@@ -64,14 +72,17 @@ dt_kor_fitted_vals <-
   dt_kor_models[, lapply(seg_fixed_bp, function(model) model$fitted.values)]
 # add time column
 dt_kor_fitted_vals[, time := as.Date(dt_kor_inz$rep_date, format = "%d. %b %Y", origin = lubridate::origin)]
-setnames(dt_kor_fitted_vals, c("V1", "V2", "V4", "V5"), c("overall", "15-34 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
+setnames(dt_kor_fitted_vals, c("V1", "V2", "V3", "V4", "V5"),
+         c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
 # melting for easier plotting
 fitted_vals_melt_kor <- melt(dt_kor_fitted_vals, id.vars = "time", value.name = "sdi")
-# adding confints manually
-bp_manually <- data.frame(x = as.Date(c("2020-10-01", "2020-12-10")),
-                          xend = as.Date(c("2020-12-23", "2020-12-23")),
-                          y = c(296.23610, 397.76134), variable = "Gesamt")
 
+#set confint limits to "beobachtungszeitraum"
+dt_bp_cor[lowerCI < as.Date("2020-10-01"), lowerCI := as.Date("2020-10-01")]
+dt_bp_cor[upperCI > as.Date("2020-12-23"), upperCI := as.Date("2020-12-23")]
+
+fitted_vals_melt_kor <- rbind(fitted_vals_melt_kor, dt_bp_cor[, .(time, variable, sdi)])
+    
 # Age_group_plot ----------------------------------------------------------
 dt_bp_cor$variable[dt_bp_cor$variable == "ueber 80 Jahre"] = c("Über 79 Jahre")
 levels(fitted_vals_melt_kor$variable)[1] = c("Gesamt")
@@ -96,9 +107,7 @@ kor_model_breakpoints <- ggplot(fitted_vals_melt_kor[variable == "Gesamt"],
   geom_point(data = dt_bp_cor[variable == "Gesamt", .(sdi, time, variable)], shape = 18, size = 3) +
   geom_segment(data = dt_bp_cor[variable == "Gesamt"], aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
-               date_labels = "%d.%m.%y", limits = as.Date(c("2020-10-01", "2020-12-23"))) +
-  geom_segment(data = bp_manually, aes(x = x, y = y, xend = xend, yend = y)) +
-  geom_segment(data = bp_manually, aes(x = x, y = y, xend = xend, yend = y))
+               date_labels = "%d.%m.%y", limits = as.Date(c("2020-10-01", "2020-12-23")))
 ggsave("Plots/kor_model.png", kor_model_breakpoints, width = 22, height = 10, units = c("cm"))
 
 kor_model_age <- ggplot(fitted_vals_melt_kor,
@@ -116,10 +125,7 @@ kor_model_age <- ggplot(fitted_vals_melt_kor,
         axis.text.y = element_text(size = 11), axis.title.y = element_text(size = 13)) +
   scale_x_date(breaks = as.Date(c("2020-10-01", "2020-11-01", "2020-12-01")),
                date_labels = "%d.%m.%y", limits = as.Date(c("2020-10-01", "2020-12-23"))) +
-geom_point(data = dt_bp_cor[, .(sdi, time, variable)], shape = 18, size = 3) +
-geom_segment(data = dt_bp_cor, aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi)) +
-geom_segment(data = bp_manually, aes(x = x, y = y, xend = xend, yend = y))
-
+geom_point(data = dt_bp_cor[, .(sdi, time, variable)], shape = 18, size = 3)
 ggsave("Plots/kor_model_age.png", kor_model_age, width = 22, height = 10, units = c("cm"))
 
 
@@ -168,8 +174,7 @@ kor_for_grid <- ggplot(fitted_vals_melt_kor,
   geom_point(data = dt_bp_cor[, .(sdi, time, variable)], shape = 18, size = 2.2) +
   geom_segment(data = dt_bp_cor, aes(x = lowerCI, y = sdi, xend = upperCI, yend = sdi)) +
   annotate("text", label = "korrigierte Inzidenz", x = as.Date(c("2020-10-01")),
-           y = 630, size = 4.5, colour = "black", hjust = 0) +
-  geom_segment(data = bp_manually, aes(x = x, y = y, xend = xend, yend = y))
+           y = 630, size = 4.5, colour = "black", hjust = 0)
 
 # legend for the plot
 legend <- get_legend(
