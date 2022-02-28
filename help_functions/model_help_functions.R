@@ -25,7 +25,7 @@ seq_bic_model <- function(model, model_selg) {
   # If the BIC of all number of breakpoints are smaller than before, we choose kmax (9)
   n_breakpoints <- ifelse(all(logical_seq), 9, which(!logical_seq)[1] - 1)
   segmented(model, npsi = n_breakpoints, control = seg.control(fix.npsi = FALSE, n.boot = 0, tol = 1e-9,
-                                                                it.max = 400, K = 9, display = FALSE))
+                                                                it.max = 400, display = FALSE))
 }
 
 # function_plot <- function(model_1, model_2, model_3, title) {

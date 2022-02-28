@@ -2,6 +2,7 @@ source("implementation_models.R")
 # error messages are no problem. They get produced and catched by the segmented::selgmented function
 source("Praktikum.R")
 
+set.seed(23354634)
 
 # data from "Praktikum.R"
 dt_kor_inz <- copy(data_okt_dez[, .(rep_date = as.numeric(rep_date_divi), .SD),
@@ -9,7 +10,7 @@ dt_kor_inz <- copy(data_okt_dez[, .(rep_date = as.numeric(rep_date_divi), .SD),
                                   , .SD.kor_inz_A00_A14 := NULL])
 # is dependent from the sequence of the columns in "Praktikum.R"
 setcolorder(dt_kor_inz, c(1, 6, 2:4))
-formulas_kor <- paste(colnames(dt_kor_inz)[-1], "+ exp(-2) ~ rep_date")
+formulas_kor <- paste(colnames(dt_kor_inz)[-1], "+ exp(-3) ~ rep_date")
 
 dt_kor_models <- data.table(formulas = formulas_kor)
 
@@ -18,9 +19,7 @@ dt_kor_models[, seg_fixed_bp := lapply(seq(1, 5), function(x) {
   segmented(glm(formulas_kor[[x]], dt_kor_inz, family = Gamma(link = "log")),
             # n breakpoints from the fitted models for the not corrected inzidenz
             npsi = length(dt_models[x, model_bic_seq[[1]]$psi[, 2]]),
-            # (it.max = 0) to avoid new bps
-            control = seg.control(fix.npsi = FALSE, n.boot = 0, tol = 1e-5,
-                                  it.max = 800, display = FALSE))
+            control = seg.control(fix.npsi = TRUE, n.boot = 40, tol = 1e-5))
   })
 # making a confint matrix with the predicted y for the estimated breakpoints
 ][, confint := lapply(seg_fixed_bp, function(model) {
@@ -39,10 +38,10 @@ farben3 <- c("Gesamt" = "#000000", "15-34 Jahre" = "#1F78B4",
 # At first: Making data table with breakpoints, for all used gamma models
 
 # # how much should each label be repeated
-rep_times_age_kor <- c(0, cumsum(vapply(dt_kor_models[, confint], nrow, numeric(1))))
+rep_times_age_kor <- c(0, cumsum(vapply(dt_kor_models[-3, confint], nrow, numeric(1))))
 # char_vec with age groups
-age_groups_kor <- c("Gesamt", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre")
-dt_bp_cor <- as.data.table(Reduce(rbind, dt_kor_models[, confint]))
+age_groups_kor <- c("Gesamt", "15-34 Jahre", "60-79 Jahre", "ueber 80 Jahre")
+dt_bp_cor <- as.data.table(Reduce(rbind, dt_kor_models[-3, confint]))
 # fastest way in dt
 # add an age column
 for (i in seq_along(age_groups_kor)) {
@@ -65,7 +64,7 @@ dt_kor_fitted_vals <-
   dt_kor_models[, lapply(seg_fixed_bp, function(model) model$fitted.values)]
 # add time column
 dt_kor_fitted_vals[, time := as.Date(dt_kor_inz$rep_date, format = "%d. %b %Y", origin = lubridate::origin)]
-setnames(dt_kor_fitted_vals, c("V1", "V2", "V3", "V4", "V5"), c("overall", "15-34 Jahre", "35-59 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
+setnames(dt_kor_fitted_vals, c("V1", "V2", "V4", "V5"), c("overall", "15-34 Jahre", "60-79 Jahre", "ueber 80 Jahre"))
 # melting for easier plotting
 fitted_vals_melt_kor <- melt(dt_kor_fitted_vals, id.vars = "time", value.name = "sdi")
 # adding confints manually
@@ -107,7 +106,7 @@ kor_model_age <- ggplot(fitted_vals_melt_kor,
   geom_line() +
   labs(x = "", y = "7-Tages-Inzidenz") +
   scale_y_continuous(labels = scales::comma, limits = c(0, 700), breaks = seq(0, 700, 100)) +
-  scale_color_manual(values = farben3, name = "Altersgruppe", labels = names(farben3)) +
+  scale_color_manual(values = farben3[-3], name = "Altersgruppe", labels = names(farben3)[-3]) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "black", size = 1),
         panel.grid = element_line(colour = "gray57", size = 0.2),
