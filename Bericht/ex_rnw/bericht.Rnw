@@ -424,23 +424,28 @@ grid_bpmkat
 \subsection{Korrigierte Inzidenz}
 
 Die Ergebnisse einer unter Annahme eines konstanten Verhältnisses zwischen Todesfällen und Neuinfektionen berechneten korrigierten 7-Tages-Inzidenz sind in \hyperref[fig:kinz]{Abbildung 6} zu sehen.
-Wir vergleichen die korrigierte Inzidenz für die Altersgruppen 15-34, 35-59, 60-79 sowie über 79 mit der Meldeinzidenz, also der auf Grundlage der offiziell vom RKI veröffentlichten Daten berechneten 7-Tages-Inzidenz.
+Wir vergleichen die korrigierte Inzidenz für die Altersgruppen 15-34, 35-59, 60-79 sowie über 79 mit der Meldeinzidenz, also der auf Grundlage der offiziell vom RKI veröffentlichten Daten berechneten Inzidenz.
 Darüber hinaus vergleichen wir die korrigierte Inzidenz und die Meldeinzidenz der Gesamtbevölkerung.
-Die korrigierte Inzidenz der Gesamtbevölkerung ergibt sich als mit dem Bevölkerungsanteil gewichteter Mittelwert der korrigierten Inzidenzen der Altersgruppen, wobei für die Altersgruppe der 0-14-Jährigen aus bereits genannten Gründen die gemeldete 7-Tages-Inzidenz verwendet wird. \\
+Die korrigierte Inzidenz der Gesamtbevölkerung ergibt sich als mit dem Bevölkerungsanteil gewichteter Mittelwert der korrigierten Inzidenzen der Altersgruppen, wobei für die Altersgruppe der 0-14-Jährigen aus bereits genannten Gründen die gemeldete 7-Tages-Inzidenz verwendet wird.
 Für die korrigierte 7-Tages-Inzidenz zeigt sich im den betrachteten Untersuchungszeitraum von Anfang Oktober bis Ende Dezember über alle Altersgruppen hinweg ein relativ homogenes Bild.
 Die korrigierte 7-Tages-Inzidenz ist durchgehend von einem positiven Trend gekennzeichnet.
 Anfang Oktober liegt sie in allen Altersgruppen sowie in der Gesamtbevölkerung deutlich im Bereich unter 50, was auch ihrem Minimum entspricht.
-Ihren Höhepunkt erreicht sie Ende Dezember bei Werten im Bereich von 350 bis 600, wobei in den Altersgruppen 15-34, 35-59 sowie  über 79 die höchsten Ausprägungen erreicht werden.
-Für die Altersgruppe der 15-34-Jährigen ist jedoch hervorzuheben, dass die geringe Anzahl von Todesfällen im Untersuchungszeitraum die Interpretierbarkeit des Verlaufs der berechneten korrigierten Inzidenz erschwert.
-Im Folgenden beschränken wir uns somit auf die nähere Betrachtung der Altersgruppen 35-59, 60-79, über 79 sowie der Gesamtbevölkerung.
+Ihren Höhepunkt erreicht sie Ende Dezember bei Werten im Bereich von 350 bis 600, wobei in den Altersgruppen 15-34, 35-59 sowie über 79 die höchsten Ausprägungen erreicht werden.
+Für die Altersgruppe 15-34 ist jedoch hervorzuheben, dass die geringe Anzahl von Todesfällen im Untersuchungszeitraum die Interpretierbarkeit des Verlaufs der berechneten korrigierten Inzidenz erschwert.
+Im Folgenden wird diese Altersgruppe in der Betrachtung also ausgelassen.
 Während Meldeinzidenz und korrigierte Inzidenz im Oktober noch weitestgehend ähnliche Werte aufweisen, ist ab spätestens Anfang November eine deutliche Abkopplung festzustellen.
 Dabei weist die korrigierte Inzidenz in allen Altersgruppen ein höheres Wachstum auf als die Meldeinzidenz.
 Insbesondere für den Monat Dezember lässt sich ein substantieller Anstieg der korrigerten Inzidenz beobachten, der in der Meldeinzidenz schwächer ausfällt.
 Am Ende des Untersuchungszeitraums, also zu Beginn der Weihnachtsfeiertage 2020, liegt die korrigierte Inzidenz über alle Altersgruppen hinweg deutlich über der jeweiligen Meldeinzidenz.
-Die beschriebenen Unterschiede scheinen also unabhängig vom Alter zu sein, auch wenn die Größe des Unterschieds zwischen Meldeinzidenz und korrigierter Inzidenz variieren mag.
+Die beschriebenen Unterschiede scheinen also unabhängig vom Alter zu sein, auch wenn die Größe des Unterschieds zwischen gemeldeter und korrigierter Inzidenz variieren mag.
 Das in der Einführung beschriebene Plateau in der gemeldeten Inzidenz im November, das sich in allen Altersgruppen außer bei den über 79-Jährigen finden lässt, ist in den korrigierten Inzidenzen so nicht zu finden.
 Ganz im Gegenteil: Die korrigierte Inzidenz wächst im November deutlich.
 Die korrigierte Inzidenz der Altersgruppe der 35-59-Jährigen wächst im November um 50\%, die der 60-79-Jährigen um 100\%, die der über 79-Jährigen sogar um 160\%.
+Das Verhältnis zwischen gemeldeter und korrigierter 7-Tages-Inzidenz ist in \hyperref[fig:factorkinz]{Abbildung 7} zu sehen.
+Der im Zeitverlauf betrachtete Quotient aus korrigerter Inzidenz und Meldeinzidenz lässt sich wie in Kapitel 3.2 erklärt als implizierter Faktor der Unterschätzung des tatsächlichen Infektionsgeschehens durch die gemeldete Inzidenz interpretieren.
+Dabei bedeutet ein Faktor von 1, dass beide Größen gleich groß sind.
+Ein Faktor größer 1 lässt sich als Unterschätzung der tatsächlichen Infektionslage durch die gemeldete Inzidenz interpretieren, wenn man die korrigierte Inzidenz als wahren Wert der Inzidenz annehmen würde.
+Mit Ausnahme der Altersgruppe der 15-34-Jährigen ist der implizierte Faktor der Unterschätzung spätestens ab November deutlich größer 1, und nimmt von Anfang November bis zum Ende des Untersuchungszeitraums auch substantiell zu.
 
 \pagebreak
 
@@ -523,11 +528,6 @@ grid_ki
 
 \pagebreak
 
-Das Verhältnis zwischen gemeldeter und korrigierter 7-Tages-Inzidenz ist in \hyperref[fig:factorkinz]{Abbildung 7} zu sehen.
-Der im Zeitverlauf betrachtete Quotient aus korrigerter Inzidenz und Meldeinzidenz lässt sich wie in Kapitel 3.2 erklärt als implizierter Faktor der Unterschätzung des tatsächlichen Infektionsgeschehens durch die gemeldete Inzidenz interpretieren.
-Dabei bedeutet ein Faktor von 1, dass beide Größen gleich groß sind.
-Ein Faktor größer 1 lässt sich als Unterschätzung der tatsächlichen Infektionslage durch die gemeldete Inzidenz interpretieren, wenn man die korrigierte Inzidenz als wahren Wert der Inzidenz annehmen würde.
-Mit Ausnahme der Altersgruppe der 15-34-Jährigen ist der implizierte Faktor der Unterschätzung spätestens ab November deutlich größer 1, und nimmt von Anfang November bis zum Ende des Untersuchungszeitraums auch substantiell zu.
 Am stärksten unterschätzt die Meldeinzidenz die korrigierte Inzidenz in der Altersgruppe der 60-79-Jährigen.
 Hier liegt der Wert im Dezember beständig bei größer 2.
 Das würde bedeuten, dass die Anzahl der tatsächlichen Neuinfektionen in dieser Altersgruppe im Dezember um mehr als 100\% höher gewesen wäre als vom RKI gemeldet.
@@ -570,18 +570,15 @@ ggdraw(aligned4[[6]])
 \label{fig:factorkinz}
 \end{figure}
 
-\pagebreak
-
 \hyperref[fig:compare]{Abbildung 8} stellt das bereits in \hyperref[fig:bpkat]{Abbildung 5} dargestellte Bruchpunktmodell der nach Altersgruppen aufgeschlüsselten gemeldeten 7-Tages-Inzidenz dem Bruchpunktmodell der nach Altersgruppen aufgeschlüsselten korrigierten 7-Tages-Inzidenz gegenüber. Wie in Kapitel 4.2 beschrieben, wird dabei die Anzahl der Bruchpunkte $K$ in den Modellen zur korrigierten Inzidenz auf das Niveau von $K$ in den Modellen zur Meldeinzidenz gesetzt. Die Optimierung erfolgt also so, dass die Lage (und nicht auch die Anzahl) der Bruchpunkte für die korrigierte Inzidenz geschätzt wird. Dabei kann für alle Altersgruppen außer den 35-59-Jährigen ein Modell für die korrigierte Inzidenz mit $K$ Bruchpunkten mit \verb|segmented| geschätzt werden. Für die Altersgruppe 35-59 kann ein Modell mit maximal $K = 4$ Bruchpunkten vom Algorithmus gefunden werden. Mit Ausnahme der jüngsten Altersgruppe zeigt sich auch in den Bruchpunktmodellen der bereits beschriebene Anstieg der korrigierten 7-Tages-Inzidenz von Oktober bis Dezember.
 Vergleicht man die Lage der Bruchpunkte in den Modellen der Meldeinzidenz mit den der korrigierten Inzidenz, findet man nur vereinzelt Gemeinsamkeiten. Für die Altersgruppe der über 79-Jährigen findet sich ein gemeinsamer Bruchpunkt in der letzten Oktoberwoche. Das könnte ein Hinweis darauf sein, dass zumindest der Verlauf der Meldeinzidenz der über 79-Jährigen dem der entsprechenden korrigierten Inzidenz entspricht, auch wenn sich beide in ihren Absolutwerten unterscheiden.
 Für die anderen Altersgruppen lassen sich keine eindeutigen Muster in der Struktur der Bruchpunkte feststellen. Inbesondere die sehr großen Spannweiten der 95\%-Konfidenzintervalle der Bruchpunkte zur korrigierten Inzidenz könnten auf eine geringe Anpassungsgüte schließen lassen. So beträgt die Spannweite des sechsten Bruchpunkts im Modell der korrigierten Inzidenz der Gesamtbevölkerung mehr als 100 Tage. Das Festhalten der Anzahl der Bruchpunkte scheint sich also nicht in einer guten Anpassung widerzuspiegeln. Unserer Untersuchung nach kann also mit Ausnahme der ältesten Altersgruppe nicht davon ausgegangen werden, dass die Meldeinzidenz die gleichen Bruchpunkte wie die korrigierte Inzidenz aufweist.
 
-\pagebreak
 
 \begin{figure}[!hbt]
 \centering
 \captionsetup{width=.9\linewidth}
-<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 5.33, fig.width = 5.4>>=
+<<echo=FALSE, message=FALSE, warning=FALSE, error=TRUE, fig.align="center", fig.height = 5.4, fig.width = 5.4>>=
 set.seed(23354634)
 setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
 # data from "Praktikum.R"
