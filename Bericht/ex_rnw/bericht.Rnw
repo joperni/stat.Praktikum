@@ -24,11 +24,11 @@ Dieser Bericht ist wie folgt gegliedert: Kapitel 2 stellt die verwendeten Daten 
 
 Wir betrachten tägliche Daten für drei wesentliche statistische Indikatoren der Covid-19-Pandemie in Deutschland:
 
-\begin{itemize}
+\begin{enumerate}
    \item \textbf{7-Tages-Inzidenz:} Anzahl der gemeldeten Neuinfektionen innerhalb von 7 Tagen je 100.000 Einwohner
-   \item \textbf{7-Tages-Todesfälle:} Anzahl der gemeldeten Neuinfektionen der an Covid-19 Verstorbenen innerhalb von 7 Tagen je 100.000 Einwohner. Dies bezieht sich also zeitlich auf den Meldezeitpunkt der Infektion eines (später) Verstorbenen. 
+   \item \textbf{7-Tages-Todesfälle:} Anzahl der gemeldeten Neuinfektionen der an Covid-19 Verstorbenen innerhalb von 7 Tagen je 100.000 Einwohner. Dies bezieht sich zeitlich auf den Meldezeitpunkt der Infektion eines (später) Verstorbenen. 
    \item \textbf{Intensivbettenbelegung:} Anzahl der mit Covid-19-Patienten belegten Betten auf Intensivstationen
-\end{itemize}
+\end{enumerate}
 
 Wir verwenden für 7-Tages-Inzidenz und 7-Tages-Todesfälle die offiziellen Daten des Robert-Koch-Instituts (RKI), für die unter anderem eine Aufschlüsselung nach Altersgruppen vorliegt. Dabei wird zwischen den Altersgruppen 0-14, 15-34, 35-59, 60-79 und über 79 unterschieden. Wir betrachten Daten im Zeitraum vom 01.01.2020 bis zum 31.01.2021. Für die Intensivbettenbelegung werden Daten der Deutschen Interdisziplinären Vereinigung für Intensiv- und Notfallmedizin (DIVI) verwendet. Für diese liegen keine Alterskategorien vor, außerdem beginnt der Erhebungszeitraum bei diesem Indikator erst am 24.04.2020. Auch hier betrachten wir Daten bis zum 31.01.2021. Der zeitliche Verlauf der 7-Tages-Inzidenz in Deutschland ist in \hyperref[fig:inz]{Abbildung 1} zu sehen.
 
