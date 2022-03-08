@@ -27,7 +27,7 @@ Wir betrachten Daten auf Tagesebene für drei wesentliche statistische Indikator
 \begin{enumerate}
    \item \textbf{7-Tages-Inzidenz:} Anzahl der gemeldeten Neuinfektionen innerhalb von 7 Tagen je 100.000 Einwohner
    %\item \textbf{7-Tages-Todesfälle:} Anzahl der gemeldeten Neuinfektionen der an Covid-19 Verstorbenen innerhalb von 7 Tagen je 100.000 Einwohner. Dies bezieht sich zeitlich auf den Meldezeitpunkt der Infektion eines (später) Verstorbenen.
-   \item \textbf{7-Tages-Todesfälle:} Anzahl der gemeldeten Neuinfektionen von Personen, die später an oder mit Covid-19 verstorben sind, innerhalb von 7 Tagen je 100.000 Einwohner. Diese Größe bezieht sich somit zeitlich auf den Meldezeitpunkt der Infektion eines (später) Verstorbenen. 
+   \item \textbf{7-Tages-Todesfälle:} Anzahl der gemeldeten Neuinfektionen von Personen, die (später) an oder mit Covid-19 verstorben sind, innerhalb von 7 Tagen je 100.000 Einwohner. Diese Größe bezieht sich somit zeitlich auf den Meldezeitpunkt der Infektion der (später) Verstorbenen. 
    \item \textbf{Intensivbettenbelegung:} Anzahl der mit Covid-19-Patienten belegten Betten auf Intensivstationen
 \end{enumerate}
 
@@ -81,9 +81,9 @@ ggdraw(aligned[[1]])
 \end{figure}
 
 Die 7-Tages-Inzidenz steigt mit Beginn der Covid-19-Pandemie in Deutschland ab Anfang März in allen Altersgruppen.
-Sie erreicht Mitte März ein lokales Maximum, fällt danach jedoch vorerst. Bei der Altersgruppe der über 79-Jährigen ist das Maximum und das darauffolgende Abfallen um einige Wochen verzögert. In den Sommermonaten verharren die Inzidenzen auf niedrigem Niveau. Ab Anfang Oktober lässt sich dann ein rasanter Anstieg der gemeldeten Neuinfektionen in allen Altersgruppen beobachten, wobei die altersgruppenspezifischen 7-Tages-Inzidenzen erstmals in der Pandemie Werte von über 100 erreichen.
+Sie erreicht Mitte März ein lokales Maximum, fällt danach jedoch vorerst. Bei der Altersgruppe der über 79-Jährigen ist das Maximum und das darauffolgende Abfallen um einige Wochen verzögert. In den Sommermonaten verharren die Inzidenzen auf niedrigem Niveau. Ab Anfang Oktober lässt sich dann ein rasanter Anstieg der Inzidenz in allen Altersgruppen beobachten, wobei erstmals in der Pandemie Werte von über 100 erreicht werden.
 Zwischen Ende Oktober und Mitte November kommt es in allen Altersgruppen außer bei den über 79-Jährigen zu einem Absinken bzw. Stagnieren der gemeldeten Neuinfektionen. Ab Mitte November steigen dann die Inzidenzen bis Ende Dezember wieder an.
-In der Altersgruppe der über 79-Jährigen zeigt sich kein vorübergehendes Absinken der Neuinfektionen. In dieser Altersgruppe steigen die Neuinfektionen von Anfang Oktober bis Ende Dezember kontinuierlich an und erreichen gegen Jahresende einen Höchstwert von über 350. Die 7-Tages-Inzidenz der über 79-Jährigen unterscheidet sich in ihrem zeitlichen Verlauf somit strukturell von den anderen Altersgruppen.
+In der Altersgruppe der über 79-Jährigen zeigt sich kein vorübergehendes Absinken der Neuinfektionen. In dieser Gruppe steigen die Neuinfektionen von Anfang Oktober bis Ende Dezember kontinuierlich an und erreichen gegen Jahresende einen Höchstwert von über 350. Die 7-Tages-Inzidenz der über 79-Jährigen unterscheidet sich in ihrem zeitlichen Verlauf somit strukturell von den anderen Altersgruppen.
 Mit Beginn der Weihnachtsfeiertage 2020 gehen die Neuinfektionen in allen Altersgruppen zurück, wobei nach RKI-Angaben (2021) aufgrund von Einschränkungen in der Arbeit der Gesundheitsämter insbesondere über verlängerte Feiertagszeiträume nur ein unvollständiges Bild der epidemiologischen Lage abgebildet werden kann. Der zeitliche Verlauf der 7-Tages-Todesfälle ist in \hyperref[fig:tod]{Abbildung 2} zu sehen.
 
 \begin{figure}[hbt!]
@@ -121,7 +121,7 @@ setwd("/Users/holgerlowe/Documents/University/I2ML/HIWI/stat.Praktikum/")
                        #axis = "tblr")
 ggdraw(aligned[[3]])
 @
-\caption[7-Tages-Todesfälle nach Altersgruppen]{\textbf{7-Tages-Todesfälle nach Altersgruppen.} Dabei sind die 7-Tages-Todesfälle die Anzahl der gemeldeten Neuinfektionen der an Covid-19 Verstorbenen innerhalb der letzten 7 Tage, normiert auf 100.000 Einwohner innerhalb der Altersgruppe. Der Beginn der Weihnachtsfeiertage, in denen nach dem RKI Verzerrungen in den Meldedaten vorkommen können, ist durch die blaue Linie markiert. In den Altersgruppen unter 60 Jahren kommt es nur vereinzelt zu tödlich verlaufenden Infektionen. In den beiden höchsten Altersgruppen ist am wellenförmigen Kurvenverlauf die erste und zweite Covid-19-Infektionswelle erkennbar, mit Maxima Anfang April und Ende Dezember 2020. Dabei kommt es in der Altersgruppe der über 79-Jährigen überproportional stark zu tödlichen Krankheitsverläufen.}
+\caption[7-Tages-Todesfälle nach Altersgruppen]{\textbf{7-Tages-Todesfälle nach Altersgruppen.} Dabei sind die 7-Tages-Todesfälle die Anzahl der gemeldeten Neuinfektionen der an Covid-19 Verstorbenen innerhalb der letzten 7 Tage, normiert auf 100.000 Einwohner innerhalb der Altersgruppe. Der Beginn der Weihnachtsfeiertage, in denen nach dem RKI Verzerrungen in den Meldedaten vorkommen können, ist durch die blaue Linie markiert. In den Altersgruppen unter 60 Jahren kommt es nur vereinzelt zu tödlich verlaufenden Infektionen. In den beiden höchsten Altersgruppen ist am wellenförmigen Kurvenverlauf die erste und zweite Covid-19-Infektionswelle erkennbar, mit Maxima Anfang April und Ende Dezember 2020. Dabei kommt es bei den über 79-Jährigen überproportional stark zu tödlichen Krankheitsverläufen.}
 \label{fig:tod}
 \end{figure}
 
